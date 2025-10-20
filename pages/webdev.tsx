@@ -1,5 +1,7 @@
 //web dev projects
 
+import Image from "next/image";
+
 function webdev() {
     return (
         <>
@@ -23,7 +25,7 @@ function webdev() {
                     </a>
 
                     {/* Insert images of prototype */}
-                    <img src="/images/plant-log.png" alt="Plant Log website" />
+                    {/* <Image src="/images/plant-log.png" alt="Plant Log website" /> */}
                 </div>
                 <div id="image-gallery">
                     <h3>Image Gallery Web App</h3>
@@ -42,26 +44,41 @@ function webdev() {
                     {/* Insert images of prototype */}
                     <div className="web-photos">
                         <div className="web-view">
-                            <img className="app-img"
+                            <Image className="app-img"
                                 src="/images/flowergallery_1.png"
                                 alt="Flower Gallery prototype 1"
+                                width={575}
+                                height={400}
                             />
-                            <img className="app-img"
+                            <Image className="app-img"
                                 src="/images/flowergallery_2.png"
                                 alt="Flower Gallery prototype 2"
+                                
+                                width={575}
+                                height={400}
                             />
-                            <img className="app-img"
+                            <Image className="app-img"
                                 src="/images/flowergallery_3.png"
                                 alt="Flower Gallery prototype 3"
+                                
+                                width={575}
+                                height={400}
                             />
                         </div>
                         <div className="mobile-view">
-                            <img className="app-img"
+                            <Image className="app-img"
                                 src="/images/flowergallery_mobile_1.png"
                                 alt="Flower Gallery mobile prototype 1"
-                            /><img className="app-img"
+                                
+                                width={225}
+                                height={400}
+                            />
+                            <Image className="app-img"
                                 src="/images/flowergallery_mobile_2.png"
                                 alt="Flower Gallery mobile prototype 2"
+                                
+                                width={225}
+                                height={400}
                             />
                         </div>
                     </div>
@@ -82,7 +99,7 @@ function webdev() {
                     </a>
 
                     {/* Insert images of prototype */}
-                    <img src="/images/brand-redesign.png" alt="Brand Redesign website" />
+                    {/* <Image src="/images/brand-redesign.png" alt="Brand Redesign website" /> */}
                 </div>
                 <div id="ticketing-site">
                     <h3>Chivent - Ticketing Web App</h3>
@@ -101,7 +118,7 @@ function webdev() {
                     </a>
 
                     {/* Insert images of prototype */}
-                    <img src="/images/ticketing-site.png" alt="Ticketing website" />
+                    {/* <Image src="/images/ticketing-site.png" alt="Ticketing website" /> */}
                 </div>
             </section>
         </>

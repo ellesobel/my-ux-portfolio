@@ -25,24 +25,35 @@ function Figma() {
 
                     {/* Insert images of prototype */}
                     <div className="app-photos">
-                        <img className="app-img"
+                        <Image className="app-img"
                             src="/images/music_app_1.avif"
                             alt="Music App prototype 1"
+                            width={196}
+                            height={400}
                         />
-                        <img className="app-img"
+                        <Image className="app-img"
                             src="/images/music_app_2.avif"
                             alt="Music App prototype 2"
+                            width={196}
+                            height={400}
                         />
-                        <img className="app-img"
+                        <Image className="app-img"
                             src="/images/music_app_3.avif"
                             alt="Music App prototype 3"
+                            width={196}
+                            height={400}
                         />
-                        <img className="app-img"
+                        <Image className="app-img"
                             src="/images/music_app_4.avif"
                             alt="Music App prototype 4"
-                        /><img className="app-img"
+                            width={196}
+                            height={400}
+                        />
+                        <Image className="app-img"
                             src="/images/music_app_5.avif"
                             alt="Music App prototype 5"
+                            width={196}
+                            height={400}
                         />
                     </div>
                 </div>
@@ -61,7 +72,9 @@ function Figma() {
                     </a>
 
                     {/* Insert images of prototype */}
-                    <img src="/images/pnc-redesign.png" alt="PNC Redesign prototype" />
+                    {/* <Image src="/images/pnc-redesign.png" alt="PNC Redesign prototype" 
+                            fill 
+                            style={{ objectFit: "cover" }} /> */}
                 </div>
                 <div id="emissions-app">
                     <h3>CO2 Emissions App</h3>
@@ -80,17 +93,23 @@ function Figma() {
                     {/* Insert images of prototype */}
 
                     <div className="app-photos">
-                        <img className="app-img"
+                        <Image className="app-img"
                             src="/images/co2_1.png"
                             alt="CO2 Emissions App prototype 1"
+                            width={196}
+                            height={400}
                         />
-                        <img className="app-img"
+                        <Image className="app-img"
                             src="/images/co2_2.png"
                             alt="CO2 Emissions App prototype 2"
+                            width={196}
+                            height={400}
                         />
-                        <img className="app-img"
+                        <Image className="app-img"
                             src="/images/co2_3.png"
                             alt="CO2 Emissions App prototype 3"
+                            width={196}
+                            height={400}
                         />
                     </div>
                 </div>
@@ -109,7 +128,9 @@ function Figma() {
                     </a>
 
                     {/* Insert images of prototype */}
-                    <img src="/images/picky-site.png" alt="Picky Eater Site prototype" />
+                    {/* <Image src="/images/picky-site.png" alt="Picky Eater Site prototype" 
+                            fill 
+                            style={{ objectFit: "cover" }}/> */}
                 </div>
             </section>
         </>
