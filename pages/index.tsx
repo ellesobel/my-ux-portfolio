@@ -22,6 +22,10 @@ function Home(){
                     and I use HTML, CSS, JavaScript, and React to bring those designs to life on the web. 
                     I enjoy building polished, responsive front-end experiences that utilize clean code while maintaining user-friendly design principles.
                 </p>
+                <p>
+                    I am currently working in HCI research for the Greenberg Lab in the Neurology Dept. at the Washington University School of Medicine.
+                    I am conducting usability testing for the <em>SynapTrack</em> medical app.
+                </p>
             </div>
 
             <div id="portfolio-links">
