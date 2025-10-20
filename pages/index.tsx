@@ -3,7 +3,7 @@
 function Home(){
     return(
         <>
-        <p>Eliana's UX Portfolio</p>
+        <p>Eliana&#39;s UX Portfolio</p>
         </>
     );
 }
