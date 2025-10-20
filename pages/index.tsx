@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 
-
 function Home(){
     return(
         <>
@@ -29,7 +28,7 @@ function Home(){
             </div>
 
             <div id="portfolio-links">
-                <p>Welcome to my portfolio. Here you&#39;ll find a selection of my work. 
+                <p>Welcome to my portfolio <em>(coded+designed by me!)</em>. Here you&#39;ll find a selection of my work. 
                     Click around to explore my projects to learn more about what I do.
                 </p>
                 <nav>
