@@ -53,14 +53,14 @@ function webdev() {
                             <Image className="app-img"
                                 src="/images/flowergallery_2.png"
                                 alt="Flower Gallery prototype 2"
-                                
+
                                 width={575}
                                 height={400}
                             />
                             <Image className="app-img"
                                 src="/images/flowergallery_3.png"
                                 alt="Flower Gallery prototype 3"
-                                
+
                                 width={575}
                                 height={400}
                             />
@@ -69,14 +69,14 @@ function webdev() {
                             <Image className="app-img"
                                 src="/images/flowergallery_mobile_1.png"
                                 alt="Flower Gallery mobile prototype 1"
-                                
+
                                 width={225}
                                 height={400}
                             />
                             <Image className="app-img"
                                 src="/images/flowergallery_mobile_2.png"
                                 alt="Flower Gallery mobile prototype 2"
-                                
+
                                 width={225}
                                 height={400}
                             />
@@ -91,7 +91,7 @@ function webdev() {
                         I used HTML and CSS for this redesign.
                     </p>
                     <a
-                        href=""
+                        href="https://wustl-cse204a-sp2025-1.github.io/brand-redesign-ellesobel/"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
@@ -99,7 +99,39 @@ function webdev() {
                     </a>
 
                     {/* Insert images of prototype */}
-                    {/* <Image src="/images/brand-redesign.png" alt="Brand Redesign website" /> */}
+                    <div className="web-photos">
+                        <div className="web-view">
+                            <Image className="app-img"
+                                src="/images/brand_1.png"
+                                alt="Brand Redesign 1"
+                                width={575}
+                                height={400}
+                            />
+                            <Image className="app-img"
+                                src="/images/brand_2.png"
+                                alt="Brand Redesign 2"
+
+                                width={575}
+                                height={400}
+                            />
+                        </div>
+                        <div className="mobile-view">
+                            <Image className="app-img"
+                                src="/images/brand_3.png"
+                                alt="Brand Redesign Mobile 1"
+
+                                width={225}
+                                height={400}
+                            />
+                            <Image className="app-img"
+                                src="/images/brand_4.png"
+                                alt="Brand Redesign Mobile 2"
+
+                                width={225}
+                                height={400}
+                            />
+                        </div>
+                    </div>
                 </div>
                 <div id="ticketing-site">
                     <h3>Chivent - Ticketing Web App</h3>
