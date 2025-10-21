@@ -94,19 +94,19 @@ function Figma() {
 
                     <div className="app-photos">
                         <Image className="app-img"
-                            src="/images/co2_1.png"
+                            src="/images/emissions_1.png"
                             alt="CO2 Emissions App prototype 1"
                             width={196}
                             height={400}
                         />
                         <Image className="app-img"
-                            src="/images/co2_2.png"
+                            src="/images/emissions_2.png"
                             alt="CO2 Emissions App prototype 2"
                             width={196}
                             height={400}
                         />
                         <Image className="app-img"
-                            src="/images/co2_3.png"
+                            src="/images/emissions_3.png"
                             alt="CO2 Emissions App prototype 3"
                             width={196}
                             height={400}
