@@ -32,16 +32,16 @@ function Home(){
                     Click around to explore my projects to learn more about what I do.
                 </p>
                 <nav>
-                    <Link href="/figma">
+                    <Link href="/figma" id="figma-link">
                         <button>My Figma Projects</button>
                     </Link>
-                    <Link href="/webdev">
+                    <Link href="/webdev" id="vscode-link">
                         <button>My VSCode Projects</button>
                     </Link>
-                    <Link href="/processing">
+                    <Link href="/processing" id="processing-link">
                         <button>My Processing Code-Art Projects</button>
                     </Link>
-                    <Link href="/other">
+                    <Link href="/other" id="art-link">
                         <button>My Miscellaneous Art Projects</button>
                     </Link>
                 </nav>

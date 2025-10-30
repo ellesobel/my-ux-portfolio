@@ -59,7 +59,7 @@ function Figma() {
                 </div>
                 <div id="pnc-redesign">
                     <h3>PNC Redesign for Mobile and Watchface</h3>
-                    <p>In collaboration with Andrew Pandji and Gabrielle, we redesigned the PNC Mobile App and a new watchface version.
+                    <p>In collaboration with Andrew Pandji and Gabrielle Barthelmy, we redesigned the PNC Mobile App and a new watchface version.
                         For this project, we created a new design system, explored different visualizations of data, and enhanced the accessibility of the app.
                         For the watchface design, we explored goals and miniaturized data visualization.
                     </p>
