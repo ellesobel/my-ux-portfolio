@@ -5,11 +5,11 @@ import Image from "next/image";
 function webdev() {
     return (
         <>
-            <p>Eliana&#39;s Web Dev Projects</p>
+            <h2>Eliana&#39;s Web Dev Projects</h2>
 
             <section className="projects">
                 <div id="plant-log">
-                    <h3>Plant Log Web App</h3>
+                    <h3>Plant Portfolio Web App</h3>
                     <p>
                         A React-based web app that lets users track and manage their plants with ease.
                         Features include adding and editing plant entries, dynamic filtering and sorting,
@@ -17,7 +17,7 @@ function webdev() {
                         species info—all in a responsive, interactive interface.
                     </p>
                     <a
-                        href=""
+                        href="https://wustl-cse204a-sp2025-1.github.io/final-project-ellesobel/#/"
                         target="_blank"
                         rel="noopener noreferrer"
                     >

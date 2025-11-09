@@ -5,7 +5,7 @@ import Image from "next/image";
 function Figma() {
     return (
         <>
-            <p>Eliana&#39;s Figma Projects</p>
+            <h2>Eliana&#39;s Figma Projects</h2>
 
             <section className="projects">
                 <div id="music-app">
@@ -64,7 +64,7 @@ function Figma() {
                         For the watchface design, we explored goals and miniaturized data visualization.
                     </p>
                     <a
-                        href="go-find-it"
+                        href="https://www.figma.com/proto/VMZzsOsHnV4TaJDcHc1XcZ/Project-1---Datafied-Experiences---Prototyping?page-id=432%3A351&node-id=649-474&viewport=-3076%2C835%2C0.22&t=MPjxgD7xGdL9UcGW-9&scaling=scale-down&content-scaling=fixed&starting-point-node-id=649%3A474&show-proto-sidebar=1"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
@@ -75,6 +75,44 @@ function Figma() {
                     {/* <Image src="/images/pnc-redesign.png" alt="PNC Redesign prototype" 
                             fill 
                             style={{ objectFit: "cover" }} /> */}
+                    <div className="app-photos">
+
+                        <Image className="app-img"
+                            src="/images/pnc_app_1.png"
+                            alt="PNC App prototype 1"
+                            width={196}
+                            height={400}
+                        />  <Image className="app-img"
+                            src="/images/pnc_app_2.png"
+                            alt="PNC App prototype 2"
+                            width={196}
+                            height={400}
+                        />  <Image className="app-img"
+                            src="/images/pnc_app_3.png"
+                            alt="PNC App prototype 3"
+                            width={196}
+                            height={400}
+                        />  
+                        <Image className="app-img"
+                            src="/images/pnc_app_4.png"
+                            alt="PNC App prototype 4"
+                            width={196}
+                            height={400}
+                        />  <Image className="app-img"
+                            src="/images/pnc_app_5.png"
+                            alt="PNC App prototype 5"
+                            width={196}
+                            height={400}
+                        />
+                    </div>
+                    <div>
+                        <Image className="web-view"
+                            src="/images/pnc_design_system.png"
+                            alt="PNC App Design System"
+                            width={1207/2}
+                            height={671/2}
+                        />
+                    </div>
                 </div>
                 <div id="emissions-app">
                     <h3>CO2 Emissions App</h3>

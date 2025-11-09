@@ -8,6 +8,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Header />
+      <body></body>
       <main>
         <Component {...pageProps} />
       </main>

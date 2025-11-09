@@ -1,9 +1,11 @@
 //processing art projects
 
-function processing(){
-    return(
+function processing() {
+    return (
         <>
-        <p>Eliana&#39;s Art Projects in Processing Code</p>
+            <h2>Eliana&#39;s Art Projects in Processing Code</h2>
+            <div className="projects">
+            </div>
         </>
     );
 }
