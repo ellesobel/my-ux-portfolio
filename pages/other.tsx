@@ -16,7 +16,7 @@ function other() {
                             width={299}
                             height={400}
                         />
-                        <h3>Embroidery and Beading on Denim</h3>
+                        <h3>Embroidery + Beading on Denim</h3>
                     </div>
                     <div className="art-card">
                         <Image className="art-img"
@@ -26,6 +26,15 @@ function other() {
                             height={400}
                         />
                         <h3>Charcoal on Paper</h3>
+                    </div>
+                    <div className="art-card">
+                        <Image className="art-img"
+                            src="/images/art_5.avif"
+                            alt="Watercolor"
+                            width={299}
+                            height={400}
+                        />
+                        <h3>Watercolor on Paper</h3>
                     </div>
                     <div className="art-card">
                         <Image className="art-img"
@@ -45,15 +54,6 @@ function other() {
                         />
                         <h3>Mixed Media on Paper</h3>
                         <h4>Watercolor, Marker, Colored Pencil, Collage, Ink</h4>
-                    </div>
-                    <div className="art-card">
-                        <Image className="art-img"
-                            src="/images/art_5.avif"
-                            alt="Watercolor"
-                            width={299}
-                            height={400}
-                        />
-                        <h3>Watercolor on Paper</h3>
                     </div>
                 </div>
             </div>

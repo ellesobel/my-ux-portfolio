@@ -17,9 +17,9 @@ function Home() {
                         <Link href="/webdev" id="vscode-link">
                             <button>My VSCode Projects</button>
                         </Link>
-                        <Link href="/processing" id="processing-link">
+                        {/* <Link href="/processing" id="processing-link">
                             <button>My Processing Code-Art Projects</button>
-                        </Link>
+                        </Link> */}
                         <Link href="/other" id="art-link">
                             <button>My Miscellaneous Art Projects</button>
                         </Link>

@@ -9,7 +9,7 @@ function webdev() {
 
             <section className="projects">
                 <div id="plant-log">
-                    <h3>Plant Portfolio Web App</h3>
+                    {/* <h3>Plant Portfolio Web App</h3>
                     <p>
                         A React-based web app that lets users track and manage their plants with ease.
                         Features include adding and editing plant entries, dynamic filtering and sorting,
@@ -22,7 +22,7 @@ function webdev() {
                         rel="noopener noreferrer"
                     >
                         Click here to access site
-                    </a>
+                    </a> */}
 
                     {/* Insert images of prototype */}
                     {/* <Image src="/images/plant-log.png" alt="Plant Log website" /> */}
@@ -134,7 +134,7 @@ function webdev() {
                     </div>
                 </div>
                 <div id="ticketing-site">
-                    <h3>Chivent - Ticketing Web App</h3>
+                    {/* <h3>Chivent - Ticketing Web App</h3>
                     <p>
                         A React-based prototype where users can browse and purchase tickets, powered by my custom API through MongoDB.
                     </p>
@@ -147,7 +147,7 @@ function webdev() {
                         rel="noopener noreferrer"
                     >
                         Click here to access site
-                    </a>
+                    </a> */}
 
                     {/* Insert images of prototype */}
                     {/* <Image src="/images/ticketing-site.png" alt="Ticketing website" /> */}

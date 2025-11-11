@@ -20,9 +20,9 @@ function Header() {
                     <Link href="/webdev" id="vscode-link" className={pathname === '/webdev' ? 'active-link' : ''}>
                         <button>Web Dev</button>
                     </Link>
-                    <Link href="/processing" id="processing-link" className={pathname === '/processing' ? 'active-link' : ''}>
+                    {/* <Link href="/processing" id="processing-link" className={pathname === '/processing' ? 'active-link' : ''}>
                         <button>Processing</button>
-                    </Link>
+                    </Link> */}
                     <Link href="/other" id="art-link" className={pathname === '/other' ? 'active-link' : ''}>
                         <button>Art</button>
                     </Link>

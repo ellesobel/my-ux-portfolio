@@ -151,8 +151,8 @@ function Figma() {
                         />
                     </div>
                 </div>
-                <div id="picky-site">
-                    <h3>Picky Eater Site</h3>
+                 <div id="picky-site">
+                    {/* <h3>Picky Eater Site</h3>
                     <p>I designed this interactive site protype using Figma.
                         It is an exhibit of all of the weird foods I don&#39;t eat, as a recovering picky eater.
                         I utilized wireframing and conducted user testing for this project.
@@ -165,8 +165,8 @@ function Figma() {
                         Click here to access prototype
                     </a>
 
-                    {/* Insert images of prototype */}
-                    {/* <Image src="/images/picky-site.png" alt="Picky Eater Site prototype" 
+                    /* Insert images of prototype */
+                    /* <Image src="/images/picky-site.png" alt="Picky Eater Site prototype" 
                             fill 
                             style={{ objectFit: "cover" }}/> */}
                 </div>
