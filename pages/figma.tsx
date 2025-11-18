@@ -1,27 +1,31 @@
 //figma projects
 
 import Image from "next/image";
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+
 
 function Figma() {
     return (
-        <>
-            <h2>Eliana&#39;s Figma Projects</h2>
+        <div className="page">
+            <h2 className="page-title">Eliana&#39;s Figma Projects</h2>
 
             <section className="projects">
-                <div id="music-app">
-                    <h3>Music Mapping App</h3>
+                <div id="music-app" className="project">
+                    <div className="title-and-link">
+                        <h3>Music Mapping App</h3>
+                        <a
+                            href="https://www.figma.com/proto/2VKtHdxEqOimViafopvew0/Eliana-Semester-Second-Half?page-id=1%3A2&node-id=295-1989&starting-point-node-id=295%3A1989&show-proto-sidebar=1&t=6mWFIjEwga52zpoi-1"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Access Prototype <OpenInNewIcon/>
+                        </a>
+                    </div>
                     <p>I created this interactive mobile app prototype using Figma.
                         The app will give you directions to the different addresses of locations mentioned in songs.
                         There are 3 different flows to choose a song destination.
                         I utilized wireframing and conducted user testing for this project.
                     </p>
-                    <a
-                        href="https://www.figma.com/proto/2VKtHdxEqOimViafopvew0/Eliana-Semester-Second-Half?page-id=1%3A2&node-id=295-1989&starting-point-node-id=295%3A1989&show-proto-sidebar=1&t=6mWFIjEwga52zpoi-1"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Click here to access prototype
-                    </a>
 
                     {/* Insert images of prototype */}
                     <div className="app-photos">
@@ -57,19 +61,22 @@ function Figma() {
                         />
                     </div>
                 </div>
-                <div id="pnc-redesign">
-                    <h3>PNC Redesign for Mobile and Watchface</h3>
-                    <p>In collaboration with Andrew Pandji and Gabrielle Barthelmy, we redesigned the PNC Mobile App and a new watchface version.
+                <div id="pnc-redesign" className="project">
+                    <div className="title-and-link">
+
+                        <h3>PNC Redesign</h3>
+                        <a
+                            href="https://www.figma.com/proto/VMZzsOsHnV4TaJDcHc1XcZ/Project-1---Datafied-Experiences---Prototyping?page-id=432%3A351&node-id=649-474&viewport=-3076%2C835%2C0.22&t=MPjxgD7xGdL9UcGW-9&scaling=scale-down&content-scaling=fixed&starting-point-node-id=649%3A474&show-proto-sidebar=1"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Access Prototype <OpenInNewIcon/>
+                        </a>
+                    </div>
+                    <p>In collaboration with Andrew Pandji and Gabrielle Barthelmy, we redesigned the PNC Mobile App.
                         For this project, we created a new design system, explored different visualizations of data, and enhanced the accessibility of the app.
-                        For the watchface design, we explored goals and miniaturized data visualization.
+                        {/* For the watchface design, we explored goals and miniaturized data visualization. */}
                     </p>
-                    <a
-                        href="https://www.figma.com/proto/VMZzsOsHnV4TaJDcHc1XcZ/Project-1---Datafied-Experiences---Prototyping?page-id=432%3A351&node-id=649-474&viewport=-3076%2C835%2C0.22&t=MPjxgD7xGdL9UcGW-9&scaling=scale-down&content-scaling=fixed&starting-point-node-id=649%3A474&show-proto-sidebar=1"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Click here to access prototype
-                    </a>
 
                     {/* Insert images of prototype */}
                     {/* <Image src="/images/pnc-redesign.png" alt="PNC Redesign prototype" 
@@ -92,7 +99,7 @@ function Figma() {
                             alt="PNC App prototype 3"
                             width={196}
                             height={400}
-                        />  
+                        />
                         <Image className="app-img"
                             src="/images/pnc_app_4.png"
                             alt="PNC App prototype 4"
@@ -106,27 +113,30 @@ function Figma() {
                         />
                     </div>
                     <div>
-                        <Image className="web-view"
+                        <Image className="web-view" id="design-system"
                             src="/images/pnc_design_system.png"
                             alt="PNC App Design System"
-                            width={1207/2}
-                            height={671/2}
+                            width={1207 / 2}
+                            height={671 / 2}
                         />
                     </div>
                 </div>
-                <div id="emissions-app">
+                <div id="emissions-app" className="project">
+                    <div className="title-and-link">
+
                     <h3>CO2 Emissions App</h3>
-                    <p>I created this interactive mobile app prototype using Figma.
-                        It features 2 different designs to read per capita CO2 emission data, as affected by international events.
-                        I utilized wireframing and conducted user testing for this project.
-                    </p>
                     <a
                         href="https://www.figma.com/proto/2VKtHdxEqOimViafopvew0/Eliana-Semester-Second-Half?page-id=0%3A1&node-id=157-2850&starting-point-node-id=157%3A2850&show-proto-sidebar=1&t=IHWeVHMJ6jMLMY6N-1"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        Click here to access prototype
+                        Access Prototype <OpenInNewIcon/>
                     </a>
+                    </div>
+                    <p>I created this interactive mobile app prototype using Figma.
+                        It features 2 different designs to read per capita CO2 emission data, as affected by international events.
+                        I utilized wireframing and conducted user testing for this project.
+                    </p>
 
                     {/* Insert images of prototype */}
 
@@ -151,7 +161,7 @@ function Figma() {
                         />
                     </div>
                 </div>
-                 <div id="picky-site">
+                {/* <div id="picky-site" className="project"> */}
                     {/* <h3>Picky Eater Site</h3>
                     <p>I designed this interactive site protype using Figma.
                         It is an exhibit of all of the weird foods I don&#39;t eat, as a recovering picky eater.
@@ -162,16 +172,16 @@ function Figma() {
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        Click here to access prototype
+                        Access Prototype
                     </a>
 
                     /* Insert images of prototype */
                     /* <Image src="/images/picky-site.png" alt="Picky Eater Site prototype" 
                             fill 
                             style={{ objectFit: "cover" }}/> */}
-                </div>
+                {/* </div> */}
             </section>
-        </>
+        </div>
     );
 }
 

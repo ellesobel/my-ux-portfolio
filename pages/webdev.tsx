@@ -1,14 +1,15 @@
 //web dev projects
 
 import Image from "next/image";
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 function webdev() {
     return (
-        <>
-            <h2>Eliana&#39;s Web Dev Projects</h2>
+        <div className="page">
+            <h2 className="page-title">Eliana&#39;s Web Dev Projects</h2>
 
             <section className="projects">
-                <div id="plant-log">
+                {/* <div id="plant-log" className="project"> */}
                     {/* <h3>Plant Portfolio Web App</h3>
                     <p>
                         A React-based web app that lets users track and manage their plants with ease.
@@ -21,25 +22,27 @@ function webdev() {
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        Click here to access site
+                        Access Site
                     </a> */}
 
                     {/* Insert images of prototype */}
                     {/* <Image src="/images/plant-log.png" alt="Plant Log website" /> */}
-                </div>
-                <div id="image-gallery">
-                    <h3>Image Gallery Web App</h3>
+                {/* </div> */}
+                <div id="image-gallery" className="project">
+                    <div className="title-and-link">
+                        <h3>Image Gallery Web App</h3>
+                        <a
+                            href=""
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Access Site <OpenInNewIcon/>
+                        </a>
+                    </div>
                     <p>
                         I created an interactive flower-fact image gallery website using HTML, CSS, and JavaScript.
-                        The site features modal overlays. I also designed this app to flex for all screen sizes &gt;375px.
+                        The site features modal overlays. The app is flexible for all screen sizes &gt;375px.
                     </p>
-                    <a
-                        href=""
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Click here to access site
-                    </a>
 
                     {/* Insert images of prototype */}
                     <div className="web-photos">
@@ -83,21 +86,22 @@ function webdev() {
                         </div>
                     </div>
                 </div>
-                <div id="brand-redesign">
-                    <h3>Brand Redesign</h3>
+                <div id="brand-redesign" className="project">
+                    <div className="title-and-link">
+                        <h3>Brand Redesign</h3>
+                        <a
+                            href="https://wustl-cse204a-sp2025-1.github.io/brand-redesign-ellesobel/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Access Site <OpenInNewIcon/>
+                        </a>
+                    </div>
                     <p>
                         Revitalized the restaurant&#39;s visual identity, designing a modern logo, color palette, typography, and menu layout.
                         Applied core design principles like hierarchy, balance, and consistency to create a cohesive, professional, and inviting brand experience.
                         I used HTML and CSS for this redesign.
                     </p>
-                    <a
-                        href="https://wustl-cse204a-sp2025-1.github.io/brand-redesign-ellesobel/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Click here to access site
-                    </a>
-
                     {/* Insert images of prototype */}
                     <div className="web-photos">
                         <div className="web-view">
@@ -133,7 +137,7 @@ function webdev() {
                         </div>
                     </div>
                 </div>
-                <div id="ticketing-site">
+                {/* <div id="ticketing-site"> */}
                     {/* <h3>Chivent - Ticketing Web App</h3>
                     <p>
                         A React-based prototype where users can browse and purchase tickets, powered by my custom API through MongoDB.
@@ -146,14 +150,14 @@ function webdev() {
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        Click here to access site
+                        Access Site
                     </a> */}
 
                     {/* Insert images of prototype */}
                     {/* <Image src="/images/ticketing-site.png" alt="Ticketing website" /> */}
-                </div>
+                {/* </div> */}
             </section>
-        </>
+        </div>
     );
 }
 

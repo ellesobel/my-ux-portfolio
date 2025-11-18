@@ -60,7 +60,7 @@ h3 {
 
 h1 {
     font-size: 65px;
-    transition: 1s ease;
+    transition: .3s ease;
     margin-bottom: 10px;
     /* margin-left: 10%; */
     margin-top: 40px;
@@ -137,12 +137,14 @@ h3 {
     display: flex;
     gap: 16px;
     flex-wrap: wrap;
-    /* justify-content: space-between; */
+    /* justify-content: center; */
     /* padding: 30px 10%; */
     padding-top: 20px;
     padding-bottom: 20px;
     /* margin-bottom: 30px; */
     /* padding-bottom: 100px; */
+    transition: .3s ease;
+
 }
 
 
@@ -211,13 +213,11 @@ h3 {
     padding-left: 50vw;
     margin-left: -50vw;
     padding-right: 20px;
-    /* box-shadow: -50vw 0 0 0 var(--acnt-lime); */
 }
 
 #p2 {
     background-color: var(--acnt-pink);
     border-radius: 20px 0px 0px 0px;
-    /* box-shadow: 50vw 0 0 0 var(--acnt-pink); */
     padding-right: 50vw;
     margin-right: -50vw;
     padding-left: 30px;
@@ -227,7 +227,6 @@ h3 {
 #p3 {
     background-color: var(--acnt-teal);
     border-radius: 0px 20px 0px 0px;
-    /* box-shadow: -50vw 0 0 0 var(--acnt-teal); */
     padding-left: 50vw;
     margin-left: -50vw;
     padding-right: 20px;
@@ -271,6 +270,8 @@ h3 {
     display: flex;
     gap: 20px;
     margin-right: 5%;
+    transition: .3s ease;
+
 }
 
 #nav-buttons button {
@@ -289,7 +290,7 @@ main {
     /* margin: 0% 10%; */
     background-color: var(--bkgrd);
     margin: 0 10%;
-    transition: 1s ease;
+    transition: .3s ease;
 }
 
 #header button {
@@ -315,10 +316,10 @@ main {
 
 #contact-form {
     /* background-color: #d28ed5; */
-    padding-top: 40px;
+    padding-top: 35px;
     width: 100vw;
-    padding-bottom: 50px;
-    position: relative;
+    padding-bottom: 35px;
+    /* position: relative; */
     /* bottom: 0; */
 }
 
@@ -332,79 +333,121 @@ main {
 footer {
     position: relative;
     /* top: 100px; */
-    /* bottom: 0; */
+    bottom: -180px;
     width: 100vw;
-    height: 17.9vh;
+    /* height: 17.9vh; */
     /* height: 5vh; */
     background-color: var(--prpl);
     left: -7px;
-    overflow: hidden;
+    /* overflow: hidden; */
     border-top: 3px dashed var(--words);
 }
 
 #content {
-    height: 77vh;
+    /* height: 77vh; */
     margin: 0 10%;
-    transition: 1s ease;
+    transition: .3s ease;
+    /* padding-bottom: 185px; */
 }
 
-.projects {
-    padding-bottom: 100px;
-}
-
-
-.art-card img{
+.art-card img {
     margin: 30px 0px;
 }
 
-.art-photos h3{
+.art-photos h3 {
     font-size: 15px;
     /* padding-bottom: 0; */
     margin-bottom: 5px;
     margin-top: 0;
     margin-left: 10px;
-    
+
 }
 
-.art-photos{
+.art-photos {
     display: flex;
     /* justify-content: space-between; */
     /* align-items: center; */
     justify-content: center;
 }
 
-.art-photos h4{
+.art-photos h4 {
     font-size: 12px;
     /* padding-top: 0; */
     margin-top: 0;
     margin-left: 10px;
 }
-/* @media (max-width: 900px) {
-    main {
-        margin: 5%;
-        transition: 1s ease;
-    }
 
-    #about-and-image {
-         flex-direction: column;
-         transition: 1s ease;
-     }
+.page-title {
+    margin: 40px 0px 20px 0px;
+    font-size: 40px;
+}
 
-    .me {
-        margin: auto;
-    }
+.project h3 {
+    margin-bottom: -5px;
+    font-size: 20px;
+    margin-top: 0;
+}
 
-    h1 {
-        font-size: 7vw;
-        transition: 1s ease;
-    }
-} */
+.projects a {
+    border-radius: 30px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    border: 3px solid var(--words);
+    text-decoration: none;
+    color: var(--words);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
+.projects a:hover {
+    border: 3px dashed var(--words);
+}
+
+#image-gallery a:hover,
+#brand-redesign a:hover {
+    background-color: var(--acnt-pink);
+}
+
+#emissions-app a:hover,
+#pnc-redesign a:hover,
+#music-app a:hover {
+    background-color: var(--acnt-lime);
+}
+
+.title-and-link {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+}
+
+.projects {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.project {
+    background-color: rgb(245, 230, 233);
+    border-radius: 20px;
+    padding: 30px 40px;
+}
+
+.project p {
+    margin-top: 10px;
+    max-width: 650px;
+}
+
+.page {
+    margin: 0 10%;
+}
 
 @media(max-width:1300px) {
 
     #portfolio-links nav button {
-        font-size: 12px;
+        /* font-size: 12px; */
     }
 
     h1 {
@@ -419,11 +462,122 @@ footer {
         gap: 1rem;
         justify-content: left;
         /* margin: auto; */
+        transition: .3s ease;
+
     }
 
     #portfolio-links nav button {
-        font-size: 14px;
+        /* font-size: 14px; */
     }
 
+}
 
+@media(max-width:1100px) {
+    #content {
+        margin: 0 5%;
+    }
+/* 
+    .web-view .app-img{
+        width: 80vw;
+        height: auto;
+    } */
+
+    .page {
+        margin: 0;
+    }
+}
+
+@media(max-width:850px) {
+    #content {
+        margin: 0;
+    }
+
+    #about-and-subtitle {
+        flex-direction: column;
+        align-items: center;
+        transition: .3s ease;
+    }
+
+    #subtitle {
+        background-color: var(--acnt-blue);
+        border-radius: 20px 0px 0px 0px;
+        padding-right: 50vw;
+        padding-left: 30px;
+        padding-bottom: 45px;
+        margin-right: -50vw;
+        margin-left: -30px;
+        margin-bottom: -55px;
+        width: 63vw;
+        position: relative;
+        z-index: 0;
+        border: 3px solid var(--words);
+    }
+
+    #about p {
+        width: 60vw;
+    }
+
+    h1 {
+        font-size: 5.5vw;
+        text-align: center;
+        transition: .3s ease;
+
+    }
+
+    #portfolio-links nav {
+        /* justify-content: center; */
+        transition: .3s ease;
+        padding: 0;
+        margin-bottom: -10px;
+        width: 95vw;
+        margin-left: 5%;
+    }
+
+    #portfolio-links nav button {
+        font-size: 12px;
+        transition: .3s ease;
+    }
+
+    #nav-buttons {
+        gap: 10px;
+        transition: .3s ease;
+    }
+
+    .page {
+        margin: -5%;
+    }
+
+    .web-view .app-img , #design-system{
+        height: 36vw;
+        width: auto;
+        margin: auto;
+    }
+
+    .web-photos,
+    .mobile-view,
+    .web-view, .app-photos {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+}
+
+@media(max-width:650px) {
+
+    #portfolio-links nav button {
+        display: none;
+    }
+
+    #about p {
+        width: 75vw;
+        transition: .3s ease;
+
+    }
+
+    #subtitle {
+        width: 77vw;
+        transition: .3s ease;
+
+    }
 }

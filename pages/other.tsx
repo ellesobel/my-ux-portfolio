@@ -4,8 +4,8 @@ import Image from "next/image";
 
 function other() {
     return (
-        <>
-            <h2>Eliana&#39;s Other Miscellaneous Projects</h2>
+        <div className="page">
+            <h2 className="page-title">Eliana&#39;s Other Miscellaneous Projects</h2>
             <div className="projects">
 
                 <div className="art-photos">
@@ -58,7 +58,7 @@ function other() {
                 </div>
             </div>
 
-        </>
+        </div>
     );
 }
 
