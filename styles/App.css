@@ -54,6 +54,10 @@ body {
 
 }
 
+.projects {
+    font-size: 14px;
+}
+
 button {
     background-color: var(--bkgrd);
 }
@@ -125,6 +129,31 @@ h3 {
     display: flex;
     flex-wrap: wrap;
     gap: 40px;
+}
+
+/* #brainchip-demo{
+    width: 400px;
+} */
+.video-crop {
+  width: 245px;
+  height: 500px;
+  overflow: hidden;
+  border-radius: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.app-video {
+  width: 121%;
+  height: 121%;
+  object-fit: cover;
+  transform: translateY(-13px);
+}
+
+.video-align{
+    display: flex;
+    justify-content: center;
 }
 
 #portfolio-links button {
@@ -388,7 +417,7 @@ footer {
 
 .title-and-link {
     display: flex;
-    align-items: end;
+    align-items: center;
     justify-content: space-between;
 }
 
@@ -402,8 +431,14 @@ footer {
     background-color: var(--proj-bkgrd);
     border-radius: 20px;
     padding: 30px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 }
-
+.text-and-content{
+    display: flex;
+    gap: 30px;
+}
 .project p {
     margin-top: 10px;
     max-width: 650px;
@@ -541,5 +576,18 @@ footer {
 
     #content {
         margin-top: 20px;
+    }
+
+    .text-and-content{
+        flex-direction: column;
+    }
+}
+@media(max-width:500px) {
+    .title-and-link{
+        flex-direction: column;
+        gap: 15px;
+    }
+    .project{
+        gap: 10px;
     }
 }
