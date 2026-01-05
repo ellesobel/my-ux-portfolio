@@ -92,7 +92,7 @@ function Figma() {
                         <div className="video-crop">
                             <video
                                 className="app-video"
-                                id="music-map-demo"
+                                id="map-demo"
                                 width={1920}
                                 height={1140}
                                 // autoPlay
@@ -100,7 +100,7 @@ function Figma() {
                                 muted
                                 playsInline
                             >
-                                <source src="/images/music_map_demo.mp4" type="video/mp4" />
+                                <source src="/images/map_demo.mp4" type="video/mp4" />
                             </video>
                         </div>
                     </div>
