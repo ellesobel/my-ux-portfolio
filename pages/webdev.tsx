@@ -2,15 +2,31 @@
 
 import Image from "next/image";
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import { useEffect } from "react";
 
 function webdev() {
+    useEffect(() => {
+        const videos = document.querySelectorAll<HTMLVideoElement>('.video');
+
+        videos.forEach(video => {
+            video.addEventListener('click', () => {
+                video.paused ? video.play() : video.pause();
+            });
+        });
+
+        return () => {
+            videos.forEach(video => {
+                video.replaceWith(video.cloneNode(true));
+            });
+        };
+    }, []);
     return (
         <div className="page">
             <h2 className="page-title">Eliana&#39;s Web Dev Projects</h2>
 
             <section className="projects">
                 {/* <div id="plant-log" className="project"> */}
-                    {/* <h3>Plant Portfolio Web App</h3>
+                {/* <h3>Plant Portfolio Web App</h3>
                     <p>
                         A React-based web app that lets users track and manage their plants with ease.
                         Features include adding and editing plant entries, dynamic filtering and sorting,
@@ -25,8 +41,8 @@ function webdev() {
                         Access Site
                     </a> */}
 
-                    {/* Insert images of prototype */}
-                    {/* <Image src="/images/plant-log.png" alt="Plant Log website" /> */}
+                {/* Insert images of prototype */}
+                {/* <Image src="/images/plant-log.png" alt="Plant Log website" /> */}
                 {/* </div> */}
                 <div id="image-gallery" className="project">
                     <div className="title-and-link">
@@ -36,7 +52,7 @@ function webdev() {
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            Access Site <OpenInNewIcon/>
+                            Access Site <OpenInNewIcon />
                         </a>
                     </div>
                     <p>
@@ -47,7 +63,21 @@ function webdev() {
                     {/* Insert images of prototype */}
                     <div className="web-photos">
                         <div className="web-view">
-                            <Image className="app-img"
+                            <div className="web-video-crop">
+                                <video
+                                    className="video"
+                                    id="gallery-web-demo"
+                                    width={1920}
+                                    height={1140}
+                                    // autoPlay
+                                    loop
+                                    muted
+                                    playsInline
+                                >
+                                    <source src="/images/gallery_web_demo.mp4" type="video/mp4" />
+                                </video>
+                            </div>
+                            {/* <Image className="app-img"
                                 src="/images/flowergallery_1.png"
                                 alt="Flower Gallery prototype 1"
                                 width={575}
@@ -66,10 +96,11 @@ function webdev() {
 
                                 width={575}
                                 height={400}
-                            />
+                            /> */}
+
                         </div>
                         <div className="mobile-view">
-                            <Image className="app-img"
+                            {/* <Image className="app-img"
                                 src="/images/flowergallery_mobile_1.png"
                                 alt="Flower Gallery mobile prototype 1"
 
@@ -82,11 +113,25 @@ function webdev() {
 
                                 width={225}
                                 height={400}
-                            />
+                            /> */}
+                            <div className="video-crop" id="gm-crop"> 
+                                <video
+                                    className="video"
+                                    id="gallery-mobile-demo"
+                                    width={1920}
+                                    height={1140}
+                                    // autoPlay
+                                    loop
+                                    muted
+                                    playsInline
+                                >
+                                    <source src="/images/gallery_mobile_demo.mp4" type="video/mp4" />
+                                </video>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div id="brand-redesign" className="project">
+                {/* <div id="brand-redesign" className="project">
                     <div className="title-and-link">
                         <h3>Brand Redesign</h3>
                         <a
@@ -101,9 +146,9 @@ function webdev() {
                         Revitalized the restaurant&#39;s visual identity, designing a modern logo, color palette, typography, and menu layout.
                         Applied core design principles like hierarchy, balance, and consistency to create a cohesive, professional, and inviting brand experience.
                         I used HTML and CSS for this redesign.
-                    </p>
-                    {/* Insert images of prototype */}
-                    <div className="web-photos">
+                    </p> */}
+                {/* Insert images of prototype */}
+                {/* <div className="web-photos">
                         <div className="web-view">
                             <Image className="app-img"
                                 src="/images/brand_1.png"
@@ -136,9 +181,9 @@ function webdev() {
                             />
                         </div>
                     </div>
-                </div>
+                </div> */}
                 {/* <div id="ticketing-site"> */}
-                    {/* <h3>Chivent - Ticketing Web App</h3>
+                {/* <h3>Chivent - Ticketing Web App</h3>
                     <p>
                         A React-based prototype where users can browse and purchase tickets, powered by my custom API through MongoDB.
                     </p>
@@ -153,8 +198,8 @@ function webdev() {
                         Access Site
                     </a> */}
 
-                    {/* Insert images of prototype */}
-                    {/* <Image src="/images/ticketing-site.png" alt="Ticketing website" /> */}
+                {/* Insert images of prototype */}
+                {/* <Image src="/images/ticketing-site.png" alt="Ticketing website" /> */}
                 {/* </div> */}
             </section>
         </div>

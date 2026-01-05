@@ -197,9 +197,7 @@ h3 {
     /* margin-bottom: 30px; */
     /* padding-bottom: 100px; */
     transition: .3s ease;
-
 }
-
 
 #home-link button:hover,
 #home-link.active-link button {
@@ -472,6 +470,31 @@ footer {
     height: 15vw;
     width: auto;
     margin: auto;
+}
+
+#gallery-web-demo {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    transform: translateY(-10px);
+}
+#gallery-mobile-demo{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+#gm-crop{
+    width: 219px;
+    border-radius: 30px;
+}
+.video-crop{
+    border: 4px solid black;
+}
+
+.web-video-crop {
+    height:300px;
+    width: 600px;
+    overflow: hidden;
 }
 
 @media(max-width:1300px) {
