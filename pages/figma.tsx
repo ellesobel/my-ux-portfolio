@@ -26,10 +26,8 @@ function Figma() {
     return (
         <div className="page">
             <h2 className="page-title">Eliana&#39;s Figma Projects</h2>
-            <h3>I created these interactive mobile app prototypes using Figma.</h3>
-            <ol>
-                <h3>Tip: Click the phone screens to watch demos of the apps!</h3>
-            </ol>
+            <h3 className="page-subtitle">I created these interactive mobile app prototypes using Figma.</h3>
+            <h3 id="tooltip">Tip: Click the phone screens to watch demos of the apps!</h3>
             <section className="projects">
                 <div id="brainchip" className="project">
                     <div className="title-and-link">
@@ -43,29 +41,29 @@ function Figma() {
                         </a>
                     </div>
                     <div className="text-and-content">
-                    <ul>
-                        <li>Inspired by <em>Neuralink</em> and <em>Black Mirror</em>, I visualized an assistant app for what a possible user experience might look like for a dystopian government-mandated thought-surveillance system.</li>
-                        <li>I developed a design system featuring bright/pastel colors and cute animations to make users forget about the invasiveness of the app.</li>
-                        <li>I prototyped a landing page, settings page, and 3 main features: dream recap, mood analyzer, and friend location tracking.</li>
-                        <li>Throughout the app, there is subtle sponsorships, because capitalism, yknow? </li>
-                    </ul>
-                    {/* Insert images of prototype */}
-                    <div className="video-align">
-                        <div className="video-crop">
-                            <video
-                                className="app-video"
-                                id="brainchip-demo"
-                                width={1920}
-                                height={1140}
-                                // autoPlay
-                                loop
-                                muted
-                                playsInline
-                            >
-                                <source src="/images/brainchip_demo.mp4" type="video/mp4" />
-                            </video>
+                        <ul>
+                            <li>Inspired by <em>Neuralink</em> and <em>Black Mirror</em>, I visualized an assistant app for what a possible user experience might look like for a dystopian government-mandated thought-surveillance system.</li>
+                            <li>I developed a design system featuring bright/pastel colors and cute animations to make users forget about the invasiveness of the app.</li>
+                            <li>I prototyped a landing page, settings page, and 3 main features: dream recap, mood analyzer, and friend location tracking.</li>
+                            <li>Throughout the app, there is subtle sponsorships, because capitalism, yknow? </li>
+                        </ul>
+                        {/* Insert images of prototype */}
+                        <div className="video-align">
+                            <div className="video-crop">
+                                <video
+                                    className="app-video"
+                                    id="brainchip-demo"
+                                    width={1920}
+                                    height={1140}
+                                    // autoPlay
+                                    loop
+                                    muted
+                                    playsInline
+                                >
+                                    <source src="/images/brainchip_demo.mp4" type="video/mp4" />
+                                </video>
+                            </div>
                         </div>
-                    </div>
                     </div>
 
                 </div>
@@ -82,28 +80,28 @@ function Figma() {
                     </div>
                     <div className="text-and-content">
 
-                    <ul>
-                        <li>This app has 3 different flows to let the user choose a destination based on lyrics from a song about New York City.</li>
-                        <li>I developed a design system featuring custom neon light accents and arrows.</li>
-                        <li>I utilized wireframing and conducted user testing for this project.</li>
-                    </ul>
-                    {/* Insert images of prototype */}
-                    <div className="video-align">
-                        <div className="video-crop">
-                            <video
-                                className="app-video"
-                                id="map-demo"
-                                width={1920}
-                                height={1140}
-                                // autoPlay
-                                loop
-                                muted
-                                playsInline
-                            >
-                                <source src="/images/map_demo.mp4" type="video/mp4" />
-                            </video>
+                        <ul>
+                            <li>This app has 3 different flows to let the user choose a destination based on lyrics from a song about New York City.</li>
+                            <li>I developed a design system featuring custom neon light accents and arrows.</li>
+                            <li>I utilized wireframing and conducted user testing for this project.</li>
+                        </ul>
+                        {/* Insert images of prototype */}
+                        <div className="video-align">
+                            <div className="video-crop">
+                                <video
+                                    className="app-video"
+                                    id="map-demo"
+                                    width={1920}
+                                    height={1140}
+                                    // autoPlay
+                                    loop
+                                    muted
+                                    playsInline
+                                >
+                                    <source src="/images/map_demo.mp4" type="video/mp4" />
+                                </video>
+                            </div>
                         </div>
-                    </div>
                     </div>
                     {/* <div className="app-photos">
                         <Image className="app-img"
@@ -152,46 +150,47 @@ function Figma() {
                     </div>
                     <div className="text-and-content">
 
-                    <ul>
-                        <li>
-                            In collaboration with Andrew Pandji and Gabrielle Barthelmy, we redesigned the PNC Mobile App.
-                        </li>
-                        <li>
-                            We created a new design system, explored different visualizations of data, and enhanced the accessibility of the app.
-                        </li>
-                        {/* For the watchface design, we explored goals and miniaturized data visualization. */}
-                    </ul>
+                        <ul>
+                            <li>
+                                In collaboration with Andrew Pandji and Gabrielle Barthelmy, we redesigned the PNC Mobile App.
+                            </li>
+                            <li>
+                                We created a new design system, explored different visualizations of data, and enhanced the accessibility of the app.
+                            </li>
+                            {/* For the watchface design, we explored goals and miniaturized data visualization. */}
+                            <div>
+                                <Image className="web-view" id="design-system"
+                                    src="/images/pnc_design_system.png"
+                                    alt="PNC App Design System"
+                                    width={1207 / 2}
+                                    height={671 / 2}
+                                />
+                            </div>
+                        </ul>
 
-                    {/* Insert images of prototype */}
-                    {/* <Image src="/images/pnc-redesign.png" alt="PNC Redesign prototype" 
+                        {/* Insert images of prototype */}
+                        {/* <Image src="/images/pnc-redesign.png" alt="PNC Redesign prototype" 
                             fill 
                             style={{ objectFit: "cover" }} /> */}
-                    
-                    <div className="video-align">
-                        <div className="video-crop">
-                            <video
-                                className="app-video"
-                                id="pnc-demo"
-                                width={1920}
-                                height={1140}
-                                // autoPlay
-                                loop
-                                muted
-                                playsInline
-                            >
-                                <source src="/images/pnc_demo.mp4" type="video/mp4" />
-                            </video>
+
+                        <div className="video-align">
+                            <div className="video-crop">
+                                <video
+                                    className="app-video"
+                                    id="pnc-demo"
+                                    width={1920}
+                                    height={1140}
+                                    // autoPlay
+                                    loop
+                                    muted
+                                    playsInline
+                                >
+                                    <source src="/images/pnc_demo.mp4" type="video/mp4" />
+                                </video>
+                            </div>
                         </div>
                     </div>
-                    </div>
-                    <div>
-                        <Image className="web-view" id="design-system"
-                            src="/images/pnc_design_system.png"
-                            alt="PNC App Design System"
-                            width={1207 / 2}
-                            height={671 / 2}
-                        />
-                    </div>
+
                     {/* <div className="app-photos">
 
                         <Image className="app-img"
