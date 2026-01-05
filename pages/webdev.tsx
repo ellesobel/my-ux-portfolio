@@ -46,7 +46,7 @@ function webdev() {
                 {/* </div> */}
                 <div id="image-gallery" className="project">
                     <div className="title-and-link">
-                        <h3>Image Gallery Web App</h3>
+                        <h3>Image Gallery</h3>
                         <a
                             href=""
                             target="_blank"
@@ -55,78 +55,49 @@ function webdev() {
                             Access Site <OpenInNewIcon />
                         </a>
                     </div>
-                    <p>
-                        I created an interactive flower-fact image gallery website using HTML, CSS, and JavaScript.
-                        The site features modal overlays. The app is flexible for all screen sizes &gt;375px.
-                    </p>
-
-                    {/* Insert images of prototype */}
-                    <div className="web-photos">
-                        <div className="web-view">
-                            <div className="web-video-crop">
-                                <video
-                                    className="video"
-                                    id="gallery-web-demo"
-                                    width={1920}
-                                    height={1140}
-                                    // autoPlay
-                                    loop
-                                    muted
-                                    playsInline
-                                >
-                                    <source src="/images/gallery_web_demo.mp4" type="video/mp4" />
-                                </video>
+                    <div className="text-and-content">
+                        <div>
+                        <ul>
+                            <li>I created an interactive flower-fact image gallery website using HTML, CSS, and JavaScript.</li>
+                            <li>The site features a modal.</li>
+                            <li>The app is flexible for all screen sizes &gt;375px.</li>
+                        </ul>
+                            <div className="web-view">
+                                <div className="web-video-crop">
+                                    <video
+                                        className="video"
+                                        id="gallery-web-demo"
+                                        width={1920}
+                                        height={1140}
+                                        // autoPlay
+                                        loop
+                                        muted
+                                        playsInline
+                                    >
+                                        <source src="/images/gallery_web_demo.mp4" type="video/mp4" />
+                                    </video>
+                                </div>
                             </div>
-                            {/* <Image className="app-img"
-                                src="/images/flowergallery_1.png"
-                                alt="Flower Gallery prototype 1"
-                                width={575}
-                                height={400}
-                            />
-                            <Image className="app-img"
-                                src="/images/flowergallery_2.png"
-                                alt="Flower Gallery prototype 2"
-
-                                width={575}
-                                height={400}
-                            />
-                            <Image className="app-img"
-                                src="/images/flowergallery_3.png"
-                                alt="Flower Gallery prototype 3"
-
-                                width={575}
-                                height={400}
-                            /> */}
-
                         </div>
-                        <div className="mobile-view">
-                            {/* <Image className="app-img"
-                                src="/images/flowergallery_mobile_1.png"
-                                alt="Flower Gallery mobile prototype 1"
 
-                                width={225}
-                                height={400}
-                            />
-                            <Image className="app-img"
-                                src="/images/flowergallery_mobile_2.png"
-                                alt="Flower Gallery mobile prototype 2"
+                        {/* Insert images of prototype */}
+                        <div className="web-photos">
+                            <div className="mobile-view">
 
-                                width={225}
-                                height={400}
-                            /> */}
-                            <div className="video-crop" id="gm-crop"> 
-                                <video
-                                    className="video"
-                                    id="gallery-mobile-demo"
-                                    width={1920}
-                                    height={1140}
-                                    // autoPlay
-                                    loop
-                                    muted
-                                    playsInline
-                                >
-                                    <source src="/images/gallery_mobile_demo.mp4" type="video/mp4" />
-                                </video>
+                                <div className="video-crop" id="gm-crop">
+                                    <video
+                                        className="video"
+                                        id="gallery-mobile-demo"
+                                        width={1920}
+                                        height={1140}
+                                        // autoPlay
+                                        loop
+                                        muted
+                                        playsInline
+                                    >
+                                        <source src="/images/gallery_mobile_demo.mp4" type="video/mp4" />
+                                    </video>
+                                </div>
                             </div>
                         </div>
                     </div>

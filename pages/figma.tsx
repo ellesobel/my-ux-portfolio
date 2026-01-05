@@ -103,38 +103,7 @@ function Figma() {
                             </div>
                         </div>
                     </div>
-                    {/* <div className="app-photos">
-                        <Image className="app-img"
-                            src="/images/music_app_1.avif"
-                            alt="Music App prototype 1"
-                            width={196}
-                            height={400}
-                        />
-                        <Image className="app-img"
-                            src="/images/music_app_2.avif"
-                            alt="Music App prototype 2"
-                            width={196}
-                            height={400}
-                        />
-                        <Image className="app-img"
-                            src="/images/music_app_3.avif"
-                            alt="Music App prototype 3"
-                            width={196}
-                            height={400}
-                        />
-                        <Image className="app-img"
-                            src="/images/music_app_4.avif"
-                            alt="Music App prototype 4"
-                            width={196}
-                            height={400}
-                        />
-                        <Image className="app-img"
-                            src="/images/music_app_5.avif"
-                            alt="Music App prototype 5"
-                            width={196}
-                            height={400}
-                        />
-                    </div> */}
+                  
                 </div>
                 <div id="pnc-redesign" className="project">
                     <div className="title-and-link">
@@ -168,11 +137,7 @@ function Figma() {
                             </div>
                         </ul>
 
-                        {/* Insert images of prototype */}
-                        {/* <Image src="/images/pnc-redesign.png" alt="PNC Redesign prototype" 
-                            fill 
-                            style={{ objectFit: "cover" }} /> */}
-
+                      
                         <div className="video-align">
                             <div className="video-crop">
                                 <video
@@ -190,37 +155,6 @@ function Figma() {
                             </div>
                         </div>
                     </div>
-
-                    {/* <div className="app-photos">
-
-                        <Image className="app-img"
-                            src="/images/pnc_app_1.png"
-                            alt="PNC App prototype 1"
-                            width={196}
-                            height={400}
-                        />  <Image className="app-img"
-                            src="/images/pnc_app_2.png"
-                            alt="PNC App prototype 2"
-                            width={196}
-                            height={400}
-                        />  <Image className="app-img"
-                            src="/images/pnc_app_3.png"
-                            alt="PNC App prototype 3"
-                            width={196}
-                            height={400}
-                        />
-                        <Image className="app-img"
-                            src="/images/pnc_app_4.png"
-                            alt="PNC App prototype 4"
-                            width={196}
-                            height={400}
-                        />  <Image className="app-img"
-                            src="/images/pnc_app_5.png"
-                            alt="PNC App prototype 5"
-                            width={196}
-                            height={400}
-                        />
-                    </div> */}
 
                 </div>
                 {/* <div id="emissions-app" className="project"> */}
