@@ -23,32 +23,50 @@ function webdev() {
     return (
         <div className="page">
             <h2 className="page-title">Eliana&#39;s Web Dev Projects</h2>
-
+            <h3 className="page-subtitle">I created these applications using VSCode.</h3>
+            <h3 id="tooltip">Tip: Click the screens to watch demos!</h3>
             <section className="projects">
-                {/* <div id="plant-log" className="project"> */}
-                {/* <h3>Plant Portfolio Web App</h3>
-                    <p>
-                        A React-based web app that lets users track and manage their plants with ease.
-                        Features include adding and editing plant entries, dynamic filtering and sorting,
-                        and fetching rich plant data from external APIs for images, care instructions, and
-                        species info—all in a responsive, interactive interface.
-                    </p>
-                    <a
-                        href="https://wustl-cse204a-sp2025-1.github.io/final-project-ellesobel/#/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Access Site
-                    </a> */}
+                <div id="plant-log" className="project">
+                    <div className="title-and-link">
+                        <h3>Plant Log</h3>
+                        <a
+                            href="https://wustl-cse204a-sp2025-1.github.io/final-project-ellesobel/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Access Site <OpenInNewIcon />
+                        </a>
+                    </div>
 
-                {/* Insert images of prototype */}
-                {/* <Image src="/images/plant-log.png" alt="Plant Log website" /> */}
-                {/* </div> */}
+                    <ul>
+                        <li>This is a plant log I created using JavaScript, React, and the Perenual API.</li>
+                        <li>Search up plants and add them to your garden with acquisition dates and personal notes.</li>
+                        <li>Flip the plant cards to learn more about them, and click learn more to see a description quick facts.</li>
+                        <li>When your plant dies, add it to the graveyard.</li>
+                        <li>The site is flexible for all screen sizes &gt;375px.</li>
+                    </ul>
+                    <div className="web-view">
+                        <div className="web-video-crop">
+                            <video
+                                className="video"
+                                id="plant-web-demo"
+                                width={1920}
+                                height={1140}
+                                // autoPlay
+                                loop
+                                muted
+                                playsInline
+                            >
+                                <source src="/images/plant_demo.mp4" type="video/mp4" />
+                            </video>
+                        </div>
+                    </div>
+                </div>
                 <div id="image-gallery" className="project">
                     <div className="title-and-link">
                         <h3>Image Gallery</h3>
                         <a
-                            href=""
+                            href="https://wustl-cse204a-sp2025-1.github.io/image-gallery-ellesobel/"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
@@ -57,11 +75,11 @@ function webdev() {
                     </div>
                     <div className="text-and-content">
                         <div>
-                        <ul>
-                            <li>I created an interactive flower-fact image gallery website using HTML, CSS, and JavaScript.</li>
-                            <li>The site features a modal.</li>
-                            <li>The app is flexible for all screen sizes &gt;375px.</li>
-                        </ul>
+                            <ul>
+                                <li>I created an interactive flower-fact image gallery website using HTML, CSS, and JavaScript.</li>
+                                <li>The site features a modal.</li>
+                                <li>The app is flexible for all screen sizes &gt;375px.</li>
+                            </ul>
                             <div className="web-view">
                                 <div className="web-video-crop">
                                     <video
