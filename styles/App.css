@@ -435,6 +435,11 @@ footer {
     align-items: center;
     justify-content: space-between;
 }
+#design-process{
+    width: 40%;
+    display: flex;
+    justify-content: center;
+}
 
 .projects {
     display: flex;

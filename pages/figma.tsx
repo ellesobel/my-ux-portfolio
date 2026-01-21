@@ -45,7 +45,14 @@ function Figma() {
                             <li>Inspired by <em>Neuralink</em> and <em>Black Mirror</em>, I visualized an assistant app for what a possible user experience might look like for a dystopian government-mandated thought-surveillance system.</li>
                             <li>I developed a design system featuring bright/pastel colors and cute animations to make users forget about the invasiveness of the app.</li>
                             <li>I prototyped a landing page, settings page, and 3 main features: dream recap, mood analyzer, and friend location tracking.</li>
-                            <li>Throughout the app, there is subtle sponsorships, because capitalism, yknow? </li>
+                            <a
+                                href="https://docs.google.com/presentation/d/1dUvNiFnBwB3DS7eL5aHO9uRlULsuLQKN2ltSw_fA0fw/edit?usp=sharing"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                id="design-process"
+                            >
+                                My Design Process <OpenInNewIcon />
+                            </a>
                         </ul>
                         {/* Insert images of prototype */}
                         <div className="video-align">
@@ -103,7 +110,7 @@ function Figma() {
                             </div>
                         </div>
                     </div>
-                  
+
                 </div>
                 <div id="pnc-redesign" className="project">
                     <div className="title-and-link">
@@ -137,7 +144,7 @@ function Figma() {
                             </div>
                         </ul>
 
-                      
+
                         <div className="video-align">
                             <div className="video-crop">
                                 <video
