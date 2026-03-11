@@ -31,11 +31,11 @@ function webdev() {
                         <h3>Plant Log</h3>
                         <a
                             href="https://wustl-cse204a-sp2025-1.github.io/final-project-ellesobel/"
-                            target="_blank"
+                           target="_blank"
                             rel="noopener noreferrer"
                         >
                             Access Site <OpenInNewIcon />
-                        </a>
+                        </a> 
                     </div>
 
                     <ul>
