@@ -201,7 +201,7 @@ h3 {
 
 #home-link button:hover,
 #home-link.active-link button {
-    background-color: var(--acnt-blue);
+    background-color: var(--acnt-teal);
     transition: .2s ease;
 }
 
