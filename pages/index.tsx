@@ -32,8 +32,7 @@ function Home() {
                         <h3>New York, NY / St. Louis, MO</h3>
                     </div>
                     <div id="about">
-                        <p id="p1">Hi! I&#39;m a third-year Computer Science student at Washington University in St. Louis.
-                            I am pursuing minors in Design and Human-Computer Interaction.
+                        <p id="p1">Hi! I&#39;m a fourth-year Computer Science student at Washington University in St. Louis, with focuses in Design and Human-Computer Interaction.
                         </p>
                         <p id="p2">
                             I&#39;m currently doing usability research in the <Link href="https://sites.wustl.edu/greenberglab/synaptrack/">Greenberg Lab on SynapTrack</Link>, a clinical-facing medical app for neurosurgery patients.
