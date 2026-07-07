@@ -142,22 +142,176 @@ h3 {
     height: 300px;
 } */
 
-.art-img {
-    max-width: 100%;
-    height: auto;
-    box-shadow: 20px 20px 1px var(--words);
-    padding: 10px;
-}
-
-.art-card h3,
-.art-card h4 {
-    padding-left: 10px;
+/* Miscellaneous art — fixed-proportion "stage"; frames placed exactly per the
+   mockup (no tilts). Positions/sizes are % of the stage so the whole wall
+   scales as one unit. */
+.art-gallery {
+    position: relative;
+    width: 100%;
+    max-width: 640px;
+    aspect-ratio: 58 / 56;
+    margin: 10px auto 30px;
+    container-type: inline-size;
 }
 
 .art-photos {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 40px;
+    position: static;
+}
+
+.art-card {
+    position: absolute;
+    cursor: pointer;
+}
+
+.art-card:nth-child(1) {   /* old man */
+    left: 5%;
+    top: 12%;
+    width: 30%;
+}
+
+.art-card:nth-child(2) {   /* dog */
+    left: 40%;
+    top: 1%;
+    width: 25%;
+}
+
+.art-card:nth-child(3) {   /* heart — slightly larger than the dog */
+    left: 70%;
+    top: 11%;
+    width: 27%;
+}
+
+.art-card:nth-child(4) {   /* pomegranate */
+    left: 1%;
+    top: 43%;
+    width: 30%;
+}
+
+.art-card:nth-child(5) {   /* figure — tall, reaches the lowest bottom edge */
+    left: 37%;
+    top: 60%;
+    width: 22%;
+}
+
+.art-card:nth-child(6) {   /* collage — slightly wider than the heart */
+    left: 65%;
+    top: 52%;
+    width: 30%;
+}
+
+.art-img {
+    display: block;
+    width: 100%;
+    height: auto;                        /* natural proportions — no squish */
+    box-sizing: border-box;
+    padding: 8px;                        /* white mat */
+    background-color: #fff;
+    border: 2px solid var(--words);      /* thin frame */
+    box-shadow: 9px 9px 0 var(--words);  /* hard black shadow, like the mockup */
+    transition: background-color .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+
+/* Accent color revealed only when a piece is hovered */
+.art-card:nth-child(6n + 1) {
+    --mat: var(--acnt-teal);
+}
+
+.art-card:nth-child(6n + 2) {
+    --mat: var(--acnt-lime);
+}
+
+.art-card:nth-child(6n + 3) {
+    --mat: var(--acnt-pink);
+}
+
+.art-card:nth-child(6n + 4) {
+    --mat: var(--acnt-orange);
+}
+
+.art-card:nth-child(6n + 5) {
+    --mat: var(--acnt-blue);
+}
+
+.art-card:nth-child(6n + 6) {
+    --mat: var(--acnt-pink);
+}
+
+.art-card:hover .art-img {
+    background-color: var(--mat);
+    box-shadow: 13px 13px 0 var(--words);
+}
+
+/* Central decorative title — the three Figma display fonts */
+.gallery-title {
+    position: absolute;
+    top: 39%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    text-align: center;
+    line-height: 1;
+    color: var(--words);
+    pointer-events: none;
+}
+
+.g-eliana {
+    display: block;
+    font-family: 'Are You Serious', cursive;
+    font-size: 5cqw;
+    text-align: left;
+    margin-left: 15%;
+
+}
+
+.g-art {
+    display: block;
+    font-family: 'Asset', serif;
+    font-size: 8cqw;
+    margin: -0.5cqw 0;
+    text-shadow: 0.5cqw 0.5cqw 0 rgba(28, 28, 28, 0.18);
+}
+
+.g-gallery {
+    display: block;
+    font-family: 'Barrio', cursive;
+    font-size: 4cqw;
+    letter-spacing: 1px;
+    margin-top: 3%;
+    text-align: right;
+    margin-right: 10%;    
+}
+
+/* Caption revealed on hover, styled like the site's dark labels */
+.art-caption {
+    position: absolute;
+    left: 20px;
+    right: 12px;
+    bottom: 14px;
+    padding: 10px 14px;
+    background-color: var(--words);
+    /* border-radius: 12px; */
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity .2s ease, transform .2s ease;
+    pointer-events: none;
+}
+
+.art-card:hover .art-caption {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.art-caption h3 {
+    margin: 0;
+    font-size: 12px;
+    color: var(--bkgrd);
+}
+
+.art-caption h4 {
+    margin: 5px 0 0;
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--bkgrd);
 }
 
 /* #brainchip-demo{
@@ -495,27 +649,6 @@ body:has(#content) {
     padding-bottom: 15px;
 }
 
-.art-card img {
-    margin: 30px 0px;
-}
-
-.art-photos h3 {
-    font-size: 15px;
-    margin-bottom: 5px;
-    margin-top: 0;
-    margin-left: 10px;
-}
-
-.art-photos {
-    display: flex;
-    justify-content: center;
-}
-
-.art-photos h4 {
-    font-size: 12px;
-    margin-top: 0;
-    margin-left: 10px;
-}
 
 .page-title {
     margin: 40px 0px 20px 0px;
