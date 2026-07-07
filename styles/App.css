@@ -147,11 +147,30 @@ h3 {
    scales as one unit. */
 .art-gallery {
     position: relative;
-    width: 100%;
-    max-width: 640px;
+    /* aspect-ratio hugs where the frames actually reach (~90% tall) so there's
+       no dead space under the wall and the vertical centering reads true */
     aspect-ratio: 58 / 56;
-    margin: 10px auto 30px;
+    /* Size the whole wall to fill the screen height: width is derived from the
+       available height via the aspect-ratio, capped to the container width. */
+    width: min(100%, calc((100vh - 96px) * 58 / 51));
+    margin: 0;
     container-type: inline-size;
+}
+
+/* Fill the viewport height below the header and center the gallery within it */
+.page.art-page {
+    margin: 0;
+    min-height: calc(100vh - 78px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* The footer is normally pushed down 190px; on the art page bring it up
+   right below the gallery so there's no dead space */
+body:has(.art-page) footer {
+    bottom: 0;
 }
 
 .art-photos {
@@ -170,13 +189,13 @@ h3 {
 }
 
 .art-card:nth-child(2) {   /* dog */
-    left: 40%;
+    left: 41.5%;
     top: 1%;
     width: 25%;
 }
 
 .art-card:nth-child(3) {   /* heart — slightly larger than the dog */
-    left: 70%;
+    left: 73%;
     top: 11%;
     width: 27%;
 }
@@ -233,12 +252,48 @@ h3 {
 }
 
 .art-card:nth-child(6n + 6) {
-    --mat: var(--acnt-pink);
+    --mat: var(--acnt-teal);
+}
+
+/* Hovering nudges the piece like touching a painting on a nail:
+   it swings from the top and settles back straight */
+@keyframes painting-sway {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    15% {
+        transform: rotate(-2.4deg);
+    }
+
+    35% {
+        transform: rotate(1.7deg);
+    }
+
+    55% {
+        transform: rotate(-1.1deg);
+    }
+
+    75% {
+        transform: rotate(0.6deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
 }
 
 .art-card:hover .art-img {
     background-color: var(--mat);
     box-shadow: 13px 13px 0 var(--words);
+    transform-origin: top center;
+    animation: painting-sway 0.7s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .art-card:hover .art-img {
+        animation: none;
+    }
 }
 
 /* Central decorative title — the three Figma display fonts */
@@ -284,10 +339,10 @@ h3 {
 /* Caption revealed on hover, styled like the site's dark labels */
 .art-caption {
     position: absolute;
-    left: 20px;
-    right: 12px;
-    bottom: 14px;
-    padding: 10px 14px;
+    left: 10%;
+    right: 2%;
+    bottom: 2%;
+    padding: 8px 12px;
     background-color: var(--words);
     /* border-radius: 12px; */
     opacity: 0;
@@ -585,34 +640,78 @@ main {
 }
 
 #contact-form {
-    padding-top: 35px;
-    padding-bottom: 35px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px 30px;
+    padding: 28px 10%;
+}
+
+#contact-form h3 {
+    margin: 0;
+    font-size: 15px;
+}
+
+#contact-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 15px;
+}
+
+#contact-links a {
+    padding: 8px 16px;
+    border-radius: 30px;
+    border: 3px solid var(--words);
+    color: var(--words);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    transition: .2s ease;
+}
+
+#contact-links a:hover {
+    box-shadow: 5px 5px var(--words);
 }
 
 footer {
-    position: relative;
-    bottom: -190px;
     width: 100vw;
     font-size: 12px;
     padding-bottom: 10px;
     background-color: var(--prpl);
     border-top: 3px dashed var(--words);
+    flex-shrink: 0;
 }
 
-#content,
-#contact-form p,
-#contact-form h3,
-#contact-form a {
+#content {
     margin: 0 10%;
     transition: .3s ease;
 }
 
+/* Sticky footer on every page: #__next is a full-height flex column, so the
+   footer is always glued to the bottom — resting at the bottom of the viewport
+   when content is short, and pushed below the content on long, scrolling pages.
+   The fixed header is cleared with padding-top rather than a per-page offset. */
+#__next {
+    box-sizing: border-box;
+    min-height: 100vh;
+    padding-top: 77.6px;
+    display: flex;
+    flex-direction: column;
+}
+
+#__next main {
+    position: static;
+    top: 0;
+    flex: 1 0 auto;
+}
+
 /* Homepage only (the single page that renders #content):
-   lock it to one non-scrolling screen — header fixed at top, footer pinned to
-   the bottom, content centered between them. The full-bleed color blocks
-   (header + footer) still reach the screen edges; only the text is inset.
-   Next.js renders the app inside #__next, so the flex column lives there.
-   Every other page keeps its normal scroll with only the header fixed. */
+   additionally lock it to one non-scrolling screen — the full-height flex
+   column above already pins the footer to the bottom; here we just freeze the
+   height to the viewport and center the content between header and footer.
+   The full-bleed color blocks (header + footer) still reach the screen edges. */
 html:has(#content),
 body:has(#content) {
     height: 100vh;
@@ -620,27 +719,15 @@ body:has(#content) {
 }
 
 #__next:has(#content) {
-    box-sizing: border-box;
     height: 100vh;
-    padding-top: 77.6px;
-    display: flex;
-    flex-direction: column;
 }
 
 #__next:has(#content) main {
-    position: static;
-    top: 0;
     flex: 1 1 auto;
     min-height: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
-}
-
-#__next:has(#content) footer {
-    position: static;
-    bottom: 0;
-    flex-shrink: 0;
 }
 
 /* Shrink the contact footer on the locked homepage so it doesn't crowd content */
