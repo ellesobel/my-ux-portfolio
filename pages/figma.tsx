@@ -3,31 +3,17 @@
 import Image from "next/image";
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { useEffect } from "react";
+import { setupVideoToggles } from "../utils/videoToggle";
 
 
 function Figma() {
-    useEffect(() => {
-        const videos = document.querySelectorAll<HTMLVideoElement>('.app-video');
-
-        videos.forEach(video => {
-            video.addEventListener('click', () => {
-                video.paused ? video.play() : video.pause();
-            });
-        });
-
-        return () => {
-            videos.forEach(video => {
-                video.replaceWith(video.cloneNode(true));
-            });
-        };
-    }, []);
+    useEffect(() => setupVideoToggles('.app-video'), []);
 
 
     return (
         <div className="page">
             <h2 className="page-title">Eliana&#39;s Figma Projects</h2>
             <h3 className="page-subtitle">I created these interactive mobile app prototypes using Figma.</h3>
-            <h3 id="tooltip">Tip: Click the phone screens to watch demos of the apps!</h3>
             <section className="projects">
                 <div id="brainchip" className="project">
                     <div className="title-and-link">

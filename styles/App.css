@@ -39,7 +39,7 @@ html {
 
 html {
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
 
 }
 
@@ -50,8 +50,20 @@ body {
     margin-left: 0;
     font-size: 18px;
     cursor: default;
-    height: 100vh;
+    min-height: 100vh;
 
+}
+
+/* Hide the scrollbar while keeping the page scrollable */
+html,
+body {
+    scrollbar-width: none;        /* Firefox */
+    -ms-overflow-style: none;     /* legacy Edge / IE */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none;                /* Chrome / Safari */
 }
 
 .projects {
@@ -131,7 +143,8 @@ h3 {
 } */
 
 .art-img {
-    height: 400px;
+    max-width: 100%;
+    height: auto;
     box-shadow: 20px 20px 1px var(--words);
     padding: 10px;
 }
@@ -152,7 +165,8 @@ h3 {
 } */
 .video-crop {
     width: 245px;
-    height: 500px;
+    max-width: 100%;
+    aspect-ratio: 245 / 500;
     overflow: hidden;
     border-radius: 40px;
     display: flex;
@@ -164,7 +178,77 @@ h3 {
     width: 121%;
     height: 121%;
     object-fit: cover;
-    transform: translateY(-13px);
+    transform: translateY(-2.15%);
+}
+
+/* Clickable demo videos (click to play/pause) show a pointer cursor */
+.app-video,
+.video {
+    cursor: pointer;
+}
+
+/* Ghost play/pause button overlaid on each demo video (injected in JS).
+   No circle/background — just the site's dark-ink icon, matching the rest
+   of the site's aesthetic. */
+.video-crop,
+.web-video-crop {
+    position: relative;
+}
+
+.video-toggle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /* fixed size so the box doesn't resize between the play/pause icons,
+       which would shift the translate-centered position */
+    width: 110px;
+    height: 110px;
+    transform: translate(-50%, -50%);
+    padding: 0;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 3;
+    opacity: 1;
+    transition: opacity .25s ease, transform .2s ease;
+}
+
+.video-toggle:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* Fade the button away once the video is playing; reveal it again on hover */
+.video-toggle.playing {
+    opacity: 0;
+}
+
+.video-crop:hover .video-toggle,
+.web-video-crop:hover .video-toggle {
+    opacity: 1;
+}
+
+.video-icon {
+    width: 110px;
+    height: 110px;
+    fill: var(--bkgrd);
+    filter: drop-shadow(-8px 15px 0px var(--words));
+    border:3px solid var(--acnt-teal);
+    box-shadow: 10px 10px black;
+}
+
+.video-toggle .pause-icon {
+    display: none;
+}
+
+.video-toggle.playing .play-icon {
+    display: none;
+}
+
+.video-toggle.playing .pause-icon {
+    display: block;
 }
 
 .video-align {
@@ -304,7 +388,7 @@ h3 {
     top: 0;
     left: 0;
     padding: 20px;
-    z-index: 2;
+    z-index: 5;
     justify-content: space-between;
     border-bottom: 3px dashed var(--words);
 }
@@ -507,13 +591,16 @@ body:has(#content) {
 
 .text-and-content {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 30px;
 }
 
 .mobile-view,
 .web-photos {
     width: 227px;
-    height: 508px;
+    max-width: 100%;
+    aspect-ratio: 227 / 508;
 }
 
 .project p {
@@ -532,17 +619,19 @@ body:has(#content) {
     margin: auto;
 }
 
+/* width:102% (left-anchored) clips the recording's right scrollbar;
+   object-position bottom keeps the app content and crops the browser header off the top */
 #gallery-web-demo {
     height: 100%;
-    width: 100%;
+    width: 102%;
     object-fit: cover;
-    transform: translateY(-30px);
+    object-position: left bottom;
 }
 #plant-web-demo {
     height: 100%;
-    width: 100%;
+    width: 102%;
     object-fit: cover;
-    transform: translateY(-33px);
+    object-position: left bottom;
 }
 #gallery-mobile-demo {
     width: 100%;
@@ -552,6 +641,7 @@ body:has(#content) {
 
 #gm-crop {
     width: 219px;
+    aspect-ratio: 219 / 500;
     border-radius: 30px;
 }
 
@@ -560,8 +650,11 @@ body:has(#content) {
 }
 
 .web-video-crop {
-    height: 300px;
     width: 600px;
+    max-width: 100%;
+    /* shorter than the native 1920x1140 so the top browser header gets cropped
+       (the video is anchored to the bottom via object-position) */
+    aspect-ratio: 1920 / 1040;
     overflow: hidden;
 }
 
