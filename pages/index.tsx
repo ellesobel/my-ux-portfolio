@@ -35,7 +35,7 @@ function Home() {
                         <p id="p1">Hi! I&#39;m a fourth-year Computer Science student at Washington University in St. Louis, with focuses in Design and Human-Computer Interaction.
                         </p>
                         <p id="p2">
-                            I&#39;m currently doing usability research in the <Link href="https://sites.wustl.edu/greenberglab/synaptrack/">Greenberg Lab on SynapTrack</Link>, a clinical-facing medical app for neurosurgery patients.
+                            I&#39;m currently working part-time as a Product Designer & Full-Stack Developer at Elevated Engineering, building internal tools and AI applications for the firm.
                         </p>
                         <p id="p3">
                             {/* I love blending creativity with functionality to design thoughtful, user-first experiences.

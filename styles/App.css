@@ -511,6 +511,10 @@ body:has(.art-page) footer {
     transition: .2s ease;
 }
 
+#vscode-link{
+    text-wrap: nowrap;
+}
+
 #processing-link button:hover,
 #processing-link.active-link button {
     background-color: var(--acnt-teal);
