@@ -781,7 +781,11 @@ body:has(#content) {
 #music-app a:hover {
     background-color: var(--acnt-lime);
 }
-
+#design-system-frame{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 20px;
+}
 .title-and-link {
     display: flex;
     align-items: center;
@@ -801,7 +805,7 @@ body:has(#content) {
 .projects {
     display: flex;
     flex-direction: column;
-    gap: 50px;
+    /* gap: 50px; */
 }
 
 .project {
@@ -810,14 +814,15 @@ body:has(#content) {
     padding: 30px 40px;
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    /* gap: 30px; */
+    margin-bottom: 30px;
 }
 
 .text-and-content {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 30px;
+    /* gap: 30px; */
 }
 
 .mobile-view,
@@ -834,6 +839,11 @@ body:has(#content) {
 
 .page {
     margin: 0 15%;
+}
+
+.web-view{
+    display: flex;
+    justify-content: center;
 }
 
 .web-view .app-img,

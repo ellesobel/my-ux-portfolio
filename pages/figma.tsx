@@ -122,7 +122,10 @@ function Figma() {
                                 We created a new design system, explored different visualizations of data, and enhanced the accessibility of the app.
                             </li>
                             {/* For the watchface design, we explored goals and miniaturized data visualization. */}
-                            <div>
+                        </ul>
+                        <div id="pnc-media-box">
+
+                            <div id="design-system-frame">
                                 <Image className="web-view" id="design-system"
                                     src="/images/pnc_design_system.png"
                                     alt="PNC App Design System"
@@ -130,23 +133,23 @@ function Figma() {
                                     height={671 / 2}
                                 />
                             </div>
-                        </ul>
 
 
-                        <div className="video-align">
-                            <div className="video-crop">
-                                <video
-                                    className="app-video"
-                                    id="pnc-demo"
-                                    width={1920}
-                                    height={1140}
-                                    // autoPlay
-                                    loop
-                                    muted
-                                    playsInline
-                                >
-                                    <source src="/images/pnc_demo.mp4" type="video/mp4" />
-                                </video>
+                            <div className="video-align">
+                                <div className="video-crop">
+                                    <video
+                                        className="app-video"
+                                        id="pnc-demo"
+                                        width={1920}
+                                        height={1140}
+                                        // autoPlay
+                                        loop
+                                        muted
+                                        playsInline
+                                    >
+                                        <source src="/images/pnc_demo.mp4" type="video/mp4" />
+                                    </video>
+                                </div>
                             </div>
                         </div>
                     </div>

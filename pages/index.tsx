@@ -47,7 +47,7 @@ function Home() {
                             {/* I have experience working with tools like Figma and Adobe Illustrator for interface and visual design,
                             and I use HTML, CSS, JavaScript, and React to bring those designs to life on the web.
                             I build polished and responsive front-end experiences that utilize clean code while maintaining user-friendly design principles. */}
-                            I work across Figma / Illustrator for visual design and code in React, HTML, CSS, and JavaScript to bring those designs to life.
+                            I work with Figma for visual design and code in React, HTML, CSS, and JavaScript to bring those designs to life.
                         </p>
                     </div>
                     {/* <Image className="me"
