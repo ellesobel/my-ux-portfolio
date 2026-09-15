@@ -369,6 +369,67 @@ body:has(.art-page) footer {
     color: var(--bkgrd);
 }
 
+/* Phone-only lightbox: tapping a piece opens it large with its caption.
+   Tapping anywhere except the image itself closes it again. */
+.art-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background-color: rgba(28, 28, 28, .82);
+}
+
+.art-modal-inner {
+    margin: 0;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+.art-modal-img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 62vh;
+    box-sizing: border-box;
+    padding: 8px;                        /* white mat, same as the wall */
+    background-color: #fff;
+    border: 2px solid var(--words);
+    box-shadow: 9px 9px 0 var(--words);
+}
+
+.art-modal-caption {
+    max-width: 100%;
+    padding: 10px 14px;
+    background-color: var(--words);
+}
+
+.art-modal-caption h3 {
+    margin: 0;
+    font-size: 13px;
+    color: var(--bkgrd);
+}
+
+.art-modal-caption h4 {
+    margin: 5px 0 0;
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--bkgrd);
+}
+
+/* Belt and braces — the wall's hover captions cover anything wider than a phone */
+@media(min-width:651px) {
+    .art-modal {
+        display: none;
+    }
+}
+
 /* #brainchip-demo{
     width: 400px;
 } */
