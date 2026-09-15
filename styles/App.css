@@ -1040,16 +1040,6 @@ body:has(#content) {
         transition: .3s ease;
     }
 
-    #subtitle {
-        background-color: var(--acnt-blue);
-        border-radius: 20px 0px 0px 0px;
-        padding-bottom: 45px;
-        margin-bottom: -55px;
-        position: relative;
-        z-index: 0;
-        border: 3px solid var(--words);
-    }
-
     #about p,
     #subtitle {
         width: 60vw;
@@ -1065,8 +1055,7 @@ body:has(#content) {
     }
 
     #p2,
-    #p4,
-    #subtitle {
+    #p4 {
         padding-right: 50vw;
         margin-right: -50vw;
         padding-left: 30px;
@@ -1127,8 +1116,22 @@ body:has(#content) {
         transition: .3s ease;
     }
 
-    #subtitle{
+    /* The blue name card is part of the mobile layout, so it only appears at the
+       same width the title and chips drop out. Above this it stays plain text,
+       and you never get the card alongside the desktop header row. */
+    #subtitle {
         margin-top: -60px;
+        background-color: var(--acnt-blue);
+        border: 3px solid var(--words);
+        border-radius: 20px 0px 0px 0px;
+        padding-bottom: 45px;
+        padding-left: 30px;
+        padding-right: 50vw;
+        margin-bottom: -55px;
+        margin-left: -30px;
+        margin-right: -50vw;
+        position: relative;
+        z-index: 0;
     }
     #content {
         margin-top: 20px;
@@ -1283,7 +1286,7 @@ body:has(#content) {
 
 /* Below 850px #subtitle becomes the blue block above the other four, so it
    leads the sequence and the rest shift back one step */
-@media(max-width:850px) {
+@media(max-width:650px) {
     #subtitle {
         animation: block-in-right var(--block-slide) var(--block-ease) both;
         animation-delay: 0s;
