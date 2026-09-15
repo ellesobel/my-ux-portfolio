@@ -12,10 +12,10 @@ function Home() {
                 <div id="portfolio-links">
                     <nav>
                         <Link href="/figma" id="figma-link">
-                            <button>My Figma Projects</button>
+                            <button>My UI &amp; Design Projects</button>
                         </Link>
                         <Link href="/webdev" id="vscode-link">
-                            <button>My Web Dev Projects</button>
+                            <button>My Coding Projects</button>
                         </Link>
                         {/* <Link href="/processing" id="processing-link">
                             <button>My Processing Code-Art Projects</button>

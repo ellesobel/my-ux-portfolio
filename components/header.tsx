@@ -15,10 +15,10 @@ function Header() {
                         <button>Home</button>
                     </Link>
                     <Link href="/figma" id="figma-link" className={pathname === '/figma' ? 'active-link' : ''}>
-                        <button>Figma</button>
+                        <button>UI &amp; Design</button>
                     </Link>
                     <Link href="/webdev" id="vscode-link" className={pathname === '/webdev' ? 'active-link' : ''}>
-                        <button>Web Dev</button>
+                        <button>Coding</button>
                     </Link>
                     {/* <Link href="/processing" id="processing-link" className={pathname === '/processing' ? 'active-link' : ''}>
                         <button>Processing</button>

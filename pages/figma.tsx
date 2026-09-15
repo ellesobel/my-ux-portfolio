@@ -12,7 +12,7 @@ function Figma() {
 
     return (
         <div className="page">
-            <h2 className="page-title">Eliana&#39;s Figma Projects</h2>
+            <h2 className="page-title">Eliana&#39;s UI &amp; Design Projects</h2>
             <h3 className="page-subtitle">I created these interactive mobile app prototypes using Figma.</h3>
             <section className="projects">
                 <div id="brainchip" className="project">

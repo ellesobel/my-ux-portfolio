@@ -9,7 +9,7 @@ function webdev() {
     useEffect(() => setupVideoToggles('.video'), []);
     return (
         <div className="page">
-            <h2 className="page-title">Eliana&#39;s Web Dev Projects</h2>
+            <h2 className="page-title">Eliana&#39;s Coding Projects</h2>
             {/* <h3 className="page-subtitle">I created these applications using VSCode.</h3> */}
             <section className="projects">
                 <div id="plant-log" className="project">
