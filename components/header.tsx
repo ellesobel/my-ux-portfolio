@@ -14,11 +14,11 @@ function Header() {
                     <Link href="/" id="home-link" className={pathname === '/' ? 'active-link' : ''}>
                         <button>Home</button>
                     </Link>
-                    <Link href="/figma" id="figma-link" className={pathname === '/figma' ? 'active-link' : ''}>
-                        <button>Figma</button>
+                    <Link href="/design" id="figma-link" className={pathname === '/design' ? 'active-link' : ''}>
+                        <button>UI &amp; Design</button>
                     </Link>
-                    <Link href="/webdev" id="vscode-link" className={pathname === '/webdev' ? 'active-link' : ''}>
-                        <button>Web Dev</button>
+                    <Link href="/coding" id="vscode-link" className={pathname === '/coding' ? 'active-link' : ''}>
+                        <button>Coding</button>
                     </Link>
                     {/* <Link href="/processing" id="processing-link" className={pathname === '/processing' ? 'active-link' : ''}>
                         <button>Processing</button>

@@ -9,6 +9,11 @@
     --acnt-orange: #fac439;
     --acnt-blue: #7291ff;
     --words: rgb(28, 28, 28);
+
+    /* Homepage colour-block entrance — the only numbers worth tuning */
+    --block-slide: 1.25s;      /* how long each block takes to arrive */
+    --block-stagger: .2s;      /* gap before the next block starts */
+    --block-ease: cubic-bezier(.22, .61, .36, 1);
 }
 
 
@@ -367,6 +372,67 @@ body:has(.art-page) footer {
     font-size: 11px;
     font-weight: 400;
     color: var(--bkgrd);
+}
+
+/* Phone-only lightbox: tapping a piece opens it large with its caption.
+   Tapping anywhere except the image itself closes it again. */
+.art-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background-color: rgba(28, 28, 28, .82);
+}
+
+.art-modal-inner {
+    margin: 0;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+.art-modal-img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 62vh;
+    box-sizing: border-box;
+    padding: 8px;                        /* white mat, same as the wall */
+    background-color: #fff;
+    border: 2px solid var(--words);
+    box-shadow: 9px 9px 0 var(--words);
+}
+
+.art-modal-caption {
+    max-width: 100%;
+    padding: 10px 14px;
+    background-color: var(--words);
+}
+
+.art-modal-caption h3 {
+    margin: 0;
+    font-size: 13px;
+    color: var(--bkgrd);
+}
+
+.art-modal-caption h4 {
+    margin: 5px 0 0;
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--bkgrd);
+}
+
+/* Belt and braces — the wall's hover captions cover anything wider than a phone */
+@media(min-width:651px) {
+    .art-modal {
+        display: none;
+    }
 }
 
 /* #brainchip-demo{
@@ -1069,5 +1135,98 @@ body:has(#content) {
 
     #nav-buttons button {
         padding: 10px;
+    }
+}
+/* Colour blocks slide in on arrival at the homepage, top to bottom, each from
+   the side it already bleeds off: lime from the left, pink from the right,
+   teal from the left, orange from the right. Placed last in the file so the
+   staggered delays win over the breakpoint rules above.
+   `both` holds each block off-screen through its delay, so nothing flashes in
+   its final position first. The homepage is overflow:hidden, so the off-screen
+   start positions can't produce a scrollbar. */
+@keyframes block-in-left {
+    from {
+        transform: translateX(-100vw);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes block-in-right {
+    from {
+        transform: translateX(100vw);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* #subtitle carries the name; above 850px it has no colour of its own and sits
+   on the lime block's row, so it rides in on that same slide (the shorthand
+   gives it delay 0, in step with #p1). Below 850px it becomes the blue block
+   and the override further down sends it in from the right instead. */
+#subtitle,
+#p1,
+#p3 {
+    animation: block-in-left var(--block-slide) var(--block-ease) both;
+}
+
+#p2,
+#p4 {
+    animation: block-in-right var(--block-slide) var(--block-ease) both;
+}
+
+#p1 {
+    animation-delay: 0s;
+}
+
+#p2 {
+    animation-delay: var(--block-stagger);
+}
+
+#p3 {
+    animation-delay: calc(var(--block-stagger) * 2);
+}
+
+#p4 {
+    animation-delay: calc(var(--block-stagger) * 3);
+}
+
+/* Below 850px #subtitle becomes the blue block above the other four, so it
+   leads the sequence and the rest shift back one step */
+@media(max-width:850px) {
+    #subtitle {
+        animation: block-in-right var(--block-slide) var(--block-ease) both;
+        animation-delay: 0s;
+    }
+
+    #p1 {
+        animation-delay: var(--block-stagger);
+    }
+
+    #p2 {
+        animation-delay: calc(var(--block-stagger) * 2);
+    }
+
+    #p3 {
+        animation-delay: calc(var(--block-stagger) * 3);
+    }
+
+    #p4 {
+        animation-delay: calc(var(--block-stagger) * 4);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    #subtitle,
+    #p1,
+    #p2,
+    #p3,
+    #p4 {
+        animation: none;
     }
 }

@@ -5,11 +5,11 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { useEffect } from "react";
 import { setupVideoToggles } from "../utils/videoToggle";
 
-function webdev() {
+function Coding() {
     useEffect(() => setupVideoToggles('.video'), []);
     return (
         <div className="page">
-            <h2 className="page-title">Eliana&#39;s Web Dev Projects</h2>
+            <h2 className="page-title">Eliana&#39;s Coding Projects</h2>
             {/* <h3 className="page-subtitle">I created these applications using VSCode.</h3> */}
             <section className="projects">
                 <div id="plant-log" className="project">
@@ -181,4 +181,4 @@ function webdev() {
     );
 }
 
-export default webdev;
+export default Coding;
