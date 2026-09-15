@@ -439,8 +439,7 @@ body:has(.art-page) footer {
     width: 400px;
 } */
 .video-crop {
-    width: 245px;
-    max-width: 100%;
+    width: min(245px, 100%);
     aspect-ratio: 245 / 500;
     overflow: hidden;
     border-radius: 40px;
@@ -512,6 +511,26 @@ body:has(.art-page) footer {
     filter: drop-shadow(-8px 15px 0px var(--words));
     border:3px solid var(--acnt-teal);
     box-shadow: 10px 10px black;
+}
+
+/* The crops shrink with the viewport now, so a fixed 110px control would cover
+   half the video on a phone. Scale it with its crop instead, capped at the
+   desktop size so it meets that size exactly at the breakpoint. */
+@media(max-width:650px) {
+    .video-toggle {
+        width: min(110px, 28%);
+        height: auto;
+        aspect-ratio: 1;
+    }
+
+    .video-icon {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1;
+        border-width: 2px;
+        filter: drop-shadow(-4px 7px 0px var(--words));
+        box-shadow: 5px 5px black;
+    }
 }
 
 .video-toggle .pause-icon {
@@ -891,10 +910,21 @@ body:has(#content) {
     /* gap: 30px; */
 }
 
+/* A flex item's default min-width:auto pins it to its content's width, so the
+   600px demo crop inside kept the whole column at 600px and its own
+   max-width:100% could never apply — the bullet text and both videos ran off
+   the right edge below 650px. Allowing these to shrink is what lets every
+   width clamp below actually take effect. */
+.text-and-content > *,
+.web-view,
+.web-photos,
+.mobile-view {
+    min-width: 0;
+}
+
 .mobile-view,
 .web-photos {
-    width: 227px;
-    max-width: 100%;
+    width: min(227px, 100%);
     aspect-ratio: 227 / 508;
 }
 
@@ -940,7 +970,7 @@ body:has(#content) {
 }
 
 #gm-crop {
-    width: 219px;
+    width: min(219px, 100%);
     aspect-ratio: 219 / 500;
     border-radius: 30px;
 }
@@ -950,8 +980,7 @@ body:has(#content) {
 }
 
 .web-video-crop {
-    width: 600px;
-    max-width: 100%;
+    width: min(600px, 100%);
     /* shorter than the native 1920x1140 so the top browser header gets cropped
        (the video is anchored to the bottom via object-position) */
     aspect-ratio: 1920 / 1040;
