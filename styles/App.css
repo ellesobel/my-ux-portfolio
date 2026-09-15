@@ -9,6 +9,11 @@
     --acnt-orange: #fac439;
     --acnt-blue: #7291ff;
     --words: rgb(28, 28, 28);
+
+    /* Homepage colour-block entrance — the only numbers worth tuning */
+    --block-slide: 1.25s;      /* how long each block takes to arrive */
+    --block-stagger: .2s;      /* gap before the next block starts */
+    --block-ease: cubic-bezier(.22, .61, .36, 1);
 }
 
 
@@ -1161,12 +1166,12 @@ body:has(#content) {
 
 #p1,
 #p3 {
-    animation: block-in-left .75s cubic-bezier(.22, .61, .36, 1) both;
+    animation: block-in-left var(--block-slide) var(--block-ease) both;
 }
 
 #p2,
 #p4 {
-    animation: block-in-right .75s cubic-bezier(.22, .61, .36, 1) both;
+    animation: block-in-right var(--block-slide) var(--block-ease) both;
 }
 
 #p1 {
@@ -1174,39 +1179,39 @@ body:has(#content) {
 }
 
 #p2 {
-    animation-delay: .12s;
+    animation-delay: var(--block-stagger);
 }
 
 #p3 {
-    animation-delay: .24s;
+    animation-delay: calc(var(--block-stagger) * 2);
 }
 
 #p4 {
-    animation-delay: .36s;
+    animation-delay: calc(var(--block-stagger) * 3);
 }
 
 /* Below 850px #subtitle becomes the blue block above the other four, so it
    leads the sequence and the rest shift back one step */
 @media(max-width:850px) {
     #subtitle {
-        animation: block-in-right .75s cubic-bezier(.22, .61, .36, 1) both;
+        animation: block-in-right var(--block-slide) var(--block-ease) both;
         animation-delay: 0s;
     }
 
     #p1 {
-        animation-delay: .12s;
+        animation-delay: var(--block-stagger);
     }
 
     #p2 {
-        animation-delay: .24s;
+        animation-delay: calc(var(--block-stagger) * 2);
     }
 
     #p3 {
-        animation-delay: .36s;
+        animation-delay: calc(var(--block-stagger) * 3);
     }
 
     #p4 {
-        animation-delay: .48s;
+        animation-delay: calc(var(--block-stagger) * 4);
     }
 }
 
