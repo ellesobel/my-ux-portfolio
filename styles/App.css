@@ -1132,3 +1132,91 @@ body:has(#content) {
         padding: 10px;
     }
 }
+/* Colour blocks slide in on arrival at the homepage, top to bottom, each from
+   the side it already bleeds off: lime from the left, pink from the right,
+   teal from the left, orange from the right. Placed last in the file so the
+   staggered delays win over the breakpoint rules above.
+   `both` holds each block off-screen through its delay, so nothing flashes in
+   its final position first. The homepage is overflow:hidden, so the off-screen
+   start positions can't produce a scrollbar. */
+@keyframes block-in-left {
+    from {
+        transform: translateX(-100vw);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes block-in-right {
+    from {
+        transform: translateX(100vw);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+#p1,
+#p3 {
+    animation: block-in-left .75s cubic-bezier(.22, .61, .36, 1) both;
+}
+
+#p2,
+#p4 {
+    animation: block-in-right .75s cubic-bezier(.22, .61, .36, 1) both;
+}
+
+#p1 {
+    animation-delay: 0s;
+}
+
+#p2 {
+    animation-delay: .12s;
+}
+
+#p3 {
+    animation-delay: .24s;
+}
+
+#p4 {
+    animation-delay: .36s;
+}
+
+/* Below 850px #subtitle becomes the blue block above the other four, so it
+   leads the sequence and the rest shift back one step */
+@media(max-width:850px) {
+    #subtitle {
+        animation: block-in-right .75s cubic-bezier(.22, .61, .36, 1) both;
+        animation-delay: 0s;
+    }
+
+    #p1 {
+        animation-delay: .12s;
+    }
+
+    #p2 {
+        animation-delay: .24s;
+    }
+
+    #p3 {
+        animation-delay: .36s;
+    }
+
+    #p4 {
+        animation-delay: .48s;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    #subtitle,
+    #p1,
+    #p2,
+    #p3,
+    #p4 {
+        animation: none;
+    }
+}
