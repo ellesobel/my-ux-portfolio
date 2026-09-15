@@ -1164,6 +1164,11 @@ body:has(#content) {
     }
 }
 
+/* #subtitle carries the name; above 850px it has no colour of its own and sits
+   on the lime block's row, so it rides in on that same slide (the shorthand
+   gives it delay 0, in step with #p1). Below 850px it becomes the blue block
+   and the override further down sends it in from the right instead. */
+#subtitle,
 #p1,
 #p3 {
     animation: block-in-left var(--block-slide) var(--block-ease) both;
