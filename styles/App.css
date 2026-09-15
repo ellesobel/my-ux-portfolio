@@ -1319,3 +1319,35 @@ body:has(#content) {
         animation: none;
     }
 }
+
+/* Loading placeholder for images and videos. The shimmer sits in the media's
+   own box, so it fills the space the picture will occupy rather than leaving a
+   blank gap, and utils/mediaPlaceholder.ts drops the class the moment the image
+   loads or the video has its first frame. */
+@keyframes media-shimmer {
+    from {
+        background-position: 100% 0;
+    }
+
+    to {
+        background-position: -100% 0;
+    }
+}
+
+.media-loading {
+    background-image: linear-gradient(90deg,
+            var(--proj-bkgrd) 0%,
+            rgba(255, 255, 255, .8) 50%,
+            var(--proj-bkgrd) 100%);
+    background-size: 200% 100%;
+    background-repeat: no-repeat;
+    animation: media-shimmer 1.2s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .media-loading {
+        animation: none;
+        background-image: none;
+        background-color: var(--proj-bkgrd);
+    }
+}
