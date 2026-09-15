@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { setupVideoToggles } from "../utils/videoToggle";
 
 
-function Figma() {
+function Design() {
     useEffect(() => setupVideoToggles('.app-video'), []);
 
 
@@ -219,4 +219,4 @@ function Figma() {
     );
 }
 
-export default Figma;
+export default Design;

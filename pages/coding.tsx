@@ -5,7 +5,7 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { useEffect } from "react";
 import { setupVideoToggles } from "../utils/videoToggle";
 
-function webdev() {
+function Coding() {
     useEffect(() => setupVideoToggles('.video'), []);
     return (
         <div className="page">
@@ -181,4 +181,4 @@ function webdev() {
     );
 }
 
-export default webdev;
+export default Coding;

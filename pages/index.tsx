@@ -11,10 +11,10 @@ function Home() {
 
                 <div id="portfolio-links">
                     <nav>
-                        <Link href="/figma" id="figma-link">
+                        <Link href="/design" id="figma-link">
                             <button>My UI &amp; Design Projects</button>
                         </Link>
-                        <Link href="/webdev" id="vscode-link">
+                        <Link href="/coding" id="vscode-link">
                             <button>My Coding Projects</button>
                         </Link>
                         {/* <Link href="/processing" id="processing-link">
