@@ -998,7 +998,10 @@ body:has(#content) {
         margin: 0 10%;
     }
     #portfolio-links nav {
-        max-width: 600px;
+        /* No max-width: the three buttons need 621px on one line, so a 600px
+           cap forced them onto a second row and cost ~60px of height, which is
+           what pushed the locked homepage off screen on short laptops. They
+           now wrap only when the content column is genuinely too narrow. */
         gap: 1rem;
         justify-content: left;
         transition: .3s ease;
@@ -1166,6 +1169,60 @@ body:has(#content) {
         padding: 10px;
     }
 }
+/* Short viewports — a laptop, or any screen at browser zoom. The homepage is
+   locked to one screen, so instead of letting the content spill under the
+   header and over the footer, reclaim the neutral vertical gaps. Deliberately
+   no font-size changes and no change to the colour blocks' staggered overlap
+   (that comes from padding-bottom + margin-bottom, both untouched). */
+@media (max-height: 740px) {
+    #__next:has(#content) #portfolio-links nav {
+        padding-top: 4px;
+        padding-bottom: 4px;
+    }
+
+    #__next:has(#content) #subtitle {
+        margin-top: 6px;
+    }
+
+    #__next:has(#content) #about p {
+        padding-top: 10px;
+    }
+}
+
+/* Very short viewports. Still no font-size change — the paragraphs' leading
+   tightens instead, which buys height while the type stays the size it is. */
+@media (max-height: 710px) {
+    #__next:has(#content) #portfolio-links nav {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    #__next:has(#content) #subtitle {
+        margin-top: 0;
+    }
+
+    #__next:has(#content) #about p {
+        padding-top: 6px;
+        line-height: 1.15;          /* tighter than the 1.2 default, not looser */
+    }
+
+    #__next:has(#content) #p4 {
+        padding-bottom: 8px;
+    }
+}
+
+/* Shortest tier. Pulling the chips this close under the title is only worth it
+   when there's genuinely nothing left to give. */
+@media (max-height: 660px) {
+    #__next:has(#content) h1 {
+        margin-bottom: -18px;
+    }
+
+    #__next:has(#content) #about p {
+        padding-top: 4px;
+    }
+}
+
 /* Colour blocks slide in on arrival at the homepage, top to bottom, each from
    the side it already bleeds off: lime from the left, pink from the right,
    teal from the left, orange from the right. Placed last in the file so the
