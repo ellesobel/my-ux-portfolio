@@ -53,7 +53,11 @@ body {
     background-color: var(--bkgrd);
     overflow-x: hidden;
     width: 100vw;
-    margin-left: 0;
+    /* The reset above says `margin: none`, which is not valid CSS and is
+       dropped, so the UA's default 8px stayed and made every page 8px taller
+       than the viewport — enough for the footer's bottom edge to sit under
+       Android's navigation bar. */
+    margin: 0;
     font-size: 18px;
     cursor: default;
     min-height: 100vh;
@@ -167,6 +171,7 @@ h3 {
 .page.art-page {
     margin: 0;
     min-height: calc(100vh - 78px);
+    min-height: calc(100dvh - 78px);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -779,6 +784,7 @@ footer {
     width: 100vw;
     font-size: 12px;
     padding-bottom: 10px;
+    padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
     background-color: var(--prpl);
     border-top: 3px dashed var(--words);
     flex-shrink: 0;
@@ -796,6 +802,7 @@ footer {
 #__next {
     box-sizing: border-box;
     min-height: 100vh;
+    min-height: 100dvh;
     padding-top: 77.6px;
     display: flex;
     flex-direction: column;
@@ -815,11 +822,17 @@ footer {
 html:has(#content),
 body:has(#content) {
     height: 100vh;
+    /* 100vh is the LARGEST viewport, so on Android it reaches under the system
+       navigation bar and the locked homepage put its footer beneath it. dvh
+       tracks the viewport actually on screen. Declared second, so a browser
+       without dvh simply ignores it and keeps the vh behaviour. */
+    height: 100dvh;
     overflow: hidden;
 }
 
 #__next:has(#content) {
     height: 100vh;
+    height: 100dvh;
 }
 
 #__next:has(#content) main {
