@@ -1474,3 +1474,30 @@ body:has(#content) {
         margin-bottom: -64px;
     }
 }
+
+/* Inner pages on mobile: the 40px page title wrapped to three lines, and the
+   project buttons sat left while everything around them was centred. */
+@media(max-width:650px) {
+    .page-title {
+        font-size: 26px;
+        margin: 24px 0 16px;
+    }
+
+    .page-subtitle {
+        font-size: 13px;
+    }
+
+    .title-and-link {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .text-col {
+        align-items: center;
+    }
+
+    #design-process {
+        align-self: center;
+    }
+}
