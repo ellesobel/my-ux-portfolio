@@ -2,6 +2,7 @@ import "../styles/App.css";
 import Header from "../components/header";
 
 import type { AppProps } from "next/app";
+import Head from "next/head";
 import { useEffect } from "react";
 import ContactForm from "../components/contactform";
 import { setupMediaPlaceholders } from "../utils/mediaPlaceholder";
@@ -13,6 +14,12 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <>
+      <Head>
+        {/* Without initial-scale, iOS Safari shrinks the whole page to fit any
+            content wider than the screen — which showed up as a strip of dead
+            space down the right-hand side on a phone. */}
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
       <Header />
       <main>
         <Component {...pageProps} />
