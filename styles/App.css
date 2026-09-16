@@ -4,7 +4,7 @@
     --prpl: #dec1df;
     --prpl-dark: #c6a3c7;
     --acnt-teal: #3ccac5;
-    --acnt-pink: #f8578a;
+    --acnt-pink: #ff8eb2;
     --acnt-lime: #a6e54d;
     --acnt-orange: #fac439;
     --acnt-blue: #7291ff;
@@ -635,7 +635,7 @@ body:has(.art-page) footer {
 #p1,
 #p3 {
 
-    border-radius: 0px 20px 0px 0px;
+    border-radius: 20px 20px 20px 20px;
     padding-left: 50vw;
     margin-left: -50vw;
     padding-right: 20px;
@@ -659,7 +659,7 @@ body:has(.art-page) footer {
 }
 
 #p2 {
-    border-radius: 20px 0px 0px 0px;
+    border-radius: 20px 20px 20px 20px;
     background-color: var(--acnt-pink);
 }
 
@@ -998,7 +998,10 @@ body:has(#content) {
         margin: 0 10%;
     }
     #portfolio-links nav {
-        max-width: 600px;
+        /* No max-width: the three buttons need 621px on one line, so a 600px
+           cap forced them onto a second row and cost ~60px of height, which is
+           what pushed the locked homepage off screen on short laptops. They
+           now wrap only when the content column is genuinely too narrow. */
         gap: 1rem;
         justify-content: left;
         transition: .3s ease;
@@ -1166,6 +1169,60 @@ body:has(#content) {
         padding: 10px;
     }
 }
+/* Short viewports — a laptop, or any screen at browser zoom. The homepage is
+   locked to one screen, so instead of letting the content spill under the
+   header and over the footer, reclaim the neutral vertical gaps. Deliberately
+   no font-size changes and no change to the colour blocks' staggered overlap
+   (that comes from padding-bottom + margin-bottom, both untouched). */
+@media (max-height: 740px) {
+    #__next:has(#content) #portfolio-links nav {
+        padding-top: 4px;
+        padding-bottom: 4px;
+    }
+
+    #__next:has(#content) #subtitle {
+        margin-top: 6px;
+    }
+
+    #__next:has(#content) #about p {
+        padding-top: 10px;
+    }
+}
+
+/* Very short viewports. Still no font-size change — the paragraphs' leading
+   tightens instead, which buys height while the type stays the size it is. */
+@media (max-height: 710px) {
+    #__next:has(#content) #portfolio-links nav {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    #__next:has(#content) #subtitle {
+        margin-top: 0;
+    }
+
+    #__next:has(#content) #about p {
+        padding-top: 6px;
+        line-height: 1.15;          /* tighter than the 1.2 default, not looser */
+    }
+
+    #__next:has(#content) #p4 {
+        padding-bottom: 8px;
+    }
+}
+
+/* Shortest tier. Pulling the chips this close under the title is only worth it
+   when there's genuinely nothing left to give. */
+@media (max-height: 660px) {
+    #__next:has(#content) h1 {
+        margin-bottom: -18px;
+    }
+
+    #__next:has(#content) #about p {
+        padding-top: 4px;
+    }
+}
+
 /* Colour blocks slide in on arrival at the homepage, top to bottom, each from
    the side it already bleeds off: lime from the left, pink from the right,
    teal from the left, orange from the right. Placed last in the file so the
@@ -1257,5 +1314,37 @@ body:has(#content) {
     #p3,
     #p4 {
         animation: none;
+    }
+}
+
+/* Loading placeholder for images and videos. The shimmer sits in the media's
+   own box, so it fills the space the picture will occupy rather than leaving a
+   blank gap, and utils/mediaPlaceholder.ts drops the class the moment the image
+   loads or the video has its first frame. */
+@keyframes media-shimmer {
+    from {
+        background-position: 100% 0;
+    }
+
+    to {
+        background-position: -100% 0;
+    }
+}
+
+.media-loading {
+    background-image: linear-gradient(90deg,
+            var(--proj-bkgrd) 0%,
+            rgba(255, 255, 255, .8) 50%,
+            var(--proj-bkgrd) 100%);
+    background-size: 200% 100%;
+    background-repeat: no-repeat;
+    animation: media-shimmer 1.2s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .media-loading {
+        animation: none;
+        background-image: none;
+        background-color: var(--proj-bkgrd);
     }
 }
