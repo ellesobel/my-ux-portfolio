@@ -1348,3 +1348,69 @@ body:has(#content) {
         background-color: var(--proj-bkgrd);
     }
 }
+
+/* Mobile header and footer: the wordmark and "Get in touch" label are dropped —
+   the name is already the first thing on the page, and two link chips read as
+   contact details without a heading. That frees the whole bar for the nav, so
+   the four buttons fit across without wrapping or clipping.
+   border-box matters here: #header is width:100% plus padding, which on the
+   default content-box overflowed the viewport by twice its padding and was what
+   pushed the last button off screen. */
+@media(max-width:650px) {
+    #header {
+        box-sizing: border-box;
+        padding: 10px 12px;
+        justify-content: center;
+    }
+
+    #header h3 {
+        display: none;
+    }
+
+    #nav-buttons {
+        width: 100%;
+        margin-right: 0;
+        gap: 8px;
+        justify-content: space-between;
+    }
+
+    #header button {
+        padding: 8px 10px;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+
+    #contact-form {
+        justify-content: center;
+        padding: 14px 16px;
+    }
+
+    #contact-form h3 {
+        display: none;
+    }
+
+    #contact-links {
+        justify-content: center;
+        gap: 10px;
+    }
+
+    #contact-links a {
+        font-size: 13px;
+        padding: 7px 14px;
+        white-space: nowrap;
+    }
+}
+
+/* Narrowest phones: the two chips need ~15px more than a 320px screen leaves,
+   and a wrapped footer costs the locked homepage 46px of content height, so
+   trim the chips rather than let them stack. */
+@media(max-width:345px) {
+    #contact-form {
+        padding: 12px 10px;
+    }
+
+    #contact-links a {
+        font-size: 12px;
+        padding: 6px 11px;
+    }
+}
