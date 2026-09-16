@@ -1348,25 +1348,3 @@ body:has(#content) {
         background-color: var(--proj-bkgrd);
     }
 }
-
-/* Tall viewports — a tablet in portrait, or a big external display. The locked
-   homepage otherwise centres a fixed-height band and leaves the rest blank
-   (557px of a 1368-tall screen). The colour blocks breathe into that room
-   instead: each band's padding and the gaps above them grow in proportion to
-   the height BEYOND 900px, so at ordinary laptop heights this contributes
-   exactly 0 and nothing moves. Type size is untouched — only spacing grows. */
-@media (min-height: 901px) {
-    #__next:has(#content) #portfolio-links nav {
-        padding-top: calc(20px + clamp(0px, (100vh - 900px) * .07, 34px));
-        padding-bottom: calc(20px + clamp(0px, (100vh - 900px) * .07, 34px));
-    }
-
-    #__next:has(#content) #subtitle {
-        margin-top: calc(30px + clamp(0px, (100vh - 900px) * .06, 30px));
-    }
-
-    #__next:has(#content) #about p {
-        padding-top: calc(15px + clamp(0px, (100vh - 900px) * .085, 42px));
-        padding-bottom: calc(45px + clamp(0px, (100vh - 900px) * .085, 42px));
-    }
-}
