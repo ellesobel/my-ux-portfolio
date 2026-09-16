@@ -1449,8 +1449,12 @@ body:has(#content) {
     /* Tighter band above and below the name. padding-bottom and margin-bottom
        move together so their sum is unchanged, which keeps the next block in
        exactly the same place — only the blue band itself gets shorter. */
+    /* Centres the name in the blue band: the text sat 3px from the top and
+       24px from the bottom. padding-top and padding-bottom still sum to 30, so
+       the block's height and everything below it are unchanged. */
     #subtitle {
-        padding-bottom: 30px;
+        padding-top: 10px;
+        padding-bottom: 20px;
         margin-bottom: -40px;
     }
 
@@ -1512,5 +1516,41 @@ body:has(#content) {
 
     #design-process {
         align-self: center;
+    }
+}
+
+/* Art page on mobile: lock it to one screen like the homepage, so the footer is
+   there without scrolling. The desktop rules size the wall off viewport height
+   minus a 78px header, but the mobile header is 56px and the footer 76px, which
+   left the page 55px taller than the screen. Here the gallery simply takes the
+   width and the flex column centres it in what is left. */
+@media(max-width:650px) {
+    html:has(.art-page),
+    body:has(.art-page) {
+        height: 100vh;
+        height: 100dvh;
+        overflow: hidden;
+    }
+
+    #__next:has(.art-page) {
+        height: 100vh;
+        height: 100dvh;
+    }
+
+    #__next:has(.art-page) main {
+        flex: 1 1 auto;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .page.art-page {
+        min-height: 0;
+        flex: 1 1 auto;
+    }
+
+    .art-gallery {
+        width: 100%;
     }
 }
