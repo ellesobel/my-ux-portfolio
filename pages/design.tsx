@@ -23,7 +23,7 @@ function Design() {
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            Access Prototype <OpenInNewIcon />
+                            Prototype <OpenInNewIcon />
                         </a>
                     </div>
                     <div className="text-and-content">
@@ -34,7 +34,7 @@ function Design() {
                                 rel="noopener noreferrer"
                                 id="design-process"
                             >
-                                My Design Process <OpenInNewIcon />
+                                Design Process <OpenInNewIcon />
                             </a>
                             <ul>
                                 <li>Inspired by <em>Neuralink</em> and <em>Black Mirror</em>, I visualized an assistant app for what a possible user experience might look like for a dystopian government-mandated thought-surveillance system.</li>
@@ -70,7 +70,7 @@ function Design() {
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            Access Prototype <OpenInNewIcon />
+                            Prototype <OpenInNewIcon />
                         </a>
                     </div>
                     <div className="text-and-content">
@@ -109,7 +109,7 @@ function Design() {
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            Access Prototype <OpenInNewIcon />
+                            Prototype <OpenInNewIcon />
                         </a>
                     </div>
                     <div className="text-and-content">
@@ -164,7 +164,7 @@ function Design() {
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            Access Prototype <OpenInNewIcon />
+                            Prototype <OpenInNewIcon />
                         </a>
                     </div> */}
                 {/* <p>I created this interactive mobile app prototype using Figma.
