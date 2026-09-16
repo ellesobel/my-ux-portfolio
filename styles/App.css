@@ -4,7 +4,7 @@
     --prpl: #dec1df;
     --prpl-dark: #c6a3c7;
     --acnt-teal: #3ccac5;
-    --acnt-pink: #f8578a;
+    --acnt-pink: #ff8eb2;
     --acnt-lime: #a6e54d;
     --acnt-orange: #fac439;
     --acnt-blue: #7291ff;
@@ -635,7 +635,7 @@ body:has(.art-page) footer {
 #p1,
 #p3 {
 
-    border-radius: 0px 20px 0px 0px;
+    border-radius: 20px 20px 20px 20px;
     padding-left: 50vw;
     margin-left: -50vw;
     padding-right: 20px;
@@ -659,7 +659,7 @@ body:has(.art-page) footer {
 }
 
 #p2 {
-    border-radius: 20px 0px 0px 0px;
+    border-radius: 20px 20px 20px 20px;
     background-color: var(--acnt-pink);
 }
 
