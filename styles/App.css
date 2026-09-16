@@ -1357,10 +1357,22 @@ body:has(#content) {
    default content-box overflowed the viewport by twice its padding and was what
    pushed the last button off screen. */
 @media(max-width:650px) {
+    /* height:5vh sized the bar off the viewport, not its contents, so the
+       buttons (a fixed ~37px) hung past the purple by 5-15px and worse the
+       shorter the window got. Letting it hug its content means the background
+       is always the full height of the nav plus its padding. */
     #header {
         box-sizing: border-box;
-        padding: 10px 12px;
+        height: auto;
+        padding: 8px 12px;
+        align-items: center;
         justify-content: center;
+    }
+
+    /* Clears the fixed bar. Deliberately a few px over its natural height: a
+       gap is invisible, an under-estimate would tuck content behind it. */
+    #__next {
+        padding-top: 56px;
     }
 
     #header h3 {
