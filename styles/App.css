@@ -342,15 +342,21 @@ body:has(.art-page) footer {
     }
 }
 
-.art-card:hover .art-img {
-    background-color: var(--mat);
-    box-shadow: 13px 13px 0 var(--words);
-    transform-origin: top center;
-    animation: painting-sway 0.7s ease-in-out;
+/* Pointer devices only: a tap latches :hover on the frame it opened and leaves
+   it stuck there after the lightbox closes. Below 651px the lightbox is the way
+   in, and .art-modal-img.swaying gives this same treatment on tap. */
+@media(min-width:651px) {
+    .art-card:hover .art-img {
+        background-color: var(--mat);
+        box-shadow: 13px 13px 0 var(--words);
+        transform-origin: top center;
+        animation: painting-sway 0.7s ease-in-out;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .art-card:hover .art-img {
+    .art-card:hover .art-img,
+    .art-modal-img.swaying {
         animation: none;
     }
 }
@@ -410,9 +416,14 @@ body:has(.art-page) footer {
     pointer-events: none;
 }
 
-.art-card:hover .art-caption {
-    opacity: 1;
-    transform: translateY(0);
+/* Same reason as the mat above: on a phone this caption stayed up over the
+   piece after a tap, hiding the artwork it was describing. The lightbox shows
+   the identical caption under the image, so nothing is lost. */
+@media(min-width:651px) {
+    .art-card:hover .art-caption {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .art-caption h3 {
@@ -461,6 +472,18 @@ body:has(.art-page) footer {
     background-color: #fff;
     border: 2px solid var(--words);
     box-shadow: 9px 9px 0 var(--words);
+}
+
+/* Tapping the piece in the lightbox nudges it rather than closing: the same
+   coloured mat and swing from the nail that the wall gives on hover, as a class
+   because touch has no hover. --mat is the accent of the frame that opened it,
+   read off that card so the palette stays in one place (see the nth-child rules
+   above). It clears itself when the swing is over. */
+.art-modal-img.swaying {
+    background-color: var(--mat, var(--acnt-teal));
+    box-shadow: 13px 13px 0 var(--words);
+    transform-origin: top center;
+    animation: painting-sway .7s ease-in-out;
 }
 
 .art-modal-caption {

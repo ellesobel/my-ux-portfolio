@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Head from "next/head";
-import { useCallback, useEffect, useState } from "react";
+import { CSSProperties, MouseEvent, useCallback, useEffect, useState } from "react";
 
 type Piece = {
     src: string;
@@ -30,13 +30,44 @@ const pieces: Piece[] = [
 // and the frames are big enough to read without opening anything.
 const PHONE = "(max-width: 650px)";
 
+// Matches the painting-sway animation on .art-modal-img.swaying in App.css.
+const SWAY_MS = 700;
+
 function Other() {
     const [active, setActive] = useState<Piece | null>(null);
-    const close = useCallback(() => setActive(null), []);
+    // The accent the wall gives this piece on hover, read off the card that was
+    // tapped so the palette stays in App.css rather than being repeated here.
+    const [mat, setMat] = useState("");
+    const [swaying, setSwaying] = useState(false);
 
-    const openOnPhone = (piece: Piece) => {
-        if (window.matchMedia(PHONE).matches) setActive(piece);
+    const close = useCallback(() => {
+        setActive(null);
+        setSwaying(false);
+    }, []);
+
+    const openOnPhone = (piece: Piece, card: HTMLElement) => {
+        if (!window.matchMedia(PHONE).matches) return;
+        setMat(getComputedStyle(card).getPropertyValue("--mat").trim());
+        setActive(piece);
     };
+
+    // Tapping the image itself doesn't close the lightbox — it knocks the frame
+    // on its nail instead. Restarting the animation needs the class gone for a
+    // painted frame, hence the two rAFs.
+    const sway = useCallback((event: MouseEvent) => {
+        event.stopPropagation();
+        setSwaying(false);
+        requestAnimationFrame(() => requestAnimationFrame(() => setSwaying(true)));
+    }, []);
+
+    // Puts the frame back to plain white once it has settled. A timer rather
+    // than animationend so it also clears for anyone on reduced motion, where
+    // the swing never runs.
+    useEffect(() => {
+        if (!swaying) return;
+        const id = window.setTimeout(() => setSwaying(false), SWAY_MS);
+        return () => window.clearTimeout(id);
+    }, [swaying]);
 
     // Escape closes it, and the wall behind stays put while it's open.
     useEffect(() => {
@@ -84,7 +115,7 @@ function Other() {
 
                 <div className="art-photos">
                     {pieces.map((piece) => (
-                        <div className="art-card" key={piece.src} onClick={() => openOnPhone(piece)}>
+                        <div className="art-card" key={piece.src} onClick={(event) => openOnPhone(piece, event.currentTarget)}>
                             <Image className="art-img"
                                 src={piece.src}
                                 alt={piece.alt}
@@ -110,12 +141,13 @@ function Other() {
                     onClick={close}
                 >
                     <figure className="art-modal-inner">
-                        <Image className="art-modal-img"
+                        <Image className={`art-modal-img${swaying ? " swaying" : ""}`}
                             src={active.src}
                             alt={active.alt}
                             width={active.width}
                             height={active.height}
-                            onClick={(event) => event.stopPropagation()}
+                            style={{ "--mat": mat } as CSSProperties}
+                            onClick={sway}
                         />
                         <figcaption className="art-modal-caption">
                             <h3>{active.title}</h3>
