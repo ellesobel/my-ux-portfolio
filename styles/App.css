@@ -213,12 +213,15 @@ body:has(.art-page) {
 }
 
 /* The fixed bar is 5vh plus 20px of padding either side and its 3px rule, so on
-   a tall window it reaches past #__next's flat 77.6px of clearance. On a page
-   that scrolls that only hides a few px; here nothing scrolls, so whatever the
-   wall loses behind the bar is lost for good — clear the bar's real height.
-   (Phones size the bar off its contents and keep their own 56px.) */
+   a tall window it reaches past #__next's flat 77.6px of clearance — 10px short
+   at 900px tall, 19px at 1080px, and worse the taller the window. On the art
+   page nothing scrolls, so what the wall loses behind the bar is lost for good;
+   on the project pages it quietly ate the gap under the title, which is the
+   opposite of what a taller window should give you. Clear the bar's real height
+   on both. (The homepage is tuned around the flat value and keeps it; phones
+   size the bar off its contents and keep their own 56px.) */
 @media(min-width:651px) {
-    #__next:has(.art-page) {
+    #__next:has(.page) {
         padding-top: calc(5vh + 43px);
     }
 }
@@ -1015,6 +1018,14 @@ body:has(#content) {
     margin: 0 15%;
 }
 
+/* Project pages: keep the content clear of the two bands. The last project's
+   panel ended flush against the footer's dashed rule at every width, and below
+   851px the negative margin there took the top gap with it (see that rule).
+   .art-page is excluded — it is sized to the screen and has no room to give. */
+.page:not(.art-page) {
+    padding-bottom: 40px;
+}
+
 .web-view{
     display: flex;
     justify-content: center;
@@ -1178,8 +1189,13 @@ body:has(#content) {
         transition: .3s ease;
     }
 
+    /* Horizontal only. `margin: -5%` also pulled the page up and down by 5% of
+       its width — a 35px bite out of each end at 700px — which slid the title
+       under the header's rule and ran the last project 28px behind the footer.
+       Vertical margins are a % of the WIDTH, so the bite grew with the window,
+       and it was the wide-enough-to-be-roomy windows that lost the most. */
     .page {
-        margin: -5%;
+        margin: 0 -5%;
     }
 
     .web-photos,
