@@ -213,12 +213,15 @@ body:has(.art-page) {
 }
 
 /* The fixed bar is 5vh plus 20px of padding either side and its 3px rule, so on
-   a tall window it reaches past #__next's flat 77.6px of clearance. On a page
-   that scrolls that only hides a few px; here nothing scrolls, so whatever the
-   wall loses behind the bar is lost for good — clear the bar's real height.
-   (Phones size the bar off its contents and keep their own 56px.) */
+   a tall window it reaches past #__next's flat 77.6px of clearance — 10px short
+   at 900px tall, 19px at 1080px, and worse the taller the window. On the art
+   page nothing scrolls, so what the wall loses behind the bar is lost for good;
+   on the project pages it quietly ate the gap under the title, which is the
+   opposite of what a taller window should give you. Clear the bar's real height
+   on both. (The homepage is tuned around the flat value and keeps it; phones
+   size the bar off its contents and keep their own 56px.) */
 @media(min-width:651px) {
-    #__next:has(.art-page) {
+    #__next:has(.page) {
         padding-top: calc(5vh + 43px);
     }
 }
@@ -339,15 +342,21 @@ body:has(.art-page) footer {
     }
 }
 
-.art-card:hover .art-img {
-    background-color: var(--mat);
-    box-shadow: 13px 13px 0 var(--words);
-    transform-origin: top center;
-    animation: painting-sway 0.7s ease-in-out;
+/* Pointer devices only: a tap latches :hover on the frame it opened and leaves
+   it stuck there after the lightbox closes. Below 651px the lightbox is the way
+   in, and .art-modal-img.swaying gives this same treatment on tap. */
+@media(min-width:651px) {
+    .art-card:hover .art-img {
+        background-color: var(--mat);
+        box-shadow: 13px 13px 0 var(--words);
+        transform-origin: top center;
+        animation: painting-sway 0.7s ease-in-out;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .art-card:hover .art-img {
+    .art-card:hover .art-img,
+    .art-modal-img.swaying {
         animation: none;
     }
 }
@@ -407,9 +416,14 @@ body:has(.art-page) footer {
     pointer-events: none;
 }
 
-.art-card:hover .art-caption {
-    opacity: 1;
-    transform: translateY(0);
+/* Same reason as the mat above: on a phone this caption stayed up over the
+   piece after a tap, hiding the artwork it was describing. The lightbox shows
+   the identical caption under the image, so nothing is lost. */
+@media(min-width:651px) {
+    .art-card:hover .art-caption {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .art-caption h3 {
@@ -458,6 +472,18 @@ body:has(.art-page) footer {
     background-color: #fff;
     border: 2px solid var(--words);
     box-shadow: 9px 9px 0 var(--words);
+}
+
+/* Tapping the piece in the lightbox nudges it rather than closing: the same
+   coloured mat and swing from the nail that the wall gives on hover, as a class
+   because touch has no hover. --mat is the accent of the frame that opened it,
+   read off that card so the palette stays in one place (see the nth-child rules
+   above). It clears itself when the swing is over. */
+.art-modal-img.swaying {
+    background-color: var(--mat, var(--acnt-teal));
+    box-shadow: 13px 13px 0 var(--words);
+    transform-origin: top center;
+    animation: painting-sway .7s ease-in-out;
 }
 
 .art-modal-caption {
@@ -737,7 +763,11 @@ body:has(.art-page) footer {
     height: 5vh;
     top: 0;
     left: 0;
-    padding: 20px;
+    /* The gutter lives on the two items, not here: #header is width:100% in a
+       content box, so side padding would have pushed the bar 40px wider than
+       the screen and measured the nav's margin off that oversized box. The
+       vertical padding is unchanged, so the bar is exactly as tall as before. */
+    padding: 20px 0;
     z-index: 5;
     justify-content: space-between;
     border-bottom: 3px dashed var(--words);
@@ -746,7 +776,10 @@ body:has(.art-page) footer {
 #nav-buttons {
     display: flex;
     gap: 20px;
-    margin-right: 5%;
+    /* 10% — the gutter main, #content and the footer all use, so the nav's
+       right edge lines up with the contact links below it (it sat at 5% of an
+       oversized box, ~52px from the edge against the footer's 10%) */
+    margin-right: 10%;
     transition: .3s ease;
 }
 
@@ -757,6 +790,8 @@ body:has(.art-page) footer {
 #header h3 {
     align-self: center;
     cursor: default;
+    /* Matches the footer's "Get in touch" and the content column (was 20px) */
+    margin-left: 10%;
 }
 
 main {
@@ -1006,6 +1041,14 @@ body:has(#content) {
     margin: 0 15%;
 }
 
+/* Project pages: keep the content clear of the two bands. The last project's
+   panel ended flush against the footer's dashed rule at every width, and below
+   851px the negative margin there took the top gap with it (see that rule).
+   .art-page is excluded — it is sized to the screen and has no room to give. */
+.page:not(.art-page) {
+    padding-bottom: 40px;
+}
+
 .web-view{
     display: flex;
     justify-content: center;
@@ -1169,8 +1212,13 @@ body:has(#content) {
         transition: .3s ease;
     }
 
+    /* Horizontal only. `margin: -5%` also pulled the page up and down by 5% of
+       its width — a 35px bite out of each end at 700px — which slid the title
+       under the header's rule and ran the last project 28px behind the footer.
+       Vertical margins are a % of the WIDTH, so the bite grew with the window,
+       and it was the wide-enough-to-be-roomy windows that lost the most. */
     .page {
-        margin: -5%;
+        margin: 0 -5%;
     }
 
     .web-photos,
