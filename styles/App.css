@@ -157,25 +157,70 @@ h3 {
    scales as one unit. */
 .art-gallery {
     position: relative;
-    /* aspect-ratio hugs where the frames actually reach (~90% tall) so there's
-       no dead space under the wall and the vertical centering reads true */
+    /* The coordinate system the frames are placed in — every .art-card top/left
+       is a % of this box, so the whole wall scales as one unit. */
     aspect-ratio: 58 / 56;
-    /* Size the whole wall to fill the screen height: width is derived from the
-       available height via the aspect-ratio, capped to the container width. */
-    width: min(100%, calc((100vh - 96px) * 58 / 51));
+    /* Scale the whole wall down to whichever runs out first: the width main
+       leaves, or the height left between header and footer. The stage below is
+       a size container, so 100cqh IS that leftover height — no hand-counted
+       `100vh - header - footer`, which went stale whenever either band changed
+       height and left the page taller than the screen. */
+    width: min(100cqw, 100cqh * 58 / 56);
     margin: 0;
+    /* The frames run from 1% to ~90.5% of that box, so centring the box itself
+       leaves a sliver above the top frame and a wide band under the bottom one.
+       Nudging it down by half the difference centres the paintings instead —
+       a % here is of the gallery's own height, so it holds at every size. */
+    transform: translateY(4.2%);
     container-type: inline-size;
 }
 
-/* Fill the viewport height below the header and center the gallery within it */
+/* The stage: exactly the space left between header and footer, with the wall
+   centred in it. */
 .page.art-page {
     margin: 0;
-    min-height: calc(100vh - 78px);
-    min-height: calc(100dvh - 78px);
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    container-type: size;
+}
+
+/* Art page, every screen size: locked to one screen like the homepage, so the
+   header, the wall and the footer are all there without scrolling. */
+html:has(.art-page),
+body:has(.art-page) {
+    height: 100vh;
+    /* dvh tracks the viewport actually on screen — see the homepage lock */
+    height: 100dvh;
+    overflow: hidden;
+}
+
+#__next:has(.art-page) {
+    height: 100vh;
+    height: 100dvh;
+}
+
+/* main takes what the header and footer leave, and can shrink below its
+   content, which is what gives .page.art-page a height to measure against. */
+#__next:has(.art-page) main {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* The fixed bar is 5vh plus 20px of padding either side and its 3px rule, so on
+   a tall window it reaches past #__next's flat 77.6px of clearance. On a page
+   that scrolls that only hides a few px; here nothing scrolls, so whatever the
+   wall loses behind the bar is lost for good — clear the bar's real height.
+   (Phones size the bar off its contents and keep their own 56px.) */
+@media(min-width:651px) {
+    #__next:has(.art-page) {
+        padding-top: calc(5vh + 43px);
+    }
 }
 
 /* The footer is normally pushed down 190px; on the art page bring it up
@@ -1516,41 +1561,5 @@ body:has(#content) {
 
     #design-process {
         align-self: center;
-    }
-}
-
-/* Art page on mobile: lock it to one screen like the homepage, so the footer is
-   there without scrolling. The desktop rules size the wall off viewport height
-   minus a 78px header, but the mobile header is 56px and the footer 76px, which
-   left the page 55px taller than the screen. Here the gallery simply takes the
-   width and the flex column centres it in what is left. */
-@media(max-width:650px) {
-    html:has(.art-page),
-    body:has(.art-page) {
-        height: 100vh;
-        height: 100dvh;
-        overflow: hidden;
-    }
-
-    #__next:has(.art-page) {
-        height: 100vh;
-        height: 100dvh;
-    }
-
-    #__next:has(.art-page) main {
-        flex: 1 1 auto;
-        min-height: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    .page.art-page {
-        min-height: 0;
-        flex: 1 1 auto;
-    }
-
-    .art-gallery {
-        width: 100%;
     }
 }
