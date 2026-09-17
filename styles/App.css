@@ -737,7 +737,11 @@ body:has(.art-page) footer {
     height: 5vh;
     top: 0;
     left: 0;
-    padding: 20px;
+    /* The gutter lives on the two items, not here: #header is width:100% in a
+       content box, so side padding would have pushed the bar 40px wider than
+       the screen and measured the nav's margin off that oversized box. The
+       vertical padding is unchanged, so the bar is exactly as tall as before. */
+    padding: 20px 0;
     z-index: 5;
     justify-content: space-between;
     border-bottom: 3px dashed var(--words);
@@ -746,7 +750,10 @@ body:has(.art-page) footer {
 #nav-buttons {
     display: flex;
     gap: 20px;
-    margin-right: 5%;
+    /* 10% — the gutter main, #content and the footer all use, so the nav's
+       right edge lines up with the contact links below it (it sat at 5% of an
+       oversized box, ~52px from the edge against the footer's 10%) */
+    margin-right: 10%;
     transition: .3s ease;
 }
 
@@ -757,6 +764,8 @@ body:has(.art-page) footer {
 #header h3 {
     align-self: center;
     cursor: default;
+    /* Matches the footer's "Get in touch" and the content column (was 20px) */
+    margin-left: 10%;
 }
 
 main {
