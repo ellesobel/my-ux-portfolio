@@ -1,5 +1,5 @@
-// "Explore this project's case study" with an arrow that stretches right to the
-// edge of its card on hover. A click lets the stretch finish before navigating,
+// "Explore this project's case study" with an arrow that stretches right across
+// its column on hover. A click lets the stretch finish before navigating,
 // so the arrow always lands at the edge first — whether it was halfway there
 // (a quick hover), already there, or hadn't started (a tap on a phone).
 
