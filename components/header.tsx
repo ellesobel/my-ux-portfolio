@@ -14,7 +14,7 @@ function Header() {
                     <Link href="/" id="home-link" className={pathname === '/' ? 'active-link' : ''}>
                         <button>Home</button>
                     </Link>
-                    <Link href="/design" id="figma-link" className={pathname === '/design' ? 'active-link' : ''}>
+                    <Link href="/design" id="figma-link" className={pathname?.startsWith('/design') ? 'active-link' : ''}>
                         <button>UI &amp; Design</button>
                     </Link>
                     <Link href="/coding" id="vscode-link" className={pathname === '/coding' ? 'active-link' : ''}>
