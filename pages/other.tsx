@@ -26,10 +26,6 @@ const pieces: Piece[] = [
     { src: "/images/art_7.jpg", alt: "Collage", width: 1679, height: 1866, title: "Collage on Paper" },
 ];
 
-// Phone-only affordance — on wider screens hovering a frame already reveals it,
-// and the frames are big enough to read without opening anything.
-const PHONE = "(max-width: 650px)";
-
 // Matches the painting-sway animation on .art-modal-img.swaying in App.css.
 const SWAY_MS = 700;
 
@@ -45,8 +41,7 @@ function Other() {
         setSwaying(false);
     }, []);
 
-    const openOnPhone = (piece: Piece, card: HTMLElement) => {
-        if (!window.matchMedia(PHONE).matches) return;
+    const open = (piece: Piece, card: HTMLElement) => {
         setMat(getComputedStyle(card).getPropertyValue("--mat").trim());
         setActive(piece);
     };
@@ -85,16 +80,6 @@ function Other() {
         };
     }, [active, close]);
 
-    // Rotating to a wider screen would otherwise strand the modal open
-    useEffect(() => {
-        const phone = window.matchMedia(PHONE);
-        const onChange = () => {
-            if (!phone.matches) close();
-        };
-        phone.addEventListener("change", onChange);
-        return () => phone.removeEventListener("change", onChange);
-    }, [close]);
-
     return (
         <div className="page art-page">
             <Head>
@@ -115,17 +100,13 @@ function Other() {
 
                 <div className="art-photos">
                     {pieces.map((piece) => (
-                        <div className="art-card" key={piece.src} onClick={(event) => openOnPhone(piece, event.currentTarget)}>
+                        <div className="art-card" key={piece.src} onClick={(event) => open(piece, event.currentTarget)}>
                             <Image className="art-img"
                                 src={piece.src}
                                 alt={piece.alt}
                                 width={piece.width}
                                 height={piece.height}
                             />
-                            <div className="art-caption">
-                                <h3>{piece.title}</h3>
-                                {piece.medium && <h4>{piece.medium}</h4>}
-                            </div>
                         </div>
                     ))}
                 </div>
