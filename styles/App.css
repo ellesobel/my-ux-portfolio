@@ -342,29 +342,29 @@ body:has(.art-page) footer {
     }
 }
 
-/* The lightbox's version of the same swing. The frame there is two to three
-   times taller, so the wall's angles throw its bottom edge much further and
-   0.7s reads as a jolt. Half the tilt over twice the time keeps it feeling
-   like the same heavy frame settling on its nail. */
+/* The lightbox's version of the same swing. Its frame is much taller than the
+   ones on the wall, so the angles here are half the wall's, and --tilt and
+   --sway-ms scale them further to the frame's actual size on this screen
+   (worked out in pages/other.tsx). */
 @keyframes painting-sway-large {
     0% {
         transform: rotate(0deg);
     }
 
     15% {
-        transform: rotate(-1.2deg);
+        transform: rotate(calc(-1.2deg * var(--tilt, 1)));
     }
 
     35% {
-        transform: rotate(0.85deg);
+        transform: rotate(calc(0.85deg * var(--tilt, 1)));
     }
 
     55% {
-        transform: rotate(-0.55deg);
+        transform: rotate(calc(-0.55deg * var(--tilt, 1)));
     }
 
     75% {
-        transform: rotate(0.3deg);
+        transform: rotate(calc(0.3deg * var(--tilt, 1)));
     }
 
     100% {
@@ -385,7 +385,7 @@ body:has(.art-page) footer {
     }
 
     .art-modal-img:hover {
-        animation: painting-sway-large 1.4s ease-in-out;
+        animation: painting-sway-large var(--sway-ms, 1.4s) ease-in-out;
     }
 }
 
@@ -484,7 +484,7 @@ body:has(.art-page) footer {
     background-color: var(--mat, var(--acnt-teal));
     box-shadow: 13px 13px 0 var(--words);
     transform-origin: top center;
-    animation: painting-sway-large 1.4s ease-in-out;
+    animation: painting-sway-large var(--sway-ms, 1.4s) ease-in-out;
 }
 
 .art-modal-caption {
