@@ -3,11 +3,13 @@
 // how it was built: stack, how it works, the hardest problem, and the UX
 // details handled in code. Filler where the copy isn't written yet.
 
-import Image from "next/image";
 import Link from "next/link";
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import type { GetStaticPaths, GetStaticProps } from "next";
 import { codingProjects } from "../../data/codingProjects";
+import { useEffect } from "react";
+import DemoMedia, { DEMO_VIDEO_SELECTOR } from "../../components/demoMedia";
+import { setupVideoToggles } from "../../utils/videoToggle";
 
 type Props = { slug: string };
 
@@ -24,7 +26,8 @@ export const getStaticProps: GetStaticProps<Props> = ({ params }) => ({
 
 function FeaturePage({ slug }: Props) {
     const project = codingProjects.find((p) => p.slug === slug)!;
-    const { title, summary, image, features, links, stack, howItWorks, challenge, uxDetails, next } = project;
+    const { title, summary, image, video, features, links, stack, howItWorks, challenge, uxDetails, next } = project;
+    useEffect(() => setupVideoToggles(DEMO_VIDEO_SELECTOR), [slug]);
 
     return (
         <div className="page design-page case-study">
@@ -48,26 +51,19 @@ function FeaturePage({ slug }: Props) {
                 </div>
             )}
 
-            <Image
-                className="case-study-hero"
-                src={image ?? features[0].image}
-                alt={`${title} screenshot placeholder`}
-                width={640}
-                height={400}
-                unoptimized
-            />
+            <div className="case-study-hero">
+                <DemoMedia frame="wide" image={image ?? features[0].image} video={video} alt={`${title} demo`} />
+            </div>
 
             <h2 className="case-section-title">Feature Highlights</h2>
             <section className="case-list">
                 {features.map((feature, i) => (
                     <figure key={feature.name} className={`feature-row${i % 2 === 1 ? " flipped" : ""}`}>
-                        <Image
-                            className="wide-img"
-                            src={feature.image}
-                            alt={`${feature.name.replace(/\.$/, "")} placeholder`}
-                            width={640}
-                            height={400}
-                            unoptimized
+                        <DemoMedia
+                            frame="wide"
+                            image={feature.image}
+                            video={feature.video}
+                            alt={`${feature.name.replace(/\.$/, "")} demo`}
                         />
                         <figcaption>
                             <h3>{feature.name.replace(/\.$/, "")}</h3>

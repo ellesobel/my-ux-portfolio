@@ -6,6 +6,9 @@ import Link from "next/link";
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import type { GetStaticPaths, GetStaticProps } from "next";
 import { allDesignProjects } from "../../data/designProjects";
+import { useEffect } from "react";
+import DemoMedia, { DEMO_VIDEO_SELECTOR } from "../../components/demoMedia";
+import { setupVideoToggles } from "../../utils/videoToggle";
 
 const FILLER =
     "Case study coming soon. This section will walk through the thinking behind " +
@@ -29,6 +32,7 @@ export const getStaticProps: GetStaticProps<Props> = ({ params }) => ({
 function CaseStudy({ slug }: Props) {
     const project = allDesignProjects.find((p) => p.slug === slug)!;
     const { title, meta, summary, media, features, links } = project;
+    useEffect(() => setupVideoToggles(DEMO_VIDEO_SELECTOR), [slug]);
 
     return (
         <div className="page design-page case-study">
@@ -49,14 +53,15 @@ function CaseStudy({ slug }: Props) {
                 </div>
             )}
 
-            <Image
-                className="case-study-hero"
-                src="/images/placeholders/wide.svg"
-                alt={`${title} hero placeholder`}
-                width={640}
-                height={400}
-                unoptimized
-            />
+            <div className="case-study-hero">
+                <Image
+                    src="/images/placeholders/wide.svg"
+                    alt={`${title} hero placeholder`}
+                    width={640}
+                    height={400}
+                    unoptimized
+                />
+            </div>
 
             <section className="case-study-sections">
                 {SECTIONS.map((heading) => (
@@ -71,13 +76,11 @@ function CaseStudy({ slug }: Props) {
             <section className={`case-study-features ${media}`}>
                 {features.map((feature) => (
                     <figure key={feature.name} className="case-study-feature">
-                        <Image
-                            className={media === "phones" ? "phone-img" : "wide-img"}
-                            src={feature.image}
-                            alt={`${feature.name.replace(/\.$/, "")} placeholder`}
-                            width={media === "phones" ? 200 : 640}
-                            height={media === "phones" ? 410 : 400}
-                            unoptimized
+                        <DemoMedia
+                            frame={media === "phones" ? "phone" : "wide"}
+                            image={feature.image}
+                            video={feature.video}
+                            alt={`${feature.name.replace(/\.$/, "")} demo`}
                         />
                         <figcaption className="case-caption">
                             <strong>{feature.name}</strong> {feature.blurb}

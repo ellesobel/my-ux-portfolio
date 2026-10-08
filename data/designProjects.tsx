@@ -1,6 +1,7 @@
 // Everything the UI & Design page and its case-study pages show, in one place,
 // so the cards and the case studies can't drift apart. Images are fillers for
-// now — swap the src values in `features` / `image` for real screens.
+// now. To show a demo, add `video: "/images/your_demo.mp4"` next to the image
+// it replaces — the card switches to the video and its play/pause control.
 
 import type { ReactNode } from "react";
 
@@ -11,6 +12,7 @@ export type Feature = {
     name: string;
     blurb: string;
     image: string;
+    video?: string;
 };
 
 export type DesignProject = {
@@ -24,6 +26,8 @@ export type DesignProject = {
     // site in a browser window with its highlights underneath.
     media: "phones" | "wide" | "browser";
     image?: string;
+    // Demo for the card's wide screen (research and coding cards).
+    video?: string;
     features: Feature[];
     links?: { label: string; href: string }[];
 };

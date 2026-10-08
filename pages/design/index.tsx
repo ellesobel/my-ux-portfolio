@@ -1,9 +1,14 @@
 //figma projects
 
+import { useEffect } from "react";
 import ProjectCard from "../../components/projectCard";
+import { DEMO_VIDEO_SELECTOR } from "../../components/demoMedia";
+import { setupVideoToggles } from "../../utils/videoToggle";
 import { designProjects, researchProjects } from "../../data/designProjects";
 
 function Design() {
+    useEffect(() => setupVideoToggles(DEMO_VIDEO_SELECTOR), []);
+
     return (
         <div className="page design-page">
             <h2 className="page-title">Designs</h2>
