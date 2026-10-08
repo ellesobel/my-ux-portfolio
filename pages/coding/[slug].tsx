@@ -30,7 +30,7 @@ function FeaturePage({ slug }: Props) {
     useEffect(() => setupVideoToggles(DEMO_VIDEO_SELECTOR), [slug]);
 
     return (
-        <div className="page design-page case-study">
+        <div className="page design-page coding-page case-study">
             <Link href="/coding" className="case-back">
                 &larr; All coding projects
             </Link>

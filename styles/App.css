@@ -598,6 +598,14 @@ body:has(.art-page) footer {
     --toggle-opacity: .55;
 }
 
+/* ...until the pointer has rested on the video for a few seconds (the crop
+   is marked .idle in utils/videoToggle.ts): then it goes away completely.
+   Moving the mouse clears .idle and brings it back. */
+.video-crop.idle:hover .video-toggle.playing,
+.web-video-crop.idle:hover .video-toggle.playing {
+    --toggle-opacity: 0;
+}
+
 /* On the control itself: fully up, lit in the page accent, and a touch
    larger, with the deeper shadow the nav buttons get on hover. */
 .video-crop .video-toggle:hover,
