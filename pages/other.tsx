@@ -127,7 +127,7 @@ function Other() {
                             alt={active.alt}
                             width={active.width}
                             height={active.height}
-                            style={{ "--mat": mat } as CSSProperties}
+                            style={{ "--mat": mat, "--aspect": active.width / active.height } as CSSProperties}
                             onClick={sway}
                         />
                         <figcaption className="art-modal-caption">
