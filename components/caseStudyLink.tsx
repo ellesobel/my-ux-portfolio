@@ -11,7 +11,7 @@ import { useRef, useState, type MouseEvent } from "react";
 // (tab hidden mid-animation, or the width was interrupted).
 const FALLBACK_MS = 800;
 
-function CaseStudyLink({ href }: { href: string }) {
+function CaseStudyLink({ href, label = "Explore this project's case study" }: { href: string; label?: string }) {
     const router = useRouter();
     const [expanded, setExpanded] = useState(false);
     const leaving = useRef(false);
@@ -56,7 +56,7 @@ function CaseStudyLink({ href }: { href: string }) {
             className={`case-link${expanded ? " expanded" : ""}`}
             onClick={onClick}
         >
-            <span className="case-link-label">Explore this project&#39;s case study</span>
+            <span className="case-link-label">{label}</span>
             <span className="case-arrow" ref={trackRef} aria-hidden="true">
                 <span className="case-arrow-shaft" ref={shaftRef}>
                     <svg className="case-arrow-head" viewBox="0 0 24 32">

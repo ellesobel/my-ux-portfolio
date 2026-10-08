@@ -20,8 +20,9 @@ export type DesignProject = {
     meta?: string;
     summary: ReactNode;
     // App projects show two phone screens with a caption each; research shows
-    // one wide image with its highlights underneath.
-    media: "phones" | "wide";
+    // one wide image with its highlights underneath; coding projects show the
+    // site in a browser window with its highlights underneath.
+    media: "phones" | "wide" | "browser";
     image?: string;
     features: Feature[];
     links?: { label: string; href: string }[];
