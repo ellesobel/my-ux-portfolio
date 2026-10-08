@@ -26,8 +26,8 @@ const pieces: Piece[] = [
     { src: "/images/art_7.jpg", alt: "Collage", width: 1679, height: 1866, title: "Collage on Paper" },
 ];
 
-// Matches the painting-sway animation on .art-modal-img.swaying in App.css.
-const SWAY_MS = 700;
+// Matches the painting-sway-large animation on .art-modal-img.swaying in App.css.
+const SWAY_MS = 1400;
 
 function Other() {
     const [active, setActive] = useState<Piece | null>(null);
