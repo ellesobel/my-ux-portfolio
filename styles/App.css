@@ -343,8 +343,8 @@ body:has(.art-page) footer {
 }
 
 /* Pointer devices only: a tap latches :hover on the frame it opened and leaves
-   it stuck there after the lightbox closes. Below 651px the lightbox is the way
-   in, and .art-modal-img.swaying gives this same treatment on tap. */
+   it stuck there after the lightbox closes. On a phone .art-modal-img.swaying
+   gives this same treatment on tap instead. */
 @media(min-width:651px) {
     .art-card:hover .art-img {
         background-color: var(--mat);
@@ -401,46 +401,8 @@ body:has(.art-page) footer {
     margin-right: 10%;    
 }
 
-/* Caption revealed on hover, styled like the site's dark labels */
-.art-caption {
-    position: absolute;
-    left: 10%;
-    right: 2%;
-    bottom: 2%;
-    padding: 8px 12px;
-    background-color: var(--words);
-    /* border-radius: 12px; */
-    opacity: 0;
-    transform: translateY(6px);
-    transition: opacity .2s ease, transform .2s ease;
-    pointer-events: none;
-}
-
-/* Same reason as the mat above: on a phone this caption stayed up over the
-   piece after a tap, hiding the artwork it was describing. The lightbox shows
-   the identical caption under the image, so nothing is lost. */
-@media(min-width:651px) {
-    .art-card:hover .art-caption {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.art-caption h3 {
-    margin: 0;
-    font-size: 12px;
-    color: var(--bkgrd);
-}
-
-.art-caption h4 {
-    margin: 5px 0 0;
-    font-size: 11px;
-    font-weight: 400;
-    color: var(--bkgrd);
-}
-
-/* Phone-only lightbox: tapping a piece opens it large with its caption.
-   Tapping anywhere except the image itself closes it again. */
+/* Lightbox: clicking a piece opens it large with its caption.
+   Clicking anywhere except the image itself closes it again. */
 .art-modal {
     position: fixed;
     inset: 0;
@@ -503,13 +465,6 @@ body:has(.art-page) footer {
     font-size: 11px;
     font-weight: 400;
     color: var(--bkgrd);
-}
-
-/* Belt and braces — the wall's hover captions cover anything wider than a phone */
-@media(min-width:651px) {
-    .art-modal {
-        display: none;
-    }
 }
 
 /* #brainchip-demo{
