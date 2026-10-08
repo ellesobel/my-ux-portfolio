@@ -348,10 +348,11 @@ body:has(.art-page) footer {
 }
 
 /* Pointer devices only: a tap latches :hover on the frame it opened and leaves
-   it stuck there after the lightbox closes. On a phone .art-modal-img.swaying
-   gives this same treatment on tap instead. */
+   it stuck there after the lightbox closes. The lightbox image gets it on hover
+   too; on a phone .art-modal-img.swaying gives this same treatment on tap. */
 @media(min-width:651px) {
-    .art-card:hover .art-img {
+    .art-card:hover .art-img,
+    .art-modal-img:hover {
         background-color: var(--mat);
         box-shadow: 13px 13px 0 var(--words);
         transform-origin: top center;
@@ -361,6 +362,7 @@ body:has(.art-page) footer {
 
 @media (prefers-reduced-motion: reduce) {
     .art-card:hover .art-img,
+    .art-modal-img:hover,
     .art-modal-img.swaying {
         animation: none;
     }
@@ -428,12 +430,15 @@ body:has(.art-page) footer {
     gap: 14px;
 }
 
+/* Every piece opens at the same height: 62vh, the tallest the lightbox allows.
+   A piece too wide to fit the screen at that height comes out shorter instead —
+   the second term is the height at which it exactly fills the width left inside
+   the modal's padding (48px) and its own mat and border (20px). --aspect is the
+   piece's width / height. */
 .art-modal-img {
     display: block;
     width: auto;
-    height: auto;
-    max-width: 100%;
-    max-height: 62vh;
+    height: min(62vh, calc((100vw - 68px) / var(--aspect, 0.75) + 20px));
     box-sizing: border-box;
     padding: 8px;                        /* white mat, same as the wall */
     background-color: #fff;
