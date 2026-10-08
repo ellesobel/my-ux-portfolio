@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Head from "next/head";
-import { CSSProperties, MouseEvent, useCallback, useEffect, useState } from "react";
+import { CSSProperties, MouseEvent, useCallback, useEffect, useRef, useState } from "react";
 
 type Piece = {
     src: string;
@@ -26,8 +26,22 @@ const pieces: Piece[] = [
     { src: "/images/art_7.jpg", alt: "Collage", width: 1679, height: 1866, title: "Collage on Paper" },
 ];
 
-// Matches the painting-sway animation on .art-modal-img.swaying in App.css.
-const SWAY_MS = 700;
+// The lightbox frame's size depends on the screen, so its swing is scaled to
+// it like a pendulum: at REFERENCE_HEIGHT it tilts as painting-sway-large is
+// written and takes REFERENCE_MS. A taller frame tilts less, so its bottom edge
+// travels about the same distance, and swings slower (period ~ sqrt(length));
+// a shorter one the reverse, up to the wall's own 2.4deg and 0.7s at most.
+const REFERENCE_HEIGHT = 560;
+const REFERENCE_MS = 1400;
+const MAX_TILT = 2;
+const MIN_MS = 700;
+
+function swingFor(height: number) {
+    return {
+        tilt: Math.min(MAX_TILT, REFERENCE_HEIGHT / height),
+        ms: Math.round(Math.max(MIN_MS, REFERENCE_MS * Math.sqrt(height / REFERENCE_HEIGHT))),
+    };
+}
 
 function Other() {
     const [active, setActive] = useState<Piece | null>(null);
@@ -35,6 +49,8 @@ function Other() {
     // tapped so the palette stays in App.css rather than being repeated here.
     const [mat, setMat] = useState("");
     const [swaying, setSwaying] = useState(false);
+    const [swing, setSwing] = useState(() => swingFor(REFERENCE_HEIGHT));
+    const modalImg = useRef<HTMLImageElement>(null);
 
     const close = useCallback(() => {
         setActive(null);
@@ -60,9 +76,21 @@ function Other() {
     // the swing never runs.
     useEffect(() => {
         if (!swaying) return;
-        const id = window.setTimeout(() => setSwaying(false), SWAY_MS);
+        const id = window.setTimeout(() => setSwaying(false), swing.ms);
         return () => window.clearTimeout(id);
-    }, [swaying]);
+    }, [swaying, swing.ms]);
+
+    // Re-measured whenever a piece opens or the screen changes size. The
+    // frame's height is set in CSS, so it is right before the image loads.
+    useEffect(() => {
+        if (!active) return;
+        const measure = () => {
+            if (modalImg.current) setSwing(swingFor(modalImg.current.offsetHeight));
+        };
+        measure();
+        window.addEventListener("resize", measure);
+        return () => window.removeEventListener("resize", measure);
+    }, [active]);
 
     // Escape closes it, and the wall behind stays put while it's open.
     useEffect(() => {
@@ -127,7 +155,13 @@ function Other() {
                             alt={active.alt}
                             width={active.width}
                             height={active.height}
-                            style={{ "--mat": mat, "--aspect": active.width / active.height } as CSSProperties}
+                            ref={modalImg}
+                            style={{
+                                "--mat": mat,
+                                "--aspect": active.width / active.height,
+                                "--tilt": swing.tilt,
+                                "--sway-ms": `${swing.ms}ms`,
+                            } as CSSProperties}
                             onClick={sway}
                         />
                         <figcaption className="art-modal-caption">
