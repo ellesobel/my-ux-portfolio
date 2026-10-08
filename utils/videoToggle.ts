@@ -19,8 +19,8 @@ export function setupVideoToggles(selector: string): () => void {
         button.className = "video-toggle";
         button.setAttribute("aria-label", "Play video");
         button.innerHTML =
-            '<svg class="video-icon play-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>' +
-            '<svg class="video-icon pause-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>';
+            '<svg class="video-icon play-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4v16l13-8z"/></svg>' +
+            '<svg class="video-icon pause-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h5v16H5zM14 4h5v16h-5z"/></svg>';
         crop.appendChild(button);
 
         const toggle = () => {

@@ -8,6 +8,9 @@
     --acnt-lime: #a6e54d;
     --acnt-orange: #fac439;
     --acnt-blue: #7291ff;
+    /* The pastel wash in the filler images, so a demo video that hasn't drawn
+       a frame yet looks like the placeholder it replaced. */
+    --filler-gradient: linear-gradient(170deg, #f6d7ee, #d9e2f5);
     /* Each page's colour, matching its nav button. Pages set their own below. */
     --page-accent: var(--acnt-teal);
     --words: rgb(28, 28, 28);
@@ -560,8 +563,8 @@ body:has(.art-page) footer {
     left: 50%;
     /* Fixed size so the box doesn't resize between the play/pause icons,
        which would shift the translate-centred position. */
-    width: 76px;
-    height: 76px;
+    width: 60px;
+    height: 60px;
     box-sizing: border-box;
     transform: translate(-50%, -50%);
     padding: 0;
@@ -572,11 +575,8 @@ body:has(.art-page) footer {
     background-color: var(--bkgrd);
     border: 3px solid var(--words);
     border-radius: 8px;
-    /* Hard shadow from the nav buttons, plus a slight inner lip along the
-       bottom edge for the moulded-plastic feel of a physical key. */
-    box-shadow:
-        5px 5px 0 var(--words),
-        inset 0 -5px 0 rgba(28, 28, 28, .12);
+    /* The nav buttons' hard ink shadow, and nothing softer. */
+    box-shadow: 5px 5px 0 var(--words);
     cursor: pointer;
     z-index: 3;
     opacity: var(--toggle-opacity);
@@ -599,7 +599,7 @@ body:has(.art-page) footer {
 }
 
 /* On the control itself: fully up, lit in the page accent, and a touch
-   larger with the deeper shadow the nav buttons get on hover. */
+   larger, with the deeper shadow the nav buttons get on hover. */
 .video-crop .video-toggle:hover,
 .web-video-crop .video-toggle:hover,
 .video-crop .video-toggle.playing:hover,
@@ -607,19 +607,15 @@ body:has(.art-page) footer {
 .video-toggle:focus-visible {
     --toggle-opacity: 1;
     background-color: var(--page-accent);
-    transform: translate(-50%, -50%) scale(1.06);
-    box-shadow:
-        7px 7px 0 var(--words),
-        inset 0 -5px 0 rgba(28, 28, 28, .12);
+    transform: translate(-50%, -50%) scale(1.03);
+    box-shadow: 7px 7px 0 var(--words);
 }
 
 /* Pressed: the key sinks into its shadow, like a real button going down. */
 .video-crop .video-toggle:active,
 .web-video-crop .video-toggle:active {
-    transform: translate(calc(-50% + 3px), calc(-50% + 3px)) scale(1.02);
-    box-shadow:
-        2px 2px 0 var(--words),
-        inset 0 -2px 0 rgba(28, 28, 28, .12);
+    transform: translate(calc(-50% + 3px), calc(-50% + 3px));
+    box-shadow: 2px 2px 0 var(--words);
 }
 
 .video-toggle:focus-visible {
@@ -628,8 +624,9 @@ body:has(.art-page) footer {
 }
 
 .video-icon {
-    width: 34px;
-    height: 34px;
+    /* Large in its key, with only a little room around it. */
+    width: 40px;
+    height: 40px;
     fill: currentColor;
 }
 
@@ -639,17 +636,15 @@ body:has(.art-page) footer {
 @media(max-width:650px) {
     .video-toggle {
         /* Never below 40px: under that it stops being an easy tap. */
-        width: clamp(40px, 30%, 76px);
+        width: clamp(40px, 26%, 60px);
         height: auto;
         aspect-ratio: 1;
         border-width: 2px;
-        box-shadow:
-            3px 3px 0 var(--words),
-            inset 0 -3px 0 rgba(28, 28, 28, .12);
+        box-shadow: 3px 3px 0 var(--words);
     }
 
     .video-icon {
-        width: 45%;
+        width: 66%;
         height: auto;
         aspect-ratio: 1;
     }
@@ -1890,6 +1885,19 @@ body:has(#content) {
 /* The screen is the slot's first child: a filler image or a demo video. */
 .slot-1 > :first-child { grid-area: p1; }
 .slot-2 > :first-child { grid-area: p2; }
+
+/* Until a demo video draws its first frame it is see-through, so the crop
+   shows the filler gradient behind it rather than a blank box. */
+.demo-video {
+    background: var(--filler-gradient);
+}
+
+/* The site's loading shimmer would cover that gradient, so demo videos skip
+   it: the placeholder look is the loading state. */
+.demo-video .media-loading {
+    background-image: none;
+    animation: none;
+}
 
 /* Demo videos fill the phone column like the filler images do. */
 .phones .video-crop {
