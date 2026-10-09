@@ -2214,6 +2214,9 @@ body:has(#content) {
     border-radius: 8px;
     box-shadow: 3px 3px 0 var(--words);
     cursor: pointer;
+    /* Above the screen's camera pill and play/pause key, which are layered
+       too, so the screen can never cover them. */
+    z-index: 4;
 }
 
 .feature-modal-close {
@@ -2244,6 +2247,36 @@ body:has(#content) {
 .feature-modal-prev:active,
 .feature-modal-next:active {
     transform: translate(2px, calc(-50% + 2px));
+}
+
+/* Stepping to another feature slides it in from the side it came from. */
+@keyframes feature-in-next {
+    from {
+        opacity: 0;
+        transform: translateX(28px);
+    }
+}
+
+@keyframes feature-in-prev {
+    from {
+        opacity: 0;
+        transform: translateX(-28px);
+    }
+}
+
+.art-modal-inner.slide-next {
+    animation: feature-in-next .22s ease-out;
+}
+
+.art-modal-inner.slide-prev {
+    animation: feature-in-prev .22s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .art-modal-inner.slide-next,
+    .art-modal-inner.slide-prev {
+        animation: none;
+    }
 }
 
 /* Each icon fills most of its key, like the play/pause icons do theirs. */
