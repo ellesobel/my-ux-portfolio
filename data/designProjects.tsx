@@ -45,7 +45,11 @@ export type CaseFigure = {
     // A whole set of images (all the sketches, all the wireframes). The figure
     // itself is the cover shown in the overview; opening it shows the set as a
     // grid, and any image in the grid can be opened large.
-    set?: Omit<CaseFigure, "caption" | "set">[];
+    set?: Omit<CaseFigure, "caption" | "set" | "sameScale">[];
+    // The set's images all show screens at the same size (wireframes, two or
+    // three screens to an image), so the modal gives them one shared height
+    // instead of one shared width.
+    sameScale?: boolean;
 };
 
 export type CaseSection = {
@@ -263,6 +267,7 @@ export const designProjects: DesignProject[] = [
                             ...WAVE_WIREFRAMES[1],
                             caption: "Wireframes",
                             set: WAVE_WIREFRAMES,
+                            sameScale: true,
                         },
                         {
                             src: "/images/wave/moodboard.jpg",
@@ -341,28 +346,20 @@ export const designProjects: DesignProject[] = [
                 {
                     heading: "Feedback",
                     body: (
-                        <>
-                            <p className="case-pull">Shaped by class critique.</p>
-                            <p>
-                                I didn&#39;t do formal user testing, but I was getting
-                                feedback from my professor and classmates the whole way
-                                through. A few notes that changed the design:
-                            </p>
-                            <ul>
-                                <li>
-                                    I was using too many colors, so I narrowed the palette
-                                    from the whole subway system to mostly primaries.
-                                </li>
-                                <li>
-                                    The street-sign regions didn&#39;t match the rest of the
-                                    vibe, so they went back to neon.
-                                </li>
-                                <li>
-                                    My buttons did similar jobs but looked completely
-                                    different, so I gave them one consistent style.
-                                </li>
-                            </ul>
-                        </>
+                        <ul>
+                            <li>
+                                I was using too many colors, so I narrowed the palette to
+                                mostly primaries.
+                            </li>
+                            <li>
+                                The street-sign regions didn&#39;t match the vibe, so they
+                                went back to neon.
+                            </li>
+                            <li>
+                                My buttons did similar jobs but looked totally different,
+                                so now they share one style.
+                            </li>
+                        </ul>
                     ),
                 },
                 {
@@ -397,8 +394,8 @@ export const designProjects: DesignProject[] = [
                         {
                             src: "/images/music/design_system/music_font_exploration.png",
                             alt: "The title, New York, New York, set in seven typefaces from neon script to block capitals",
-                            width: 337,
-                            height: 891,
+                            width: 872,
+                            height: 690,
                             caption: "Type",
                         },
                         {
@@ -432,6 +429,7 @@ export const designProjects: DesignProject[] = [
                             ...MUSIC_WIREFRAMES[0],
                             caption: "Wireframes",
                             set: MUSIC_WIREFRAMES,
+                            sameScale: true,
                         },
                         {
                             src: "/images/music/wireframes/music_rejected_layouts.png",

@@ -6,6 +6,9 @@
 // A figure with a `set` (all the sketches, all the wireframes) shows just its
 // cover in the overview and opens as a grid of the whole set.
 //
+// A `sameScale` set (wireframes) gives every image one height instead of one
+// width, so a screen is the same size whether its image holds two or three.
+//
 // The "lead" layout shows the first figure large with the rest in a 2 x 2
 // beside it, for a section the images carry (the music map's look).
 
@@ -17,6 +20,39 @@ import ModalArrows, { ModalClose } from "./modalArrows";
 // How far a finger must travel sideways, more than it moves up or down, to
 // count as a swipe rather than a tap (as in FeatureGallery).
 const SWIPE_PX = 40;
+
+// Wide shapes (width / height) of a same-scale set, laid out in one row or two,
+// whichever shows the screens bigger in a modal about 1100 x 500. The CSS
+// sizes the shared height from the widest row (see .process-set-rows).
+const ROOM_W = 1100;
+const ROOM_H = 500;
+const GAP = 16;
+function sameScaleRows(set: { width: number; height: number }[]) {
+    const ratios = set.map((img) => img.width / img.height);
+    const rowsOf = (n: number) => {
+        const per = Math.ceil(ratios.length / n);
+        return Array.from({ length: n }, (_, r) => ratios.slice(r * per, (r + 1) * per));
+    };
+    const height = (rows: number[][]) =>
+        Math.min(
+            ...rows.map((row) => (ROOM_W - GAP * (row.length - 1)) / row.reduce((a, b) => a + b, 0)),
+            ROOM_H / rows.length,
+        );
+    const options = ratios.length > 2 ? [rowsOf(1), rowsOf(2)] : [rowsOf(1)];
+    const rows = options.reduce((best, o) => (height(o) > height(best) ? o : best));
+    const widest = rows.reduce((a, b) =>
+        b.reduce((x, y) => x + y, 0) > a.reduce((x, y) => x + y, 0) ? b : a,
+    );
+    return {
+        sizes: rows.map((row) => row.length),
+        style: {
+            "--rows": rows.length,
+            "--sum": widest.reduce((a, b) => a + b, 0),
+            "--gaps": widest.length - 1,
+            "--amax": Math.max(...ratios),
+        } as CSSProperties,
+    };
+}
 
 type Props = {
     figures: CaseFigure[];
@@ -125,7 +161,9 @@ function ProcessGallery({ figures, layout }: Props) {
                         className={`art-modal-inner${direction ? ` slide-${direction}` : ""}`}
                     >
                         <div className="modal-stage">
-                            {set ? (
+                            {set && active.sameScale ? (
+                                <SameScaleSet set={set} />
+                            ) : set ? (
                                 <div
                                     className="process-set-grid modal-media"
                                     style={{ "--n": set.length } as CSSProperties}
@@ -167,6 +205,32 @@ function ProcessGallery({ figures, layout }: Props) {
                 </div>
             )}
         </>
+    );
+}
+
+type SetImage = Omit<CaseFigure, "caption" | "set" | "sameScale">;
+
+function SameScaleSet({ set }: { set: SetImage[] }) {
+    const { sizes, style } = sameScaleRows(set);
+    let start = 0;
+    const rows = sizes.map((n) => set.slice(start, (start += n)));
+    return (
+        <div className="process-set-rows modal-media" style={style} onClick={(event) => event.stopPropagation()}>
+            {rows.map((row, r) => (
+                <div key={r} className="process-set-row">
+                    {row.map((img) => (
+                        <Image
+                            key={img.src}
+                            src={img.src}
+                            alt={img.alt}
+                            width={img.width}
+                            height={img.height}
+                            sizes="(max-width: 650px) 80vw, 560px"
+                        />
+                    ))}
+                </div>
+            ))}
+        </div>
     );
 }
 

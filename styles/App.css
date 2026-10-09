@@ -2518,12 +2518,30 @@ body:has(#content) {
 
 /* The thumbnail is a button that opens the image in the modal. */
 .case-figure button {
+    position: relative;
     display: block;
     width: 100%;
     padding: 0;
     border: none;
     background: none;
     cursor: zoom-in;
+}
+
+/* Darkens on hover, so it reads as something to open. */
+.case-figure button::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background-color: rgba(0, 0, 0, .35);
+    opacity: 0;
+    transition: opacity .2s ease;
+    pointer-events: none;
+}
+
+.case-figure button:hover::after,
+.case-figure button:focus-visible::after {
+    opacity: 1;
 }
 
 /* The enlarged image in the modal, fitted to the screen whatever its file
@@ -2560,7 +2578,49 @@ body:has(#content) {
     background-color: var(--bkgrd);
 }
 
+/* A same-scale set (wireframes): every image the same height, so each screen
+   is the same size. The height is what lets the widest row (--sum of its
+   width/height ratios, --gaps between them) fit the room, or what lets the
+   --rows fit the screen's height, whichever is smaller. */
+.process-set-rows {
+    --set-h: min(
+        calc((min(84vw, 1100px) - var(--gaps) * 16px) / var(--sum)),
+        calc(60dvh / var(--rows))
+    );
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.process-set-row {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+.process-set-rows img {
+    display: block;
+    height: var(--set-h);
+    width: auto;
+    border-radius: 10px;
+    background-color: var(--bkgrd);
+}
+
 @media(max-width:650px) {
+    /* One image to a row, all at the height that fits the widest one,
+       scrolling if they run taller than the screen. */
+    .process-set-rows {
+        --set-h: calc((100vw - 112px) / var(--amax));
+        max-height: 62dvh;
+        overflow-y: auto;
+        gap: 10px;
+    }
+
+    .process-set-row {
+        display: contents;
+    }
+
     .process-modal-img {
         /* The screen less the modal's padding and two 44px arrows. */
         --room-w: calc(100vw - 112px);
