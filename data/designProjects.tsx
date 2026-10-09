@@ -70,10 +70,13 @@ export const designProjects: DesignProject[] = [
                 video: "/images/dreamcatcher_demo.mp4",
             },
             {
-                name: "Radius.",
-                blurb: "Find My Friends, powered by your friends' live brainchip trackers.",
+                name: "Settings.",
+                blurb: "Every feature is on by default, and each one can be switched off, giving users a sense of control over an invasive system.",
                 image: PHONE_FILLER,
-                video: "/images/radius_demo.mp4",
+                video: "/images/settings_demo.mp4",
+                // Last on the case study, where it reframes everything before
+                // it; the card keeps its two most striking screens.
+                hideOnCard: true,
             },
         ],
         links: [
