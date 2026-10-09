@@ -42,22 +42,25 @@ function CaseStudy({ slug }: Props) {
 
     return (
         <div className="page design-page case-study">
-            <Link href="/design" className="case-back">
-                &larr; All designs
-            </Link>
-            <h2 className="page-title">{title}</h2>
-            {meta && <p className="case-meta">{meta}</p>}
-            <p className="case-summary case-study-lede">{summary}</p>
-
-            {links && (
-                <div className="case-study-links">
-                    {links.map((link) => (
-                        <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer">
-                            {link.label} <OpenInNewIcon />
-                        </a>
-                    ))}
-                </div>
-            )}
+            {/* Kept short, so the work starts high on the screen: the summary
+                and links share a row on wide screens. */}
+            <header className="case-study-header">
+                <Link href="/design" className="case-back">
+                    &larr; All designs
+                </Link>
+                <h2 className="page-title">{title}</h2>
+                {meta && <p className="case-meta">{meta}</p>}
+                <p className="case-summary case-study-lede">{summary}</p>
+                {links && (
+                    <div className="case-study-links">
+                        {links.map((link) => (
+                            <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer">
+                                {link.label} <OpenInNewIcon />
+                            </a>
+                        ))}
+                    </div>
+                )}
+            </header>
 
             {caseStudy?.heroVideo ? (
                 <div className="case-study-hero">
@@ -83,7 +86,8 @@ function CaseStudy({ slug }: Props) {
             )}
 
             {/* The work first: a recruiter who never scrolls still sees the app. */}
-            <h2 className="case-section-title case-features-title">
+            {/* The screens say what they are; the heading is for screen readers. */}
+            <h2 className="visually-hidden">
                 {media === "phones" ? "Features" : "Highlights"}
             </h2>
             <FeatureGallery features={features} media={media} />

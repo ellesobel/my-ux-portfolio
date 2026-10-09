@@ -2076,12 +2076,35 @@ body:has(#content) {
     text-decoration-thickness: 3px;
 }
 
+/* A compact header: back link, title and meta stacked tight, then the
+   summary with the links beside it, so the demos start high on the screen. */
+.case-study-header {
+    display: grid;
+    grid-template-columns: minmax(0, 720px) auto;
+    justify-content: space-between;
+    align-items: end;
+    column-gap: 32px;
+    margin-bottom: 24px;
+}
+
+.case-study-header > :not(.case-study-lede, .case-study-links) {
+    grid-column: 1 / -1;
+}
+
+.case-study-header .case-back {
+    margin-top: 20px;
+}
+
 .case-study .page-title {
-    margin: 12px 0 12px;
+    font-size: 38px;
+    margin: 6px 0 4px;
+}
+
+.case-study .case-meta {
+    margin: 0 0 10px;
 }
 
 .case-study-lede {
-    max-width: 720px;
     font-size: 15px;
 }
 
@@ -2092,9 +2115,31 @@ body:has(#content) {
     margin-top: 18px;
 }
 
-/* Features lead the page, so their heading sits close under the links. */
-.case-features-title {
-    margin-top: 36px;
+.case-study-header .case-study-links {
+    margin-top: 0;
+    justify-content: flex-end;
+}
+
+/* Under the summary once there's no room beside it. */
+@media(max-width:850px) {
+    .case-study-header {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .case-study-header .case-study-links {
+        margin-top: 14px;
+        justify-content: flex-start;
+    }
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
 }
 
 .case-study-links a {
@@ -2741,6 +2786,11 @@ body:has(#content) {
         font-size: 30px;
         text-align: left;
         margin: 24px 0 20px;
+    }
+
+    .case-study .page-title {
+        font-size: 28px;
+        margin: 6px 0 4px;
     }
 
     .case-section-title {
