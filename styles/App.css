@@ -2126,13 +2126,87 @@ body:has(#content) {
     padding: 40px 48px;
 }
 
+/* One row with a column per feature (--cols, set by FeatureGallery), shrinking
+   to fit rather than wrapping — so never a lopsided 3 + 1. Only four phones
+   switch layout: to 2 x 2 once the page is too narrow for four in a row
+   (below). */
+.case-study {
+    container: case-study / inline-size;
+}
+
 .case-study-features.phones {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 220px));
+    grid-template-columns: repeat(var(--cols), minmax(0, 220px));
+    column-gap: clamp(12px, 3cqw, 32px);
     justify-content: center;
 }
 
 .case-study-features.wide {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+}
+
+@container case-study (max-width: 720px) {
+    .case-study-features.phones[data-count="4"] {
+        grid-template-columns: repeat(2, minmax(0, 220px));
+    }
+
+    /* Wide highlights stack rather than split 2 + 1. */
+    .case-study-features.wide {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+.feature-tap-hint {
+    display: none;
+}
+
+/* The modal opens from a phone thumbnail only (see FeatureGallery). */
+.feature-modal-screen {
+    width: min(72vw, calc(66dvh * 393 / 853));
+}
+
+.feature-modal .art-modal-caption {
+    max-width: min(84vw, 360px);
+}
+
+.feature-modal-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    font-size: 26px;
+    line-height: 1;
+    color: var(--words);
+    background-color: var(--bkgrd);
+    border: 2px solid var(--words);
+    border-radius: 8px;
+    box-shadow: 3px 3px 0 var(--words);
+    cursor: pointer;
+}
+
+/* Phones: the screens become thumbnails that open in the modal, so they drop
+   their play/pause control and blurb and keep just the feature name. */
+@media(max-width:650px) {
+    .feature-tap-hint {
+        display: block;
+        margin: -12px 0 14px;
+        font-size: 13px;
+        opacity: .75;
+    }
+
+    .case-study-features.phones .case-study-feature {
+        cursor: pointer;
+    }
+
+    .case-study-features.phones .video-toggle,
+    .case-study-features.phones .feature-blurb {
+        display: none;
+    }
+
+    .case-study-features.phones .case-caption {
+        text-align: center;
+    }
 }
 
 .case-study-feature {

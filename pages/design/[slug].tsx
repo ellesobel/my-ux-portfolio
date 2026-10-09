@@ -7,7 +7,8 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import type { GetStaticPaths, GetStaticProps } from "next";
 import { allDesignProjects } from "../../data/designProjects";
 import { useEffect } from "react";
-import DemoMedia, { DEMO_VIDEO_SELECTOR } from "../../components/demoMedia";
+import { DEMO_VIDEO_SELECTOR } from "../../components/demoMedia";
+import FeatureGallery from "../../components/featureGallery";
 import { setupVideoToggles } from "../../utils/videoToggle";
 
 const FILLER =
@@ -73,21 +74,7 @@ function CaseStudy({ slug }: Props) {
             </section>
 
             <h2 className="case-section-title">{media === "phones" ? "Features" : "Highlights"}</h2>
-            <section className={`case-study-features ${media}`}>
-                {features.map((feature) => (
-                    <figure key={feature.name} className="case-study-feature">
-                        <DemoMedia
-                            frame={media === "phones" ? "phone" : "wide"}
-                            image={feature.image}
-                            video={feature.video}
-                            alt={`${feature.name.replace(/\.$/, "")} demo`}
-                        />
-                        <figcaption className="case-caption">
-                            <strong>{feature.name}</strong> {feature.blurb}
-                        </figcaption>
-                    </figure>
-                ))}
-            </section>
+            <FeatureGallery features={features} media={media} />
         </div>
     );
 }
