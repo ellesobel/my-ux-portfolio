@@ -454,26 +454,36 @@ export const designProjects: DesignProject[] = [
     {
         slug: "pnc-redesign",
         title: "Banking App Redesign",
+        meta: "Team of 3 · Figma · Fall 2025",
         summary: (
             <>
-                <em>PNC Mobile</em> is a redesign of PNC&#39;s banking app, made with
-                Andrew Pandji and Gabrielle Barthelmy. We built a new design system,
-                explored new ways to visualize account data, and made the app more
-                accessible throughout.
+                <em>Beyond Boring</em> reimagines PNC&#39;s mobile app and Apple Watch
+                experience to nudge customers toward budgeting and saving. Made with
+                Andrew Pandji and Gabrielle Barthelmy.
             </>
         ),
         media: "phones",
         features: [
             {
-                name: "Design System.",
-                blurb: "New colors, type, and components built with accessibility in mind.",
-                image: PHONE_FILLER,
-                video: "/images/bank/pnc_demo.mp4",
+                name: "Week Cycle.",
+                blurb: "A ring of the week shows which days you met your budget, overspent, or saved.",
+                image: "/images/bank/pnc_app_2.png",
             },
             {
-                name: "Data Views.",
-                blurb: "Visualizations that make account activity readable at a glance.",
-                image: PHONE_FILLER,
+                name: "Calendar.",
+                blurb: "The same data across a whole month, so patterns in your spending stand out.",
+                image: "/images/bank/pnc_app_3.png",
+            },
+            {
+                name: "Smart Categorize.",
+                blurb: "Swipe to tag each purchase. The charts are only as good as the data behind them.",
+                image: "/images/bank/pnc_app_5.png",
+            },
+            {
+                name: "Transactions.",
+                blurb: "A banner flags uncategorized purchases and leads straight into Smart Categorize.",
+                image: "/images/bank/pnc_app_4.png",
+                hideOnCard: true,
             },
         ],
         links: [
@@ -482,6 +492,74 @@ export const designProjects: DesignProject[] = [
                 href: "https://www.figma.com/proto/0GMLwccmcJZDvUO3ao0gNo/Project-1---Datafied-Experiences---Prototyping--Copy-?page-id=432%3A351&node-id=649-2176&viewport=-9480%2C1435%2C0.65&t=jJAkwCWn8aXjERSs-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=649%3A474",
             },
         ],
+        caseStudy: {
+            sections: [
+                {
+                    heading: "The Problem",
+                    body: (
+                        <>
+                            <p className="case-pull">
+                                PNC calls itself boring, and its app looks the part.
+                            </p>
+                            <p>
+                                Reviews call the app slow and buggy, while competitors like
+                                Capital One and Chime offer richer budgeting tools. Our take:
+                                it&#39;s not about being boring, it&#39;s about being smart,
+                                steady and reliable.
+                            </p>
+                        </>
+                    ),
+                },
+                {
+                    heading: "The Insight",
+                    body: (
+                        <>
+                            <p className="case-pull">
+                                Spending happens in cycles, not categories.
+                            </p>
+                            <p>
+                                Instead of static budget categories, we showed spending over
+                                time, so users can zoom from a single week out to a month and
+                                see their habits. I pushed this data visualization concept
+                                early on, and focused most on the calendar and Smart
+                                Categorize, though the three of us worked on everything
+                                together.
+                            </p>
+                        </>
+                    ),
+                },
+                {
+                    heading: "On the Watch",
+                    body: (
+                        <p>
+                            The week cycle shrinks to a quick check-in, like &ldquo;Met your
+                            budget 4 times this week!&rdquo;, with one-tap actions to move
+                            money into savings or donate it.
+                        </p>
+                    ),
+                },
+                {
+                    heading: "Design System",
+                    body: (
+                        <p>
+                            PNC&#39;s blue and orange, plus blue, red and green for on budget,
+                            over and saved. We set the app in Atkinson Hyperlegible for
+                            readability, and used SF Compact on the watch, following
+                            Apple&#39;s guidelines.
+                        </p>
+                    ),
+                    figures: [
+                        {
+                            src: "/images/bank/pnc_design_system.png",
+                            alt: "PNC design system: buttons, cards, navigation, type and colors",
+                            width: 1207,
+                            height: 671,
+                            caption: "Styles and components",
+                        },
+                    ],
+                },
+            ],
+        },
     },
 ];
 
