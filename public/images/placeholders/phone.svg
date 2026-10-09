@@ -1,17 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 410">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 401 861">
+  <!-- A 393x853 screen (the artboard size of the app designs) inside a 4px
+       ink frame, matching the frame demo videos get on the site. -->
   <defs>
     <linearGradient id="screen" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#f6d7ee"/>
       <stop offset="1" stop-color="#d9e2f5"/>
     </linearGradient>
   </defs>
-  <rect x="4" y="4" width="192" height="402" rx="34" fill="#1c1c1c"/>
-  <rect x="12" y="12" width="176" height="386" rx="27" fill="url(#screen)"/>
-  <rect x="70" y="22" width="60" height="16" rx="8" fill="#1c1c1c"/>
-  <g fill="none" stroke="#1c1c1c" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" opacity=".55">
-    <rect x="62" y="170" width="76" height="60" rx="8"/>
-    <polyline points="68,222 92,196 108,212 118,202 132,222"/>
-    <circle cx="115" cy="186" r="6"/>
+  <rect x="4" y="4" width="393" height="853" rx="48" fill="url(#screen)" stroke="#1c1c1c" stroke-width="8"/>
+  <g fill="none" stroke="#1c1c1c" stroke-width="10" stroke-linejoin="round" stroke-linecap="round" opacity=".55">
+    <rect x="124" y="360" width="152" height="120" rx="16"/>
+    <polyline points="136,464 184,412 216,444 236,424 264,464"/>
+    <circle cx="230" cy="392" r="12"/>
   </g>
-  <text x="100" y="262" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#1c1c1c" opacity=".55">Screen placeholder</text>
+  <text x="200" y="548" text-anchor="middle" font-family="sans-serif" font-size="28" font-weight="600" fill="#1c1c1c" opacity=".55">Screen placeholder</text>
 </svg>

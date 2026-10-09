@@ -1923,6 +1923,25 @@ body:has(#content) {
     align-self: center;
 }
 
+/* Screen-only demos get a frame in the proportions of the 393x853 artboard
+   they were designed at, so nothing is cropped off the top or bottom, and a
+   corner radius close to the phone's own so the corners of the design show.
+   The ratio is on the content box: the 4px border sits outside it, and the
+   width leaves room for that border. */
+.demo-video.video-crop {
+    box-sizing: content-box;
+    width: calc(100% - 8px);
+    aspect-ratio: 393 / 853;
+    border-radius: 22px;
+}
+
+/* The older landscape recordings keep the original frame their zoom was
+   tuned for. */
+.demo-video.video-crop:has(.landscape) {
+    aspect-ratio: 245 / 500;
+    border-radius: 40px;
+}
+
 .slot-1 .case-caption {
     grid-area: c1;
     align-self: start;

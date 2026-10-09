@@ -47,7 +47,7 @@ export const designProjects: DesignProject[] = [
         media: "phones",
         features: [
             {
-                name: "Mood Ring.",
+                name: "Moodring.",
                 blurb: "Tracks your emotions and suggests ways to regulate them.",
                 image: PHONE_FILLER,
                 video: "/images/moodring_demo.mp4",

@@ -56,8 +56,8 @@ function DemoMedia({ frame, image, video, alt }: Props) {
             className={phone ? "phone-img" : "wide-img"}
             src={image}
             alt={alt}
-            width={phone ? 200 : 640}
-            height={phone ? 410 : 400}
+            width={phone ? 401 : 640}
+            height={phone ? 861 : 400}
             unoptimized
         />
     );
