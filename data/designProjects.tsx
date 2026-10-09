@@ -248,7 +248,7 @@ export const designProjects: DesignProject[] = [
                 name: "Map Nav",
                 blurb: "Perfect for when you want to see the distribution of songs throughout the city.",
                 image: PHONE_FILLER,
-                video: "/images/map_demo.mp4",
+                video: "/images/music/map_demo.mp4",
             },
             {
                 name: "Shuffle",
@@ -280,7 +280,7 @@ export const designProjects: DesignProject[] = [
                 name: "Design System.",
                 blurb: "New colors, type, and components built with accessibility in mind.",
                 image: PHONE_FILLER,
-                video: "/images/pnc_demo.mp4",
+                video: "/images/bank/pnc_demo.mp4",
             },
             {
                 name: "Data Views.",
