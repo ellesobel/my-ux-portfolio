@@ -30,7 +30,7 @@ export const codingProjects: CodingProject[] = [
         ),
         media: "browser",
         image: BROWSER_FILLER,
-        video: "/images/plant_demo.mp4",
+        video: "/images/plant/plant_demo.mp4",
         features: [
             {
                 name: "Live Search.",
@@ -79,7 +79,7 @@ export const codingProjects: CodingProject[] = [
         ),
         media: "browser",
         image: BROWSER_FILLER,
-        video: "/images/gallery_web_demo.mp4",
+        video: "/images/flowers/gallery_web_demo.mp4",
         features: [
             {
                 name: "Modal View.",

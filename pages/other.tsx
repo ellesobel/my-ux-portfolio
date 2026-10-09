@@ -15,15 +15,15 @@ type Piece = {
 
 // Order matters: .art-card:nth-child(n) in App.css places each frame on the wall.
 const pieces: Piece[] = [
-    { src: "/images/art_3.avif", alt: "Pencil", width: 490, height: 400, title: "Pencil on Paper" },
-    { src: "/images/art_5.avif", alt: "Watercolor", width: 299, height: 400, title: "Watercolor on Paper" },
+    { src: "/images/art_gallery/art_3.avif", alt: "Pencil", width: 490, height: 400, title: "Pencil on Paper" },
+    { src: "/images/art_gallery/art_5.avif", alt: "Watercolor", width: 299, height: 400, title: "Watercolor on Paper" },
     {
-        src: "/images/art_4.avif", alt: "Mixed Media", width: 299, height: 400,
+        src: "/images/art_gallery/art_4.avif", alt: "Mixed Media", width: 299, height: 400,
         title: "Mixed Media on Paper", medium: "Watercolor, Marker, Colored Pencil, Collage, Ink",
     },
-    { src: "/images/art_1.avif", alt: "Beads and Embroidery", width: 299, height: 400, title: "Embroidery + Beading on Denim" },
-    { src: "/images/art_2.avif", alt: "Charcoal", width: 299, height: 400, title: "Charcoal on Paper" },
-    { src: "/images/art_7.jpg", alt: "Collage", width: 1679, height: 1866, title: "Collage on Paper" },
+    { src: "/images/art_gallery/art_1.avif", alt: "Beads and Embroidery", width: 299, height: 400, title: "Embroidery + Beading on Denim" },
+    { src: "/images/art_gallery/art_2.avif", alt: "Charcoal", width: 299, height: 400, title: "Charcoal on Paper" },
+    { src: "/images/art_gallery/art_7.jpg", alt: "Collage", width: 1679, height: 1866, title: "Collage on Paper" },
 ];
 
 // The lightbox frame's size depends on the screen, so its swing is scaled to
