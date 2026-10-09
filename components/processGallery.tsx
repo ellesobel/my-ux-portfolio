@@ -4,9 +4,7 @@
 // through the rest.
 //
 // A figure with a `set` (all the sketches, all the wireframes) shows just its
-// cover in the overview and opens as a grid of the whole set. Any image in the
-// grid opens large; the arrows then step within the set, and Back (or Escape)
-// returns to the grid.
+// cover in the overview and opens as a grid of the whole set.
 
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type TouchEvent } from "react";
@@ -27,40 +25,22 @@ function ProcessGallery({ figures }: Props) {
     const active = index === null ? null : figures[index];
     // Which way the last step went, so the next image slides in from that side.
     const [direction, setDirection] = useState<"next" | "prev" | null>(null);
-    // Index within the open figure's set of the image shown large, or null
-    // while the set's grid is showing (or the figure has no set).
-    const [zoom, setZoom] = useState<number | null>(null);
     const set = active?.set;
     const open = (i: number) => {
         setIndex(i);
-        setZoom(null);
         setDirection(null);
     };
     const close = useCallback(() => {
         setIndex(null);
-        setZoom(null);
         setDirection(null);
     }, []);
-    // Back from one image of a set to the set's grid.
-    const back = useCallback(() => {
-        setZoom(null);
-        setDirection(null);
-    }, []);
-    // Within a set's image, step through the set; otherwise through the
-    // section's figures.
     const step = useCallback(
         (by: number) => {
             setDirection(by > 0 ? "next" : "prev");
-            if (set && zoom !== null) {
-                setZoom((z) => (z === null ? z : (z + by + set.length) % set.length));
-            } else {
-                setZoom(null);
-                setIndex((i) => (i === null ? i : (i + by + figures.length) % figures.length));
-            }
+            setIndex((i) => (i === null ? i : (i + by + figures.length) % figures.length));
         },
-        [figures.length, set, zoom],
+        [figures.length],
     );
-    const canStep = set && zoom !== null ? set.length > 1 : figures.length > 1;
 
     // Swipe left for the next image, right for the previous. A finger that
     // moves never fires a click, so a swipe can't also close the modal.
@@ -72,7 +52,7 @@ function ProcessGallery({ figures }: Props) {
     const onTouchEnd = (event: TouchEvent) => {
         const start = touchStart.current;
         touchStart.current = null;
-        if (!start || !canStep) return;
+        if (!start || figures.length < 2) return;
         const t = event.changedTouches[0];
         const dx = t.clientX - start.x;
         const dy = t.clientY - start.y;
@@ -83,10 +63,7 @@ function ProcessGallery({ figures }: Props) {
     useEffect(() => {
         if (!active) return;
         const onKeyDown = (event: KeyboardEvent) => {
-            if (event.key === "Escape") {
-                if (zoom !== null) back();
-                else close();
-            }
+            if (event.key === "Escape") close();
             if (event.key === "ArrowLeft") step(-1);
             if (event.key === "ArrowRight") step(1);
         };
@@ -97,10 +74,8 @@ function ProcessGallery({ figures }: Props) {
             document.body.style.overflow = previousOverflow;
             document.removeEventListener("keydown", onKeyDown);
         };
-    }, [active, close, back, step, zoom]);
+    }, [active, close, step]);
 
-    // The single image on show: one of a set, or the figure itself.
-    const shown = set && zoom !== null ? set[zoom] : active;
     // Fit the image to the screen: as wide as the room allows, as tall as the
     // screen allows for its shape, and never past 1.5x its own size, where it
     // would go soft (see .process-modal-img).
@@ -138,70 +113,46 @@ function ProcessGallery({ figures }: Props) {
                     onTouchEnd={onTouchEnd}
                 >
                     <figure
-                        key={`${active.src}-${zoom ?? "all"}`}
+                        key={active.src}
                         className={`art-modal-inner${direction ? ` slide-${direction}` : ""}`}
                     >
                         <div className="modal-stage">
-                            {set && zoom === null ? (
+                            {set ? (
                                 <div
                                     className="process-set-grid modal-media"
                                     style={{ "--n": set.length } as CSSProperties}
                                     data-n={set.length}
                                     onClick={(event) => event.stopPropagation()}
                                 >
-                                    {set.map((img, j) => (
-                                        <button
+                                    {set.map((img) => (
+                                        <Image
                                             key={img.src}
-                                            type="button"
-                                            aria-label={`View ${img.alt} larger`}
-                                            onClick={() => { setDirection(null); setZoom(j); }}
-                                        >
-                                            <Image
-                                                src={img.src}
-                                                alt={img.alt}
-                                                width={img.width}
-                                                height={img.height}
-                                                sizes="(max-width: 650px) 80vw, 340px"
-                                            />
-                                        </button>
+                                            src={img.src}
+                                            alt={img.alt}
+                                            width={img.width}
+                                            height={img.height}
+                                            sizes="(max-width: 650px) 80vw, 340px"
+                                        />
                                     ))}
                                 </div>
                             ) : (
-                                shown && (
-                                    <Image
-                                        className="process-modal-img modal-media"
-                                        src={shown.src}
-                                        alt={shown.alt}
-                                        width={shown.width}
-                                        height={shown.height}
-                                        sizes="(max-width: 650px) 100vw, 1100px"
-                                        style={fit(shown)}
-                                        onClick={(event) => event.stopPropagation()}
-                                    />
-                                )
+                                <Image
+                                    className="process-modal-img modal-media"
+                                    src={active.src}
+                                    alt={active.alt}
+                                    width={active.width}
+                                    height={active.height}
+                                    sizes="(max-width: 650px) 100vw, 1100px"
+                                    style={fit(active)}
+                                    onClick={(event) => event.stopPropagation()}
+                                />
                             )}
-                            {canStep && <ModalArrows onStep={step} noun="image" />}
+                            {figures.length > 1 && <ModalArrows onStep={step} noun="image" />}
                         </div>
                         {active.caption && (
                             <figcaption className="art-modal-caption">
                                 <h3>{active.caption}</h3>
-                                {set && (
-                                    <h4>
-                                        {zoom === null
-                                            ? `All ${set.length}. Tap one to see it larger.`
-                                            : `${zoom + 1} of ${set.length}`}
-                                    </h4>
-                                )}
                             </figcaption>
-                        )}
-                        {set && zoom !== null && (
-                            <button
-                                type="button"
-                                className="process-set-back"
-                                onClick={(event) => { event.stopPropagation(); back(); }}
-                            >
-                                &larr; All {active.caption?.toLowerCase() ?? "images"}
-                            </button>
                         )}
                     </figure>
                     <ModalClose onClose={close} />
