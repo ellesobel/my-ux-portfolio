@@ -148,10 +148,10 @@ export const designProjects: DesignProject[] = [
                     body: null,
                     figures: [
                         {
-                            src: "/images/wave/journey_map.jpg",
+                            src: "/images/wave_journey_map.png",
                             alt: "User journey map across four stages, from getting the implant to enjoying the app",
-                            width: 898,
-                            height: 607,
+                            width: 1116,
+                            height: 695,
                             caption: "User journey map",
                         },
                         {

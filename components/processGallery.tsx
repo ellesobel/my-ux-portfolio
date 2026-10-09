@@ -6,7 +6,7 @@
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState, type TouchEvent } from "react";
 import type { CaseFigure } from "../data/designProjects";
-import ModalArrows from "./modalArrows";
+import ModalArrows, { ModalClose } from "./modalArrows";
 
 // How far a finger must travel sideways, more than it moves up or down, to
 // count as a swipe rather than a tap (as in FeatureGallery).
@@ -120,11 +120,7 @@ function ProcessGallery({ figures }: Props) {
                             </figcaption>
                         )}
                     </figure>
-                    <button type="button" className="feature-modal-key feature-modal-close" aria-label="Close" onClick={close}>
-                        <svg viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M5 5l14 14M19 5L5 19" />
-                        </svg>
-                    </button>
+                    <ModalClose onClose={close} />
                 </div>
             )}
         </>

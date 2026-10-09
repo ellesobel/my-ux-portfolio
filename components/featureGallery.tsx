@@ -11,7 +11,7 @@
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type MouseEvent, type TouchEvent } from "react";
 import type { Feature } from "../data/designProjects";
 import DemoMedia from "./demoMedia";
-import ModalArrows from "./modalArrows";
+import ModalArrows, { ModalClose } from "./modalArrows";
 import { setupVideoToggles } from "../utils/videoToggle";
 
 // Matches the site's phone breakpoint in App.css.
@@ -155,11 +155,7 @@ function FeatureGallery({ features, media }: Props) {
                             <h4>{active.blurb}</h4>
                         </figcaption>
                     </figure>
-                    <button type="button" className="feature-modal-key feature-modal-close" aria-label="Close" onClick={close}>
-                        <svg viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M5 5l14 14M19 5L5 19" />
-                        </svg>
-                    </button>
+                    <ModalClose onClose={close} />
                 </div>
             )}
         </>
