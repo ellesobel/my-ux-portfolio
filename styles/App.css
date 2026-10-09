@@ -1758,16 +1758,17 @@ body:has(#content) {
 
 /* ---- Case-study link + stretching arrow ---- */
 
-/* The link fills its column so the arrow has room to stretch, but only the
-   label and the arrow itself take the pointer — not the empty space beside
-   them. */
+/* The link fills its column so the arrow has room to stretch. The whole
+   highlighted block takes the pointer: if only the label and the thin arrow
+   did, a pointer slipping off the arrow (or crossing the gap under the
+   label) dropped the hover, the arrow snapped back, and it flickered. */
 .case-link {
     display: flex;
     flex-direction: column;
     gap: 6px;
     color: var(--words);
     text-decoration: none;
-    pointer-events: none;
+    cursor: pointer;
     /* The hover highlight is a block behind the label and arrow, in the
        page's nav color. The padding gives it room; the negative margin keeps
        the words and arrow lined up with the text above. */
@@ -1778,12 +1779,6 @@ body:has(#content) {
     transition: background-color .2s ease;
 }
 
-
-.case-link-label,
-.case-arrow-shaft {
-    pointer-events: auto;
-    cursor: pointer;
-}
 
 .case-link-label {
     align-self: flex-start;

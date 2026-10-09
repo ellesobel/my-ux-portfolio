@@ -1,8 +1,7 @@
 // Case study for one UI & Design project. Projects with a written-up
 // `caseStudy` show its sections (and a hero demo, if it has one); the rest
-// show a filler hero and sections until theirs are written.
+// show filler sections until theirs are written. Either way the demos lead.
 
-import Image from "next/image";
 import Link from "next/link";
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import type { GetStaticPaths, GetStaticProps } from "next";
@@ -62,7 +61,7 @@ function CaseStudy({ slug }: Props) {
                 )}
             </header>
 
-            {caseStudy?.heroVideo ? (
+            {caseStudy?.heroVideo && (
                 <div className="case-study-hero">
                     <DemoMedia
                         frame="wide"
@@ -71,18 +70,6 @@ function CaseStudy({ slug }: Props) {
                         alt={`${title} walkthrough`}
                     />
                 </div>
-            ) : (
-                !caseStudy && (
-                    <div className="case-study-hero">
-                        <Image
-                            src="/images/placeholders/wide.svg"
-                            alt={`${title} hero placeholder`}
-                            width={640}
-                            height={400}
-                            unoptimized
-                        />
-                    </div>
-                )
             )}
 
             {/* The work first: a recruiter who never scrolls still sees the app. */}
