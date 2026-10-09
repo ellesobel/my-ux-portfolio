@@ -8,7 +8,7 @@
 // over the footage being watched. Any movement wakes it again.
 //
 // Returns a cleanup function that removes the buttons and listeners.
-const IDLE_MS = 3000;
+const IDLE_MS = 1000;
 
 export function setupVideoToggles(selector: string): () => void {
     const videos = Array.from(
