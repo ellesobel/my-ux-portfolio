@@ -61,6 +61,7 @@ export const designProjects: DesignProject[] = [
     {
         slug: "wave",
         title: "Brain-Computer Interface App",
+        meta: "Solo project · Figma · Dec. 2025",
         summary: (
             <>
                 <em>WAVE</em> is a speculative design project: an assistant app for a
@@ -116,19 +117,6 @@ export const designProjects: DesignProject[] = [
             heroVideo: "/images/brainchip_demo.mp4",
             sections: [
                 {
-                    heading: "Overview",
-                    body: (
-                        <p>
-                            A solo speculative design project for Advanced Visual
-                            Principles for the Screen (Dec. 2025). Inspired
-                            by <em>Neuralink</em> and <em>Black Mirror</em>, I designed
-                            and prototyped WAVE in Figma: a landing page, settings, and
-                            three features: Moodring, Dreamcatcher, and Radius, a friend
-                            location tracker.
-                        </p>
-                    ),
-                },
-                {
                     heading: "The Premise",
                     body: (
                         <>
@@ -136,142 +124,59 @@ export const designProjects: DesignProject[] = [
                                 What if our thoughts were being surveilled?
                             </p>
                             <p>
-                                In this future, public outrage has banned surveillance
-                                cameras in private spaces, so the government goes
-                                somewhere more private. Everyone over 18 gets a mandatory
-                                brain chip, and the government promises it won&#39;t
-                                listen, unless it has reason to.
-                            </p>
-                            <p>
-                                WAVE is the app that comes with the chip. The challenge:
-                                make people actually want to use it.
+                                Every adult gets a mandatory brain chip. My challenge: make
+                                people want to use its app.
                             </p>
                         </>
                     ),
                 },
                 {
-                    heading: "User Journey",
+                    heading: "Design Choice",
                     body: (
-                        <p>
-                            I mapped a citizen&#39;s first months with the chip, from the
-                            implant to everyday use. They start out frustrated and
-                            helpless, become intrigued, and end up happy: the app is so
-                            helpful they forget their worries, and so good it&#39;s making
-                            them a little lazy. That arc is what the design has to deliver.
-                        </p>
+                        <>
+                            <p className="case-pull">
+                                So cute you forget it&#39;s creepy.
+                            </p>
+                            <p>
+                                A dystopian utopia: gilded on the surface, deeply wrong
+                                underneath.
+                            </p>
+                        </>
                     ),
+                },
+                {
+                    heading: "Process",
+                    body: null,
                     figures: [
                         {
                             src: "/images/wave/journey_map.jpg",
-                            alt: "User journey map with goals, actions, thoughts, pain points, and emotions across four stages, from getting the implant to enjoying the app",
+                            alt: "User journey map across four stages, from getting the implant to enjoying the app",
                             width: 898,
                             height: 607,
+                            caption: "Journey map: from frustrated to hooked",
                         },
-                    ],
-                },
-                {
-                    heading: "Sketches",
-                    body: (
-                        <p>
-                            I started on paper with the home and settings screens, then
-                            explored soft, bubbly shapes for the layout and a set of
-                            cartoon faces that became the app&#39;s mood characters.
-                        </p>
-                    ),
-                    figures: [
                         {
                             src: "/images/wave/sketch_paper.jpg",
                             alt: "Hand-drawn sketch of the home and settings screens",
                             width: 638,
                             height: 494,
-                            caption: "Home and settings on paper",
-                        },
-                        {
-                            src: "/images/wave/sketch_shapes.jpg",
-                            alt: "Grey cloud, star, and burst shapes",
-                            width: 564,
-                            height: 503,
-                            caption: "Shape explorations",
+                            caption: "Paper sketches",
                         },
                         {
                             src: "/images/wave/sketch_wireframe_1.jpg",
                             alt: "Wireframes of the home screen built from bubbly shapes",
                             width: 670,
                             height: 701,
-                            caption: "Home screen wireframes",
+                            caption: "Wireframes",
                         },
-                        {
-                            src: "/images/wave/sketch_wireframe_2.jpg",
-                            alt: "Wireframes filled with cloud and wave shapes",
-                            width: 609,
-                            height: 616,
-                            caption: "Background explorations",
-                        },
-                        {
-                            src: "/images/wave/sketch_faces.jpg",
-                            alt: "Cartoon eyes and mouths showing angry, happy, sad, and neutral moods",
-                            width: 617,
-                            height: 219,
-                            caption: "Mood faces",
-                        },
-                    ],
-                },
-                {
-                    heading: "Mood Board",
-                    body: (
-                        <p>
-                            Surveillance cameras, <em>Neuralink</em>, and <em>Black
-                            Mirror</em> sat next to retrofuturism, music-app audio auras,
-                            dreamy gradients, and <em>Inside Out</em>. The pastel swatches
-                            across the top and bottom became the color palette.
-                        </p>
-                    ),
-                    figures: [
                         {
                             src: "/images/wave/moodboard.jpg",
-                            alt: "Mood board pairing surveillance and Black Mirror imagery with pastel gradients, retrofuturism, and color swatches",
+                            alt: "Mood board pairing surveillance imagery with pastel gradients and color swatches",
                             width: 2160,
                             height: 1120,
+                            caption: "Mood board",
                         },
                     ],
-                },
-                {
-                    heading: "Design Choice",
-                    body: (
-                        <>
-                            <p>
-                                I created a bright, colorful design system with cute motifs
-                                to offset how uncomfortable the product is. I want users to
-                                be so distracted that they forget how creepy it is.
-                            </p>
-                            <p>
-                                It&#39;s a dystopian utopia: a society that looks gilded and
-                                perfect, but something is deeply wrong.
-                            </p>
-                        </>
-                    ),
-                },
-                {
-                    heading: "Reflection",
-                    body: (
-                        <>
-                            <p>
-                                A product like this would make people lazy, taking the
-                                laziness we already see with AI even further. Like
-                                in <em>WALL-E</em>, the society doesn&#39;t want people to
-                                think, because thinking is the most powerful human tool.
-                                The cute graphics, bright colors, and cool but kind of
-                                pointless live-data features mask that, and they&#39;re
-                                what would get people addicted.
-                            </p>
-                            <p>
-                                The technology is advancing fast enough to be possible by
-                                2040. I doubt it would be state-mandated, though; more
-                                likely social pressure, the way AirPods went from crazy to
-                                normal.
-                            </p>
-                        </>
-                    ),
                 },
             ],
         },
