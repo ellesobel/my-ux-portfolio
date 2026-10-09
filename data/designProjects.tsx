@@ -64,10 +64,8 @@ export const designProjects: DesignProject[] = [
         meta: "Solo project · Figma · Dec. 2025",
         summary: (
             <>
-                <em>WAVE</em> is a speculative design project: an assistant app for a
-                government-mandated thought-surveillance system. Using bright pastels
-                and playful animation, I designed the interface to make an invasive
-                product feel cute and harmless.
+                <em>WAVE</em> is the app for a brain chip the government makes
+                mandatory for anyone over 18, so it can record our thoughts.
             </>
         ),
         media: "phones",
@@ -124,8 +122,8 @@ export const designProjects: DesignProject[] = [
                                 What if our thoughts were being surveilled?
                             </p>
                             <p>
-                                Every adult gets a mandatory brain chip. My challenge: make
-                                people want to use its app.
+                                The government claims they won&#39;t be listening, unless
+                                they have reason to.
                             </p>
                         </>
                     ),
@@ -135,11 +133,12 @@ export const designProjects: DesignProject[] = [
                     body: (
                         <>
                             <p className="case-pull">
-                                So cute you forget it&#39;s creepy.
+                                I want users to be so distracted that they forget how
+                                creepy it is.
                             </p>
                             <p>
-                                A dystopian utopia: gilded on the surface, deeply wrong
-                                underneath.
+                                Bright colors and cute motifs make it look gilded and
+                                perfect, but something is deeply wrong.
                             </p>
                         </>
                     ),
@@ -153,14 +152,14 @@ export const designProjects: DesignProject[] = [
                             alt: "User journey map across four stages, from getting the implant to enjoying the app",
                             width: 898,
                             height: 607,
-                            caption: "Journey map: from frustrated to hooked",
+                            caption: "User journey map",
                         },
                         {
                             src: "/images/wave/sketch_paper.jpg",
                             alt: "Hand-drawn sketch of the home and settings screens",
                             width: 638,
                             height: 494,
-                            caption: "Paper sketches",
+                            caption: "Sketches",
                         },
                         {
                             src: "/images/wave/sketch_wireframe_1.jpg",

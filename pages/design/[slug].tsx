@@ -10,6 +10,7 @@ import { allDesignProjects, type CaseSection } from "../../data/designProjects";
 import { useEffect } from "react";
 import DemoMedia, { DEMO_VIDEO_SELECTOR } from "../../components/demoMedia";
 import FeatureGallery from "../../components/featureGallery";
+import ProcessGallery from "../../components/processGallery";
 import { setupVideoToggles } from "../../utils/videoToggle";
 
 const FILLER =
@@ -82,25 +83,7 @@ function CaseStudy({ slug }: Props) {
                     <div key={heading} className={`case-study-section${figures ? " has-figures" : ""}`}>
                         <h3>{heading}</h3>
                         {body}
-                        {figures && (
-                            <div className={`case-figures${figures.length > 1 ? " gallery" : ""}`}>
-                                {figures.map((figure) => (
-                                    <figure key={figure.src} className="case-figure">
-                                        {/* Opens full size in a new tab, for the fine print. */}
-                                        <a href={figure.src} target="_blank" rel="noopener noreferrer">
-                                            <Image
-                                                src={figure.src}
-                                                alt={figure.alt}
-                                                width={figure.width}
-                                                height={figure.height}
-                                                sizes={figures.length > 1 ? "(max-width: 850px) 50vw, 320px" : "(max-width: 1100px) 100vw, 1000px"}
-                                            />
-                                        </a>
-                                        {figure.caption && <figcaption>{figure.caption}</figcaption>}
-                                    </figure>
-                                ))}
-                            </div>
-                        )}
+                        {figures && <ProcessGallery figures={figures} />}
                     </div>
                 ))}
             </section>

@@ -2436,8 +2436,32 @@ body:has(#content) {
     margin: 0;
 }
 
-.case-figure a {
+/* The thumbnail is a button that opens the image in the modal. */
+.case-figure button {
     display: block;
+    width: 100%;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: zoom-in;
+}
+
+/* The enlarged image in the modal: as big as fits between the arrow keys,
+   with room under it for the caption. */
+.process-modal-img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: min(84vw, 1100px);
+    max-height: 78dvh;
+    border-radius: 12px;
+    background-color: var(--bkgrd);
+}
+
+@media(max-width:650px) {
+    .process-modal-img {
+        max-width: 72vw;
+    }
 }
 
 .case-figure img {
