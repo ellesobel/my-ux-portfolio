@@ -1,6 +1,6 @@
 // Case study for one UI & Design project. Projects with a written-up
-// `caseStudy` show its sections and hero demo; the rest show filler sections
-// until theirs are written.
+// `caseStudy` show its sections (and a hero demo, if it has one); the rest
+// show a filler hero and sections until theirs are written.
 
 import Image from "next/image";
 import Link from "next/link";
@@ -59,24 +59,28 @@ function CaseStudy({ slug }: Props) {
                 </div>
             )}
 
-            <div className="case-study-hero">
-                {caseStudy?.heroVideo ? (
+            {caseStudy?.heroVideo ? (
+                <div className="case-study-hero">
                     <DemoMedia
                         frame="wide"
                         image="/images/placeholders/wide.svg"
                         video={caseStudy.heroVideo}
                         alt={`${title} walkthrough`}
                     />
-                ) : (
-                    <Image
-                        src="/images/placeholders/wide.svg"
-                        alt={`${title} hero placeholder`}
-                        width={640}
-                        height={400}
-                        unoptimized
-                    />
-                )}
-            </div>
+                </div>
+            ) : (
+                !caseStudy && (
+                    <div className="case-study-hero">
+                        <Image
+                            src="/images/placeholders/wide.svg"
+                            alt={`${title} hero placeholder`}
+                            width={640}
+                            height={400}
+                            unoptimized
+                        />
+                    </div>
+                )
+            )}
 
             <section className="case-study-sections">
                 {sections.map(({ heading, body, figures, layout }) => (

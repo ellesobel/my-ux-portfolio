@@ -66,7 +66,7 @@ export type CaseSection = {
 };
 
 export type CaseStudy = {
-    // Demo video for the hero frame; without one the hero shows the filler.
+    // Demo video for a hero frame over the sections; without one there is none.
     heroVideo?: string;
     sections: CaseSection[];
 };
@@ -219,7 +219,6 @@ export const designProjects: DesignProject[] = [
             },
         ],
         caseStudy: {
-            heroVideo: "/images/wave/demos/brainchip_demo.mp4",
             sections: [
                 {
                     heading: "The Premise",
@@ -340,11 +339,10 @@ export const designProjects: DesignProject[] = [
         links: [
             {
                 label: "Prototype",
-                href: "https://www.figma.com/proto/2VKtHdxEqOimViafopvew0/Eliana-Semester-Second-Half?page-id=1%3A2&node-id=295-1989&starting-point-node-id=295%3A1989&show-proto-sidebar=1&t=6mWFIjEwga52zpoi-1",
+                href: "https://www.figma.com/proto/eONaUTtjXYfKhz1jMNbX3G/music-map?node-id=1-3327&t=8R5bDPkI1D0R0gok-1&scaling=contain&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A478",
             },
         ],
         caseStudy: {
-            heroVideo: "/images/music/demos/map_demo.mp4",
             sections: [
                 {
                     heading: "The Idea",
