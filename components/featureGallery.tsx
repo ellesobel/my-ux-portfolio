@@ -107,7 +107,9 @@ function FeatureGallery({ features, media }: Props) {
                         </figcaption>
                     </figure>
                     <button type="button" className="feature-modal-close" aria-label="Close" onClick={close}>
-                        &times;
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M5 5l14 14M19 5L5 19" />
+                        </svg>
                     </button>
                 </div>
             )}

@@ -2168,21 +2168,37 @@ body:has(#content) {
     max-width: min(84vw, 360px);
 }
 
+/* Nearly opaque, so the page behind doesn't compete with the screen. */
+.art-modal.feature-modal {
+    background-color: rgba(28, 28, 28, .95);
+}
+
 .feature-modal-close {
     position: absolute;
     top: 14px;
     right: 14px;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     padding: 0;
-    font-size: 26px;
-    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: var(--words);
     background-color: var(--bkgrd);
     border: 2px solid var(--words);
     border-radius: 8px;
     box-shadow: 3px 3px 0 var(--words);
     cursor: pointer;
+}
+
+/* The X fills most of its key, like the play/pause icons do theirs. */
+.feature-modal-close svg {
+    width: 80%;
+    height: 80%;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 3.5;
+    stroke-linecap: square;
 }
 
 /* Phones: the screens become thumbnails that open in the modal, so they drop
