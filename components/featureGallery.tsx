@@ -1,8 +1,6 @@
 // The Features section of a case-study page. The screens sit in one row that
 // shrinks to fit, or, for four, a 2 x 2 grid once one row would be too small —
-// never a lopsided 3 + 1 (see .case-study-features in App.css). Features with
-// a `group` show as one row per group under its heading; the modal still steps
-// through all of them in order.
+// never a lopsided 3 + 1 (see .case-study-features in App.css).
 //
 // On a phone the screens are thumbnails: a tap opens one large in a modal
 // (styled like the art gallery's lightbox) with its caption, where the demo
@@ -98,50 +96,33 @@ function FeatureGallery({ features, media }: Props) {
 
     const name = (feature: Feature) => feature.name.replace(/\.$/, "");
 
-    // Consecutive features sharing a group, each kept with its index in the
-    // full list so the modal can step across groups.
-    const groups: { label?: string; items: { feature: Feature; i: number }[] }[] = [];
-    features.forEach((feature, i) => {
-        const last = groups[groups.length - 1];
-        if (last && last.label === feature.group) last.items.push({ feature, i });
-        else groups.push({ label: feature.group, items: [{ feature, i }] });
-    });
-    // Every row sizes its screens as if it held as many as the biggest group,
-    // so they come out the same size in each (the smaller row stays centred).
-    const slots = Math.max(...groups.map((g) => g.items.length));
-
     return (
         <>
             {phones && <p className="feature-tap-hint">Tap a screen to see it larger.</p>}
-            {groups.map(({ label, items }) => (
-                <div key={label ?? "features"} className="case-study-feature-group">
-                    {label && <h3 className="feature-group-title">{label}</h3>}
-                    <section
-                        className={`case-study-features ${media}`}
-                        data-count={items.length}
-                        style={{ "--cols": items.length, "--slots": slots } as CSSProperties}
+            <section
+                className={`case-study-features ${media}`}
+                data-count={features.length}
+                style={{ "--cols": features.length } as CSSProperties}
+            >
+                {features.map((feature, i) => (
+                    <figure
+                        key={feature.name}
+                        className="case-study-feature"
+                        onClickCapture={openOnPhone(i)}
                     >
-                        {items.map(({ feature, i }) => (
-                            <figure
-                                key={feature.name}
-                                className="case-study-feature"
-                                onClickCapture={openOnPhone(i)}
-                            >
-                                <DemoMedia
-                                    frame={phones ? "phone" : "wide"}
-                                    image={feature.image}
-                                    video={feature.video}
-                                    alt={`${name(feature)} demo`}
-                                />
-                                <figcaption className="case-caption">
-                                    <strong>{feature.name}</strong>{" "}
-                                    <span className="feature-blurb">{feature.blurb}</span>
-                                </figcaption>
-                            </figure>
-                        ))}
-                    </section>
-                </div>
-            ))}
+                        <DemoMedia
+                            frame={phones ? "phone" : "wide"}
+                            image={feature.image}
+                            video={feature.video}
+                            alt={`${name(feature)} demo`}
+                        />
+                        <figcaption className="case-caption">
+                            <strong>{feature.name}</strong>{" "}
+                            <span className="feature-blurb">{feature.blurb}</span>
+                        </figcaption>
+                    </figure>
+                ))}
+            </section>
 
             {/* The backdrop and caption close it; the screen itself doesn't. */}
             {active && (

@@ -1924,11 +1924,15 @@ body:has(#content) {
     animation: none;
 }
 
-/* Screen-only phone recordings fill the frame as they are... */
+/* Screen-only phone recordings fill the frame as they are: stretched to it
+   rather than cropped (the recordings are within a pixel or two of the
+   frame's 393:853, so nothing visibly distorts and nothing is cut off), and
+   a pixel past every edge so the filler behind never shows at the rim. */
 .demo-video .app-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    flex: none;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    object-fit: fill;
     transform: none;
 }
 
@@ -1937,6 +1941,7 @@ body:has(#content) {
 .demo-video .app-video.landscape {
     width: 121%;
     height: 121%;
+    object-fit: cover;
     transform: translateY(-2.15%);
 }
 
@@ -1962,15 +1967,17 @@ body:has(#content) {
 
 /* The Dynamic Island the designs were laid out around: 126x37pt, 11pt from
    the top of a 393pt-wide screen, with the selfie camera lens at its right
-   end. Drawn in % so it scales with the frame. Above the video, below the
-   play/pause control. */
+   end. Drawn a few points bigger (136x47pt from 6pt down) because some
+   recordings already have a white island in them, sitting 10-12pt down, and
+   this one has to cover it without a rim. Drawn in % so it scales with the
+   frame. Above the video, below the play/pause control. */
 .demo-video.video-crop::after {
     content: "";
     position: absolute;
-    top: calc(11 / 853 * 100%);
+    top: calc(6 / 853 * 100%);
     left: 50%;
-    width: calc(126 / 393 * 100%);
-    aspect-ratio: 126 / 37;
+    width: calc(136 / 393 * 100%);
+    aspect-ratio: 136 / 47;
     transform: translateX(-50%);
     border-radius: 999px;
     background:
@@ -2070,18 +2077,24 @@ body:has(#content) {
 }
 
 .case-study .page-title {
-    margin: 12px 0 16px;
+    margin: 12px 0 12px;
 }
 
 .case-study-lede {
     max-width: 720px;
+    font-size: 15px;
 }
 
 .case-study-links {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
-    margin-top: 24px;
+    margin-top: 18px;
+}
+
+/* Features lead the page, so their heading sits close under the links. */
+.case-features-title {
+    margin-top: 36px;
 }
 
 .case-study-links a {
@@ -2119,27 +2132,29 @@ body:has(#content) {
     box-sizing: border-box;
 }
 
+/* The written sections are compact: small cards with small type, so they
+   support the work above instead of competing with it. */
 .case-study-sections {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 24px;
-    margin-top: 40px;
+    gap: 16px;
+    margin-top: 24px;
 }
 
 .case-study-section {
     background-color: var(--proj-bkgrd);
-    border-radius: 30px;
-    padding: 32px 36px;
+    border-radius: 22px;
+    padding: 22px 26px;
 }
 
 .case-study-section h3 {
-    font-size: 18px;
-    margin: 0 0 12px;
+    font-size: 15px;
+    margin: 0 0 8px;
 }
 
 .case-study-section p {
     margin: 0;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1.5;
 }
 
@@ -2159,15 +2174,9 @@ body:has(#content) {
     container: case-study / inline-size;
 }
 
-/* --slots (the biggest group's size, when features are grouped) sets each
-   screen's width, so a shorter row's screens match a longer row's. */
 .case-study-features.phones {
-    --gap: clamp(12px, 3cqw, 32px);
-    grid-template-columns: repeat(
-        var(--cols),
-        minmax(0, min(220px, calc((100% - (var(--slots) - 1) * var(--gap)) / var(--slots))))
-    );
-    column-gap: var(--gap);
+    grid-template-columns: repeat(var(--cols), minmax(0, 220px));
+    column-gap: clamp(12px, 3cqw, 32px);
     justify-content: center;
 }
 
@@ -2188,16 +2197,6 @@ body:has(#content) {
 
 .feature-tap-hint {
     display: none;
-}
-
-/* Grouped features: a small heading over each group's row. */
-.case-study-feature-group + .case-study-feature-group {
-    margin-top: 28px;
-}
-
-.feature-group-title {
-    font-size: 18px;
-    margin: 0 0 14px;
 }
 
 /* The modal opens from a phone thumbnail only (see FeatureGallery). */
@@ -2448,22 +2447,22 @@ body:has(#content) {
 
 .case-study-section ul {
     margin: 0;
-    padding-left: 20px;
-    font-size: 16px;
+    padding-left: 18px;
+    font-size: 14px;
     line-height: 1.5;
 }
 
 .case-study-section li {
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 .case-study-section p + p {
-    margin-top: 10px;
+    margin-top: 6px;
 }
 
 /* The one question a section turns on, set larger than its body. */
 .case-study-section .case-pull {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 700;
     line-height: 1.3;
 }
@@ -2767,8 +2766,11 @@ body:has(#content) {
         gap: 12px;
     }
 
-    .case-study-section,
     .case-study-features {
         padding: 26px 22px;
+    }
+
+    .case-study-section {
+        padding: 20px 18px;
     }
 }

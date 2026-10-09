@@ -8,6 +8,9 @@
 // phone frame as they are. The older landscape recordings have the phone in
 // the middle of a wide frame, so they're marked .landscape once their size is
 // known and the CSS zooms in on the phone.
+//
+// Every demo has a still beside it (same name, .jpg) shown as its poster, so
+// the screen shows the app before the video has loaded or been played.
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
@@ -44,6 +47,7 @@ function DemoMedia({ frame, image, video, alt }: Props) {
                     muted
                     playsInline
                     preload="metadata"
+                    poster={video.replace(/\.mp4$/, ".jpg")}
                 >
                     <source src={video} type="video/mp4" />
                 </video>

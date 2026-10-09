@@ -82,6 +82,12 @@ function CaseStudy({ slug }: Props) {
                 )
             )}
 
+            {/* The work first: a recruiter who never scrolls still sees the app. */}
+            <h2 className="case-section-title case-features-title">
+                {media === "phones" ? "Features" : "Highlights"}
+            </h2>
+            <FeatureGallery features={features} media={media} />
+
             <section className="case-study-sections">
                 {sections.map(({ heading, body, figures, layout }) => (
                     <div key={heading} className={`case-study-section${figures ? " has-figures" : ""}`}>
@@ -92,8 +98,6 @@ function CaseStudy({ slug }: Props) {
                 ))}
             </section>
 
-            <h2 className="case-section-title">{media === "phones" ? "Features" : "Highlights"}</h2>
-            <FeatureGallery features={features} media={media} />
         </div>
     );
 }

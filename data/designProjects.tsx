@@ -2,6 +2,7 @@
 // so the cards and the case studies can't drift apart. Images are fillers for
 // now. To show a demo, add `video: "/images/<project>/demos/your_demo.mp4"` next to the image
 // it replaces — the card switches to the video and its play/pause control.
+// Each demo needs a still beside it with the same name as a .jpg, its poster.
 
 import type { ReactNode } from "react";
 
@@ -15,9 +16,6 @@ export type Feature = {
     video?: string;
     // Shown on the case-study page only, not among the card's two screens.
     hideOnCard?: boolean;
-    // Features with a group show under its heading on the case-study page,
-    // each group in its own row (the music map's ways in, then the trip).
-    group?: string;
 };
 
 export type DesignProject = {
@@ -171,8 +169,9 @@ export const designProjects: DesignProject[] = [
         meta: "Solo project · Figma · Dec. 2025",
         summary: (
             <>
-                <em>WAVE</em> is the app for a brain chip the government makes
-                mandatory for anyone over 18, so it can record our thoughts.
+                <em>WAVE</em> is a speculative app for a brain chip that reads your
+                thoughts. It tracks your moods and replays your dreams, all behind a
+                cute, cheerful interface.
             </>
         ),
         media: "phones",
@@ -302,14 +301,12 @@ export const designProjects: DesignProject[] = [
                 blurb: "Zoom into the glowing map of Manhattan to see how songs spread across the city, and tap one to go.",
                 image: PHONE_FILLER,
                 video: "/images/music/demos/music_map_demo.mp4",
-                group: "Pick a song",
             },
             {
                 name: "Regions.",
                 blurb: "Browse by neighborhood, from Harlem to downtown, with a lyric from each song.",
                 image: PHONE_FILLER,
                 video: "/images/music/demos/music_region_demo.mp4",
-                group: "Pick a song",
                 hideOnCard: true,
             },
             {
@@ -317,23 +314,13 @@ export const designProjects: DesignProject[] = [
                 blurb: "Find the song closest to where you're standing and head straight there.",
                 image: PHONE_FILLER,
                 video: "/images/music/demos/music_nearme_demo.mp4",
-                group: "Pick a song",
                 hideOnCard: true,
             },
             {
-                name: "Directions.",
-                blurb: "Neon arrows count you down, turn by turn, to the spot in the song.",
+                name: "The Trip.",
+                blurb: "Neon arrows count you down to the spot, then the song plays with the lyric about where you're standing.",
                 image: PHONE_FILLER,
-                video: "/images/music/demos/music_directions_demo.mp4",
-                group: "Take the trip",
-            },
-            {
-                name: "Arrival.",
-                blurb: "The song starts playing with the lyric about where you're standing.",
-                image: PHONE_FILLER,
-                video: "/images/music/demos/music_arrival_demo.mp4",
-                group: "Take the trip",
-                hideOnCard: true,
+                video: "/images/music/demos/music_trip_demo.mp4",
             },
         ],
         links: [
