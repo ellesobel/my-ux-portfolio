@@ -58,6 +58,11 @@ export const designProjects: DesignProject[] = [
                 image: PHONE_FILLER,
                 video: "/images/dreamcatcher_demo.mp4",
             },
+            {
+                name: "Radius.",
+                blurb: "Find My Friends, powered by your friends' live brainchip trackers.",
+                image: PHONE_FILLER,
+            },
         ],
         links: [
             {
