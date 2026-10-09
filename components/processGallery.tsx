@@ -6,6 +6,7 @@
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState, type TouchEvent } from "react";
 import type { CaseFigure } from "../data/designProjects";
+import ModalArrows from "./modalArrows";
 
 // How far a finger must travel sideways, more than it moves up or down, to
 // count as a swipe rather than a tap (as in FeatureGallery).
@@ -101,41 +102,24 @@ function ProcessGallery({ figures }: Props) {
                         key={active.src}
                         className={`art-modal-inner${direction ? ` slide-${direction}` : ""}`}
                     >
-                        <Image
-                            className="process-modal-img"
-                            src={active.src}
-                            alt={active.alt}
-                            width={active.width}
-                            height={active.height}
-                            sizes="90vw"
-                            onClick={(event) => event.stopPropagation()}
-                        />
+                        <div className="modal-stage">
+                            <Image
+                                className="process-modal-img modal-media"
+                                src={active.src}
+                                alt={active.alt}
+                                width={active.width}
+                                height={active.height}
+                                sizes="90vw"
+                                onClick={(event) => event.stopPropagation()}
+                            />
+                            {figures.length > 1 && <ModalArrows onStep={step} noun="image" />}
+                        </div>
                         {active.caption && (
                             <figcaption className="art-modal-caption">
                                 <h3>{active.caption}</h3>
                             </figcaption>
                         )}
                     </figure>
-                    {figures.length > 1 && (
-                        <>
-                            <button
-                                type="button"
-                                className="feature-modal-key feature-modal-prev"
-                                aria-label="Previous image"
-                                onClick={(event) => { event.stopPropagation(); step(-1); }}
-                            >
-                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4l-8 8 8 8" /></svg>
-                            </button>
-                            <button
-                                type="button"
-                                className="feature-modal-key feature-modal-next"
-                                aria-label="Next image"
-                                onClick={(event) => { event.stopPropagation(); step(1); }}
-                            >
-                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4l8 8-8 8" /></svg>
-                            </button>
-                        </>
-                    )}
                     <button type="button" className="feature-modal-key feature-modal-close" aria-label="Close" onClick={close}>
                         <svg viewBox="0 0 24 24" aria-hidden="true">
                             <path d="M5 5l14 14M19 5L5 19" />

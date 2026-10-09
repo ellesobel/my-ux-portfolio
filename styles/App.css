@@ -2199,7 +2199,7 @@ body:has(#content) {
     background-color: rgba(28, 28, 28, .95);
 }
 
-/* Close, previous and next: cream keys with the site's hard ink shadow. */
+/* Close: a cream key with the site's hard ink shadow. */
 .feature-modal-key {
     position: absolute;
     width: 44px;
@@ -2224,29 +2224,9 @@ body:has(#content) {
     right: 14px;
 }
 
-/* Previous and next sit either side of the screen, level with its middle. */
-.feature-modal-prev,
-.feature-modal-next {
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.feature-modal-prev {
-    left: 10px;
-}
-
-.feature-modal-next {
-    right: 10px;
-}
-
 .feature-modal-key:active {
     transform: translate(2px, 2px);
     box-shadow: 1px 1px 0 var(--words);
-}
-
-.feature-modal-prev:active,
-.feature-modal-next:active {
-    transform: translate(2px, calc(-50% + 2px));
 }
 
 /* Stepping to another feature slides it in from the side it came from. */
@@ -2264,19 +2244,95 @@ body:has(#content) {
     }
 }
 
-.art-modal-inner.slide-next {
+/* The image and caption slide; the arrows beside them stay put. */
+.slide-next .modal-media,
+.slide-next .art-modal-caption {
     animation: feature-in-next .22s ease-out;
 }
 
-.art-modal-inner.slide-prev {
+.slide-prev .modal-media,
+.slide-prev .art-modal-caption {
     animation: feature-in-prev .22s ease-out;
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .art-modal-inner.slide-next,
-    .art-modal-inner.slide-prev {
+    .slide-next .modal-media,
+    .slide-next .art-modal-caption,
+    .slide-prev .modal-media,
+    .slide-prev .art-modal-caption {
         animation: none;
     }
+}
+
+/* The stage is the full width of the modal and only as tall as the screen
+   or image, so the arrows at its sides centre on the visual, not on the
+   visual plus its caption. The negative margin reaches past the modal's
+   padding so the arrows sit near the screen edges. */
+.feature-modal .art-modal-inner {
+    width: 100%;
+}
+
+.modal-stage {
+    position: relative;
+    align-self: stretch;
+    display: flex;
+    justify-content: center;
+    margin: 0 -16px;
+}
+
+/* Previous / next: no key around them, just a white chevron with the site's
+   thick ink outline (an ink stroke under a narrower white one), so they read
+   on the dark backdrop and over any screen. */
+.modal-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 56px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 4;
+}
+
+.modal-arrow-prev {
+    left: 0;
+}
+
+.modal-arrow-next {
+    right: 0;
+}
+
+.modal-arrow svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.modal-arrow-outline {
+    stroke: var(--words);
+    stroke-width: 7;
+}
+
+.modal-arrow-fill {
+    stroke: #fff;
+    stroke-width: 3.5;
+}
+
+.modal-arrow:active {
+    transform: translateY(-50%) scale(.92);
+}
+
+.modal-arrow:focus-visible {
+    outline: 3px dashed #fff;
+    outline-offset: 2px;
 }
 
 /* Each icon fills most of its key, like the play/pause icons do theirs. */
@@ -2460,7 +2516,9 @@ body:has(#content) {
 
 @media(max-width:650px) {
     .process-modal-img {
-        max-width: 72vw;
+        /* Never under the arrows: the screen less the modal's padding and two
+           44px arrows. */
+        max-width: min(72vw, calc(100vw - 112px));
     }
 }
 
