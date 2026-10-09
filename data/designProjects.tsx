@@ -279,7 +279,7 @@ export const designProjects: DesignProject[] = [
     {
         slug: "nyc-music-map",
         title: "NYC Music Map App",
-        meta: "Solo project · Figma",
+        meta: "Solo project · Figma · Spring 2024",
         summary: (
             <>
                 <em>New York, New York</em> is a love letter to the city&#39;s music.
@@ -327,30 +327,41 @@ export const designProjects: DesignProject[] = [
                     heading: "The Idea",
                     body: (
                         <>
-                            <p className="case-pull">
-                                So many songs are about New York. What if you could
-                                visit them?
-                            </p>
+                            <p className="case-pull">A love letter to New York music.</p>
                             <p>
-                                Standing where a song takes place lets you see and feel
-                                what the artist was describing, and connect with them in
-                                a new way.
+                                So many songs are about New York, and I thought it would
+                                be cool to put them all on a map and travel to them. You
+                                get to see and feel the places your favorite songs
+                                describe, and maybe feel a little closer to the artists
+                                too.
                             </p>
                         </>
                     ),
                 },
                 {
-                    heading: "How It Took Shape",
+                    heading: "Feedback",
                     body: (
                         <>
-                            <p className="case-pull">
-                                Built through weekly critique, not a lab.
-                            </p>
+                            <p className="case-pull">Shaped by class critique.</p>
                             <p>
-                                I didn&#39;t run formal user tests. Each round of
-                                wireframes and visuals went in front of my professor and
-                                classmates, and their feedback decided the next version.
+                                I didn&#39;t do formal user testing, but I was getting
+                                feedback from my professor and classmates the whole way
+                                through. A few notes that changed the design:
                             </p>
+                            <ul>
+                                <li>
+                                    I was using too many colors, so I narrowed the palette
+                                    from the whole subway system to mostly primaries.
+                                </li>
+                                <li>
+                                    The street-sign regions didn&#39;t match the rest of the
+                                    vibe, so they went back to neon.
+                                </li>
+                                <li>
+                                    My buttons did similar jobs but looked completely
+                                    different, so I gave them one consistent style.
+                                </li>
+                            </ul>
                         </>
                     ),
                 },
@@ -360,10 +371,10 @@ export const designProjects: DesignProject[] = [
                         <>
                             <p className="case-pull">Times Square at night.</p>
                             <p>
-                                The neon comes from the city&#39;s signs, and the colors
-                                from New York design classics: Radio City Music
-                                Hall&#39;s marquee and the subway map. Art, music, and the
-                                city after dark, which is what the app is about.
+                                I went with neon and pulled colors from iconic New York
+                                design, like Radio City Music Hall and the subway map. I
+                                wanted the theme to feel like what the app is about: music,
+                                art, and the city at night.
                             </p>
                         </>
                     ),
