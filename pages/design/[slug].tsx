@@ -79,11 +79,11 @@ function CaseStudy({ slug }: Props) {
             </div>
 
             <section className="case-study-sections">
-                {sections.map(({ heading, body, figures }) => (
+                {sections.map(({ heading, body, figures, layout }) => (
                     <div key={heading} className={`case-study-section${figures ? " has-figures" : ""}`}>
                         <h3>{heading}</h3>
                         {body}
-                        {figures && <ProcessGallery figures={figures} />}
+                        {figures && <ProcessGallery figures={figures} layout={layout} />}
                     </div>
                 ))}
             </section>

@@ -5,6 +5,9 @@
 //
 // A figure with a `set` (all the sketches, all the wireframes) shows just its
 // cover in the overview and opens as a grid of the whole set.
+//
+// The "lead" layout shows the first figure large with the rest in a 2 x 2
+// beside it, for a section the images carry (the music map's look).
 
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type TouchEvent } from "react";
@@ -17,9 +20,10 @@ const SWIPE_PX = 40;
 
 type Props = {
     figures: CaseFigure[];
+    layout?: "lead";
 };
 
-function ProcessGallery({ figures }: Props) {
+function ProcessGallery({ figures, layout }: Props) {
     // Index of the image open in the modal, or null when it's closed.
     const [index, setIndex] = useState<number | null>(null);
     const active = index === null ? null : figures[index];
@@ -84,7 +88,7 @@ function ProcessGallery({ figures }: Props) {
 
     return (
         <>
-            <div className={`case-figures${figures.length > 1 ? " gallery" : ""}`}>
+            <div className={`case-figures${figures.length > 1 ? " gallery" : ""}${layout ? ` ${layout}` : ""}`}>
                 {figures.map((figure, i) => (
                     <figure key={figure.src} className="case-figure">
                         <button type="button" onClick={() => open(i)} aria-label={`View ${figure.caption ?? figure.alt} larger`}>
@@ -93,7 +97,11 @@ function ProcessGallery({ figures }: Props) {
                                 alt={figure.alt}
                                 width={figure.width}
                                 height={figure.height}
-                                sizes="(max-width: 650px) 50vw, 260px"
+                                sizes={
+                                    layout === "lead" && i === 0
+                                        ? "(max-width: 650px) 100vw, 560px"
+                                        : "(max-width: 650px) 50vw, 260px"
+                                }
                             />
                         </button>
                         {figure.caption && <figcaption>{figure.caption}</figcaption>}

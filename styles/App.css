@@ -2476,10 +2476,39 @@ body:has(#content) {
     object-position: top;
 }
 
+/* Lead: the first image takes a 2 x 2 block, the next four fill the 2 x 2
+   beside it (under it on phones, where the grid is two across). */
+.case-figures.gallery.lead > :first-child {
+    grid-column: span 2;
+    grid-row: span 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.case-figures.gallery.lead > :first-child button {
+    flex: 1;
+    min-height: 0;
+}
+
+.case-figures.gallery.lead > :first-child img {
+    height: 100%;
+    aspect-ratio: auto;
+    object-position: center;
+}
+
 @media(max-width:650px) {
     .case-figures.gallery {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 14px;
+    }
+
+    .case-figures.gallery.lead > :first-child {
+        grid-row: auto;
+    }
+
+    .case-figures.gallery.lead > :first-child img {
+        height: auto;
+        aspect-ratio: 4 / 3;
     }
 }
 

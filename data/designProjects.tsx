@@ -53,6 +53,9 @@ export type CaseSection = {
     body: ReactNode;
     // Sections with figures span the full width, figures in a row under the text.
     figures?: CaseFigure[];
+    // "lead" shows the first figure large, the next four in a 2 x 2 beside it,
+    // for a section the images carry more than the words.
+    layout?: "lead";
 };
 
 export type CaseStudy = {
@@ -108,6 +111,49 @@ const WAVE_WIREFRAMES = [
         alt: "Final grayscale wireframes of the mood screen in three moods",
         width: 1112,
         height: 750,
+    },
+];
+
+// The music map's process sets.
+const MUSIC_WIREFRAMES = [
+    {
+        src: "/images/music/wireframes/music_wireframe1.png",
+        alt: "Wireframes of the map with colored song pins, the region filters, and song lists by location",
+        width: 936,
+        height: 637,
+    },
+    {
+        src: "/images/music/wireframes/music_wireframe4.png",
+        alt: "Wireframes of song labels on the map and an uptown pop-up listing its songs",
+        width: 992,
+        height: 637,
+    },
+    {
+        src: "/images/music/wireframes/music_wireframe2.png",
+        alt: "Wireframes of searching for nearby music, loading, and the first neon arrow direction",
+        width: 937,
+        height: 637,
+    },
+    {
+        src: "/images/music/wireframes/music_wireframe3.png",
+        alt: "Wireframes of the last direction and the song arrival screen with its lyric",
+        width: 617,
+        height: 632,
+    },
+];
+
+const MUSIC_COLOR_TESTS = [
+    {
+        src: "/images/music/design_system/music_rejected_colors1.png",
+        alt: "Two versions of the regions screen with neon buttons in different color mixes",
+        width: 851,
+        height: 812,
+    },
+    {
+        src: "/images/music/design_system/music_rejected_colors2.png",
+        alt: "Song list pop-ups for each region, each framed in its own neon color",
+        width: 892,
+        height: 921,
     },
 ];
 
@@ -233,27 +279,39 @@ export const designProjects: DesignProject[] = [
     {
         slug: "nyc-music-map",
         title: "NYC Music Map App",
+        meta: "Solo project · Figma",
         summary: (
             <>
-                <em>New York, New York</em> turns a song about New York City into a
-                tourist destination. Choose by map, region, or random shuffle, and the
-                app gives you directions to get there. I wireframed and user-tested the
-                three navigation styles, then built a neon-and-arrow visual system to
-                give it a city-at-night feel.
+                <em>New York, New York</em> is a love letter to the city&#39;s music.
+                It pins songs about New York to the places they sing about, then gives
+                you neon directions there, so you can stand where the lyrics happen.
             </>
         ),
         media: "phones",
+        // Each demo ends the moment a song is picked. The trip that follows is
+        // the same from all three, so it plays once, as the hero.
         features: [
             {
-                name: "Map Nav",
-                blurb: "Perfect for when you want to see the distribution of songs throughout the city.",
+                name: "Landing.",
+                blurb: "A glowing map of Manhattan, every dot a song, with a zoom and two ways in.",
                 image: PHONE_FILLER,
-                video: "/images/music/map_demo.mp4",
+                hideOnCard: true,
             },
             {
-                name: "Shuffle",
-                blurb: "Trust the system and get directions to a mystery destination to discover a new song and a new neighborhood.",
+                name: "Map.",
+                blurb: "See how the songs spread across the city and tap the one you want to visit.",
                 image: PHONE_FILLER,
+            },
+            {
+                name: "Regions.",
+                blurb: "Browse by neighborhood, from Harlem to downtown, and pick from that area's songs.",
+                image: PHONE_FILLER,
+            },
+            {
+                name: "Shuffle.",
+                blurb: "Get directions to a mystery destination and find a new song and a new neighborhood.",
+                image: PHONE_FILLER,
+                hideOnCard: true,
             },
         ],
         links: [
@@ -262,6 +320,124 @@ export const designProjects: DesignProject[] = [
                 href: "https://www.figma.com/proto/2VKtHdxEqOimViafopvew0/Eliana-Semester-Second-Half?page-id=1%3A2&node-id=295-1989&starting-point-node-id=295%3A1989&show-proto-sidebar=1&t=6mWFIjEwga52zpoi-1",
             },
         ],
+        caseStudy: {
+            heroVideo: "/images/music/demos/map_demo.mp4",
+            sections: [
+                {
+                    heading: "The Idea",
+                    body: (
+                        <>
+                            <p className="case-pull">
+                                So many songs are about New York. What if you could
+                                visit them?
+                            </p>
+                            <p>
+                                Standing where a song takes place lets you see and feel
+                                what the artist was describing, and connect with them in
+                                a new way.
+                            </p>
+                        </>
+                    ),
+                },
+                {
+                    heading: "How It Took Shape",
+                    body: (
+                        <>
+                            <p className="case-pull">
+                                Built through weekly critique, not a lab.
+                            </p>
+                            <p>
+                                I didn&#39;t run formal user tests. Each round of
+                                wireframes and visuals went in front of my professor and
+                                classmates, and their feedback decided the next version.
+                            </p>
+                        </>
+                    ),
+                },
+                {
+                    heading: "The Look",
+                    body: (
+                        <>
+                            <p className="case-pull">Times Square at night.</p>
+                            <p>
+                                The neon comes from the city&#39;s signs, and the colors
+                                from New York design classics: Radio City Music
+                                Hall&#39;s marquee and the subway map. Art, music, and the
+                                city after dark, which is what the app is about.
+                            </p>
+                        </>
+                    ),
+                    layout: "lead",
+                    figures: [
+                        {
+                            src: "/images/music/design_system/music_inspo.png",
+                            alt: "Inspiration board: Times Square at night, Radio City Music Hall's neon, the subway line colors, and a Paula Scher map",
+                            width: 1182,
+                            height: 861,
+                            caption: "Inspiration",
+                        },
+                        {
+                            src: "/images/music/design_system/music_theme_color.png",
+                            alt: "Neon palettes on black, drawn from the subway line colors",
+                            width: 722,
+                            height: 635,
+                            caption: "Color palette",
+                        },
+                        {
+                            src: "/images/music/design_system/music_font_exploration.png",
+                            alt: "The title, New York, New York, set in seven typefaces from neon script to block capitals",
+                            width: 337,
+                            height: 891,
+                            caption: "Type",
+                        },
+                        {
+                            src: "/images/music/design_system/music_arrow_inspo.png",
+                            alt: "Neon arrow signs collected as inspiration for the directions screens",
+                            width: 767,
+                            height: 581,
+                            caption: "Neon arrows",
+                        },
+                        {
+                            src: "/images/music/design_system/music_style_development.png",
+                            alt: "Glow tests: numbers at five glow strengths in several typefaces",
+                            width: 790,
+                            height: 555,
+                            caption: "Glow tests",
+                        },
+                    ],
+                },
+                {
+                    heading: "Process",
+                    body: null,
+                    figures: [
+                        {
+                            src: "/images/music/sketches/music_sketch.png",
+                            alt: "First sketch of the flow: a map of Manhattan, a search for nearby music, directions, and arrival",
+                            width: 1171,
+                            height: 576,
+                            caption: "Sketch",
+                        },
+                        {
+                            ...MUSIC_WIREFRAMES[0],
+                            caption: "Wireframes",
+                            set: MUSIC_WIREFRAMES,
+                        },
+                        {
+                            src: "/images/music/wireframes/music_rejected_layouts.png",
+                            alt: "Four landing and region screens explored in neon, including a street-sign version of the regions",
+                            width: 1202,
+                            height: 627,
+                            caption: "Layout explorations",
+                        },
+                        {
+                            ...MUSIC_COLOR_TESTS[0],
+                            caption: "Color explorations",
+                            set: MUSIC_COLOR_TESTS,
+                        },
+                    ],
+                },
+            ],
+        },
     },
     {
         slug: "pnc-redesign",
