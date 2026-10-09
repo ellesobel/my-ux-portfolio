@@ -1,13 +1,14 @@
-// Case study for one UI & Design project. Filler for now: the structure is
-// real, the copy and images are placeholders to be written up later.
+// Case study for one UI & Design project. Projects with a written-up
+// `caseStudy` show its sections and hero demo; the rest show filler sections
+// until theirs are written.
 
 import Image from "next/image";
 import Link from "next/link";
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import type { GetStaticPaths, GetStaticProps } from "next";
-import { allDesignProjects } from "../../data/designProjects";
+import { allDesignProjects, type CaseSection } from "../../data/designProjects";
 import { useEffect } from "react";
-import { DEMO_VIDEO_SELECTOR } from "../../components/demoMedia";
+import DemoMedia, { DEMO_VIDEO_SELECTOR } from "../../components/demoMedia";
 import FeatureGallery from "../../components/featureGallery";
 import { setupVideoToggles } from "../../utils/videoToggle";
 
@@ -15,7 +16,9 @@ const FILLER =
     "Case study coming soon. This section will walk through the thinking behind " +
     "the project, the decisions along the way, and what came out of them.";
 
-const SECTIONS = ["Overview", "The Problem", "Process", "Outcome"];
+const FILLER_SECTIONS: CaseSection[] = ["Overview", "The Problem", "Process", "Outcome"].map(
+    (heading) => ({ heading, body: <p>{FILLER}</p> }),
+);
 
 type Props = { slug: string };
 
@@ -32,7 +35,8 @@ export const getStaticProps: GetStaticProps<Props> = ({ params }) => ({
 
 function CaseStudy({ slug }: Props) {
     const project = allDesignProjects.find((p) => p.slug === slug)!;
-    const { title, meta, summary, media, features, links } = project;
+    const { title, meta, summary, media, features, links, caseStudy } = project;
+    const sections = caseStudy?.sections ?? FILLER_SECTIONS;
     useEffect(() => setupVideoToggles(DEMO_VIDEO_SELECTOR), [slug]);
 
     return (
@@ -55,20 +59,48 @@ function CaseStudy({ slug }: Props) {
             )}
 
             <div className="case-study-hero">
-                <Image
-                    src="/images/placeholders/wide.svg"
-                    alt={`${title} hero placeholder`}
-                    width={640}
-                    height={400}
-                    unoptimized
-                />
+                {caseStudy?.heroVideo ? (
+                    <DemoMedia
+                        frame="wide"
+                        image="/images/placeholders/wide.svg"
+                        video={caseStudy.heroVideo}
+                        alt={`${title} walkthrough`}
+                    />
+                ) : (
+                    <Image
+                        src="/images/placeholders/wide.svg"
+                        alt={`${title} hero placeholder`}
+                        width={640}
+                        height={400}
+                        unoptimized
+                    />
+                )}
             </div>
 
             <section className="case-study-sections">
-                {SECTIONS.map((heading) => (
-                    <div key={heading} className="case-study-section">
+                {sections.map(({ heading, body, figures }) => (
+                    <div key={heading} className={`case-study-section${figures ? " has-figures" : ""}`}>
                         <h3>{heading}</h3>
-                        <p>{FILLER}</p>
+                        {body}
+                        {figures && (
+                            <div className={`case-figures${figures.length > 1 ? " gallery" : ""}`}>
+                                {figures.map((figure) => (
+                                    <figure key={figure.src} className="case-figure">
+                                        {/* Opens full size in a new tab, for the fine print. */}
+                                        <a href={figure.src} target="_blank" rel="noopener noreferrer">
+                                            <Image
+                                                src={figure.src}
+                                                alt={figure.alt}
+                                                width={figure.width}
+                                                height={figure.height}
+                                                sizes={figures.length > 1 ? "(max-width: 850px) 50vw, 320px" : "(max-width: 1100px) 100vw, 1000px"}
+                                            />
+                                        </a>
+                                        {figure.caption && <figcaption>{figure.caption}</figcaption>}
+                                    </figure>
+                                ))}
+                            </div>
+                        )}
                     </div>
                 ))}
             </section>
