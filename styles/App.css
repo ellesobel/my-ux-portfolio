@@ -2521,14 +2521,6 @@ body:has(#content) {
     width: min(84vw, 1100px);
 }
 
-.process-set-grid button {
-    display: block;
-    padding: 0;
-    border: none;
-    background: none;
-    cursor: zoom-in;
-}
-
 .process-set-grid img {
     display: block;
     width: 100%;
@@ -2537,26 +2529,6 @@ body:has(#content) {
     object-fit: contain;
     border-radius: 10px;
     background-color: var(--bkgrd);
-    transition: transform .15s ease-out;
-}
-
-@media (hover: hover) {
-    .process-set-grid button:hover img {
-        transform: scale(1.03);
-    }
-}
-
-/* Back from one image of a set to its grid: a quiet text link under the
-   caption. */
-.process-set-back {
-    padding: 6px 4px;
-    font-size: 14px;
-    color: #fff;
-    background: none;
-    border: none;
-    text-decoration: underline;
-    text-underline-offset: 4px;
-    cursor: pointer;
 }
 
 @media(max-width:650px) {
