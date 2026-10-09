@@ -1935,8 +1935,34 @@ body:has(#content) {
     border-radius: 22px;
 }
 
+/* The Dynamic Island the designs were laid out around: 126x37pt, 11pt from
+   the top of a 393pt-wide screen, with the selfie camera lens at its right
+   end. Drawn in % so it scales with the frame. Above the video, below the
+   play/pause control. */
+.demo-video.video-crop::after {
+    content: "";
+    position: absolute;
+    top: calc(11 / 853 * 100%);
+    left: 50%;
+    width: calc(126 / 393 * 100%);
+    aspect-ratio: 126 / 37;
+    transform: translateX(-50%);
+    border-radius: 999px;
+    background:
+        /* closest-side = half the island's height, so the lens is a fixed
+           share of it at any size (r 7.5 of 18.5, like the filler image). */
+        radial-gradient(circle closest-side at 82% 50%, #2b2f3a 0 35%, #3d4352 36% 41%, transparent 43%),
+        #000;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.demo-video.video-crop:has(.landscape)::after {
+    content: none;
+}
+
 /* The older landscape recordings keep the original frame their zoom was
-   tuned for. */
+   tuned for (and already show their own phone's notch). */
 .demo-video.video-crop:has(.landscape) {
     aspect-ratio: 245 / 500;
     border-radius: 40px;
