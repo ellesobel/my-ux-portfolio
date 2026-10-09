@@ -116,12 +116,17 @@ function Design() {
 
                         <ul>
                             <li>
-                                In collaboration with Andrew Pandji and Gabrielle Barthelmy, we redesigned the PNC Mobile App.
+                                Working closely with Andrew Pandji and Gabrielle Barthelmy, we redesigned the PNC mobile app and Apple Watch experience to nudge customers toward budgeting and saving, taking PNC&#39;s &ldquo;boring banking&rdquo; brand from boring to smart, steady and reliable.
                             </li>
                             <li>
-                                We created a new design system, explored different visualizations of data, and enhanced the accessibility of the app.
+                                Instead of static budget categories, we showed spending as weekly and monthly cycles that users can zoom between. I pushed this data visualization concept early on.
                             </li>
-                            {/* For the watchface design, we explored goals and miniaturized data visualization. */}
+                            <li>
+                                We added a Calendar View showing which days of the month a user stayed on budget, overspent or saved, and Smart Categorize, a swipe flow for tagging transactions, because the charts are only as good as the data behind them. I focused most on these two features.
+                            </li>
+                            <li>
+                                We built a new design system with an accessible typeface (Atkinson Hyperlegible) and color-coded spending states, and brought the weekly cycle to the watch as a quick check-in.
+                            </li>
                         </ul>
                         <div id="pnc-media-box">
 
