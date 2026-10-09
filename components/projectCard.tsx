@@ -27,7 +27,7 @@ function ProjectCard({ project, flipped = false, basePath = "/design", linkLabel
 
             {media === "phones" ? (
                 <div className="case-media phones">
-                    {features.slice(0, 2).map((feature, i) => (
+                    {features.filter((f) => !f.hideOnCard).slice(0, 2).map((feature, i) => (
                         <div key={feature.name} className={`phone-slot slot-${i + 1}`}>
                             <DemoMedia
                                 frame="phone"

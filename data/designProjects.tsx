@@ -13,6 +13,8 @@ export type Feature = {
     blurb: string;
     image: string;
     video?: string;
+    // Shown on the case-study page only, not among the card's two screens.
+    hideOnCard?: boolean;
 };
 
 export type DesignProject = {
@@ -47,6 +49,15 @@ export const designProjects: DesignProject[] = [
         media: "phones",
         features: [
             {
+                name: "Home.",
+                blurb: "Reads what's on your mind and suggests what to do about it, with quick actions and a glance at your mood, dreams, and friends.",
+                image: PHONE_FILLER,
+                video: "/images/wave_home_demo.mp4",
+                // The overview of the app: leads the case study, while the
+                // card spends its two phones on individual features.
+                hideOnCard: true,
+            },
+            {
                 name: "Moodring.",
                 blurb: "Tracks your emotions and suggests ways to regulate them.",
                 image: PHONE_FILLER,
@@ -62,6 +73,7 @@ export const designProjects: DesignProject[] = [
                 name: "Radius.",
                 blurb: "Find My Friends, powered by your friends' live brainchip trackers.",
                 image: PHONE_FILLER,
+                video: "/images/radius_demo.mp4",
             },
         ],
         links: [
