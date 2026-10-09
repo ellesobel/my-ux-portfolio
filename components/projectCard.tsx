@@ -27,19 +27,21 @@ function ProjectCard({ project, flipped = false, basePath = "/design", linkLabel
 
             {media === "phones" ? (
                 <div className="case-media phones">
-                    {features.filter((f) => !f.hideOnCard).slice(0, 2).map((feature, i) => (
-                        <div key={feature.name} className={`phone-slot slot-${i + 1}`}>
-                            <DemoMedia
-                                frame="phone"
-                                image={feature.image}
-                                video={feature.video}
-                                alt={`${title}: ${feature.name.replace(/\.$/, "")} screen`}
-                            />
-                            <p className="case-caption">
-                                <strong>{feature.name}</strong> {feature.blurb}
-                            </p>
-                        </div>
-                    ))}
+                    <div className="phones-grid">
+                        {features.filter((f) => !f.hideOnCard).slice(0, 2).map((feature, i) => (
+                            <div key={feature.name} className={`phone-slot slot-${i + 1}`}>
+                                <DemoMedia
+                                    frame="phone"
+                                    image={feature.image}
+                                    video={feature.video}
+                                    alt={`${title}: ${feature.name.replace(/\.$/, "")} screen`}
+                                />
+                                <p className="case-caption">
+                                    <strong>{feature.name}</strong> {feature.blurb}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             ) : (
                 <div className="case-media wide">

@@ -4,7 +4,8 @@
 //
 // On a phone the screens are thumbnails: a tap opens one large in a modal
 // (styled like the art gallery's lightbox) with its caption, where the demo
-// plays with the same play/pause control as everywhere else.
+// plays with the same play/pause control as everywhere else. Arrows (and the
+// arrow keys) step through the other features without closing it.
 
 import { useCallback, useEffect, useState, type CSSProperties, type MouseEvent } from "react";
 import type { Feature } from "../data/designProjects";
@@ -21,16 +22,22 @@ type Props = {
 
 function FeatureGallery({ features, media }: Props) {
     const phones = media === "phones";
-    const [active, setActive] = useState<Feature | null>(null);
-    const close = useCallback(() => setActive(null), []);
+    // Index of the feature open in the modal, or null when it's closed.
+    const [index, setIndex] = useState<number | null>(null);
+    const active = index === null ? null : features[index];
+    const close = useCallback(() => setIndex(null), []);
+    const step = useCallback(
+        (by: number) => setIndex((i) => (i === null ? i : (i + by + features.length) % features.length)),
+        [features.length],
+    );
 
     // Capture phase, so on a phone the tap opens the modal instead of
     // reaching the thumbnail's video and starting it.
-    const openOnPhone = (feature: Feature) => (event: MouseEvent) => {
+    const openOnPhone = (i: number) => (event: MouseEvent) => {
         if (!phones || !window.matchMedia(PHONE_QUERY).matches) return;
         event.preventDefault();
         event.stopPropagation();
-        setActive(feature);
+        setIndex(i);
     };
 
     // While open: Escape closes it, the page behind stays put, and the demo
@@ -39,6 +46,8 @@ function FeatureGallery({ features, media }: Props) {
         if (!active) return;
         const onKeyDown = (event: KeyboardEvent) => {
             if (event.key === "Escape") close();
+            if (event.key === "ArrowLeft") step(-1);
+            if (event.key === "ArrowRight") step(1);
         };
         const previousOverflow = document.body.style.overflow;
         document.body.style.overflow = "hidden";
@@ -51,7 +60,7 @@ function FeatureGallery({ features, media }: Props) {
             document.body.style.overflow = previousOverflow;
             document.removeEventListener("keydown", onKeyDown);
         };
-    }, [active, close]);
+    }, [active, close, step]);
 
     const name = (feature: Feature) => feature.name.replace(/\.$/, "");
 
@@ -63,11 +72,11 @@ function FeatureGallery({ features, media }: Props) {
                 data-count={features.length}
                 style={{ "--cols": features.length } as CSSProperties}
             >
-                {features.map((feature) => (
+                {features.map((feature, i) => (
                     <figure
                         key={feature.name}
                         className="case-study-feature"
-                        onClickCapture={openOnPhone(feature)}
+                        onClickCapture={openOnPhone(i)}
                     >
                         <DemoMedia
                             frame={phones ? "phone" : "wide"}
@@ -95,6 +104,7 @@ function FeatureGallery({ features, media }: Props) {
                     <figure className="art-modal-inner">
                         <div className="feature-modal-screen" onClick={(event) => event.stopPropagation()}>
                             <DemoMedia
+                                key={active.name}
                                 frame="phone"
                                 image={active.image}
                                 video={active.video}
@@ -106,7 +116,27 @@ function FeatureGallery({ features, media }: Props) {
                             <h4>{active.blurb}</h4>
                         </figcaption>
                     </figure>
-                    <button type="button" className="feature-modal-close" aria-label="Close" onClick={close}>
+                    {features.length > 1 && (
+                        <>
+                            <button
+                                type="button"
+                                className="feature-modal-key feature-modal-prev"
+                                aria-label="Previous feature"
+                                onClick={(event) => { event.stopPropagation(); step(-1); }}
+                            >
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4l-8 8 8 8" /></svg>
+                            </button>
+                            <button
+                                type="button"
+                                className="feature-modal-key feature-modal-next"
+                                aria-label="Next feature"
+                                onClick={(event) => { event.stopPropagation(); step(1); }}
+                            >
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4l8 8-8 8" /></svg>
+                            </button>
+                        </>
+                    )}
+                    <button type="button" className="feature-modal-key feature-modal-close" aria-label="Close" onClick={close}>
                         <svg viewBox="0 0 24 24" aria-hidden="true">
                             <path d="M5 5l14 14M19 5L5 19" />
                         </svg>

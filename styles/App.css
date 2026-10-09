@@ -555,10 +555,14 @@ body:has(.art-page) footer {
     position: absolute;
     top: 50%;
     left: 50%;
-    /* Fixed size so the box doesn't resize between the play/pause icons,
-       which would shift the translate-centred position. */
-    width: 60px;
-    height: 60px;
+    /* Sized by its video (the crop is a size container, below) so it stays in
+       proportion on a small phone and a big screenshot alike, and never below
+       36px, where it would stop being an easy tap. A fixed square, so it
+       doesn't resize between the play/pause icons, which would shift the
+       translate-centred position. */
+    width: clamp(36px, 30cqw, 60px);
+    height: auto;
+    aspect-ratio: 1;
     box-sizing: border-box;
     transform: translate(-50%, -50%);
     padding: 0;
@@ -627,28 +631,22 @@ body:has(.art-page) footer {
 
 .video-icon {
     /* Large in its key, with only a little room around it. */
-    width: 40px;
-    height: 40px;
+    width: 66%;
+    height: auto;
+    aspect-ratio: 1;
     fill: currentColor;
 }
 
-/* The crops shrink with the viewport, so a fixed control would cover too much
-   of the video on a phone. Scale it with its crop instead, capped at the
-   desktop size so it meets that size exactly at the breakpoint. */
+/* The crops are what the control sizes itself against (30cqw above). */
+.video-crop,
+.web-video-crop {
+    container-type: inline-size;
+}
+
 @media(max-width:650px) {
     .video-toggle {
-        /* Never below 40px: under that it stops being an easy tap. */
-        width: clamp(40px, 26%, 60px);
-        height: auto;
-        aspect-ratio: 1;
         border-width: 2px;
         box-shadow: 3px 3px 0 var(--words);
-    }
-
-    .video-icon {
-        width: 66%;
-        height: auto;
-        aspect-ratio: 1;
     }
 }
 
@@ -1863,7 +1861,13 @@ body:has(#content) {
    Figma layout: caption 1 sits top-left between the phones (next to phone 1),
    caption 2 bottom-right (next to phone 2). The slot wrappers dissolve into the
    grid so each phone and caption can be placed on its own. */
+/* The column is a size container so the grid inside can rearrange by the
+   space it actually has (a container query can't restyle the container). */
 .case-media.phones {
+    container: phones / inline-size;
+}
+
+.phones-grid {
     display: grid;
     grid-template-columns: minmax(0, 170px) minmax(84px, 120px) minmax(0, 170px);
     grid-template-rows: 1fr 1fr;
@@ -1872,6 +1876,25 @@ body:has(#content) {
         "p1 c2 p2";
     justify-content: center;
     column-gap: 14px;
+}
+
+/* Captions between the phones only work while the column is wide enough for
+   two good-sized phones beside them. Narrower than that (a mid-width window,
+   or a phone), each caption moves under its own phone instead. */
+@container phones (max-width: 440px) {
+    .phones-grid {
+        grid-template-columns: repeat(2, minmax(0, 180px));
+        grid-template-rows: auto auto;
+        grid-template-areas:
+            "p1 p2"
+            "c1 c2";
+        row-gap: 10px;
+    }
+
+    .slot-2 .case-caption {
+        align-self: start;
+        text-align: left;
+    }
 }
 
 .phone-slot {
@@ -1932,7 +1955,9 @@ body:has(#content) {
     box-sizing: content-box;
     width: calc(100% - 8px);
     aspect-ratio: 393 / 853;
-    border-radius: 22px;
+    /* The phone's own corner (about 52pt on 393 x 853), as a share of the
+       frame, so a small phone isn't rounded into a pill. */
+    border-radius: 13% / 6%;
 }
 
 /* The Dynamic Island the designs were laid out around: 126x37pt, 11pt from
@@ -1965,7 +1990,7 @@ body:has(#content) {
    tuned for (and already show their own phone's notch). */
 .demo-video.video-crop:has(.landscape) {
     aspect-ratio: 245 / 500;
-    border-radius: 40px;
+    border-radius: 16% / 8%;
 }
 
 .slot-1 .case-caption {
@@ -2161,7 +2186,8 @@ body:has(#content) {
 
 /* The modal opens from a phone thumbnail only (see FeatureGallery). */
 .feature-modal-screen {
-    width: min(72vw, calc(66dvh * 393 / 853));
+    /* Leaves room for the previous/next keys either side. */
+    width: min(66vw, calc(66dvh * 393 / 853));
 }
 
 .feature-modal .art-modal-caption {
@@ -2173,10 +2199,9 @@ body:has(#content) {
     background-color: rgba(28, 28, 28, .95);
 }
 
-.feature-modal-close {
+/* Close, previous and next: cream keys with the site's hard ink shadow. */
+.feature-modal-key {
     position: absolute;
-    top: 14px;
-    right: 14px;
     width: 44px;
     height: 44px;
     padding: 0;
@@ -2191,8 +2216,38 @@ body:has(#content) {
     cursor: pointer;
 }
 
-/* The X fills most of its key, like the play/pause icons do theirs. */
-.feature-modal-close svg {
+.feature-modal-close {
+    top: 14px;
+    right: 14px;
+}
+
+/* Previous and next sit either side of the screen, level with its middle. */
+.feature-modal-prev,
+.feature-modal-next {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.feature-modal-prev {
+    left: 10px;
+}
+
+.feature-modal-next {
+    right: 10px;
+}
+
+.feature-modal-key:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--words);
+}
+
+.feature-modal-prev:active,
+.feature-modal-next:active {
+    transform: translate(2px, calc(-50% + 2px));
+}
+
+/* Each icon fills most of its key, like the play/pause icons do theirs. */
+.feature-modal-key svg {
     width: 80%;
     height: 80%;
     fill: none;
@@ -2436,21 +2491,6 @@ body:has(#content) {
     }
 
     .case-summary {
-        text-align: left;
-    }
-
-    /* Captions under their own phone instead of squeezed between them */
-    .case-media.phones {
-        grid-template-columns: repeat(2, minmax(0, 170px));
-        grid-template-rows: auto auto;
-        grid-template-areas:
-            "p1 p2"
-            "c1 c2";
-        row-gap: 10px;
-    }
-
-    .slot-2 .case-caption {
-        align-self: start;
         text-align: left;
     }
 
