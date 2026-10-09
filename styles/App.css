@@ -2497,23 +2497,91 @@ body:has(#content) {
     cursor: zoom-in;
 }
 
-/* The enlarged image in the modal: as big as fits between the arrow keys,
-   with room under it for the caption. */
+/* The enlarged image in the modal, fitted to the screen whatever its file
+   size: as wide as the room between the arrows allows, as tall as the screen
+   allows for its shape (--ar), and never past 1.5x its own width (--w), where
+   it would go soft. Room is left under it for the caption. */
 .process-modal-img {
+    --room-w: min(84vw, 1100px);
+    --room-h: 70dvh;
     display: block;
-    width: auto;
+    width: min(var(--room-w), calc(var(--room-h) * var(--ar)), calc(var(--w) * 1.5px));
     height: auto;
-    max-width: min(84vw, 1100px);
-    max-height: 78dvh;
     border-radius: 12px;
     background-color: var(--bkgrd);
 }
 
+/* A set (all the sketches, all the wireframes) as a grid: one row of up to
+   four on a computer, every image whole and the same height. */
+.process-set-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+    align-items: center;
+    gap: 16px;
+    width: min(84vw, 1100px);
+}
+
+.process-set-grid button {
+    display: block;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: zoom-in;
+}
+
+.process-set-grid img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 56dvh;
+    object-fit: contain;
+    border-radius: 10px;
+    background-color: var(--bkgrd);
+    transition: transform .15s ease-out;
+}
+
+@media (hover: hover) {
+    .process-set-grid button:hover img {
+        transform: scale(1.03);
+    }
+}
+
+/* Back from one image of a set to its grid: a quiet text link under the
+   caption. */
+.process-set-back {
+    padding: 6px 4px;
+    font-size: 14px;
+    color: #fff;
+    background: none;
+    border: none;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    cursor: pointer;
+}
+
 @media(max-width:650px) {
     .process-modal-img {
-        /* Never under the arrows: the screen less the modal's padding and two
-           44px arrows. */
-        max-width: min(72vw, calc(100vw - 112px));
+        /* The screen less the modal's padding and two 44px arrows. */
+        --room-w: calc(100vw - 112px);
+        --room-h: 62dvh;
+    }
+
+    /* Two across, scrolling if a set runs taller than the screen. */
+    .process-set-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        width: calc(100vw - 112px);
+        max-height: 62dvh;
+        overflow-y: auto;
+        gap: 10px;
+    }
+
+    /* Three would land 2 + 1, so they stack in one scrolling column. */
+    .process-set-grid[data-n="3"] {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .process-set-grid img {
+        max-height: none;
     }
 }
 

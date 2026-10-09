@@ -1,6 +1,6 @@
 // Everything the UI & Design page and its case-study pages show, in one place,
 // so the cards and the case studies can't drift apart. Images are fillers for
-// now. To show a demo, add `video: "/images/your_demo.mp4"` next to the image
+// now. To show a demo, add `video: "/images/<project>/demos/your_demo.mp4"` next to the image
 // it replaces — the card switches to the video and its play/pause control.
 
 import type { ReactNode } from "react";
@@ -42,6 +42,10 @@ export type CaseFigure = {
     width: number;
     height: number;
     caption?: string;
+    // A whole set of images (all the sketches, all the wireframes). The figure
+    // itself is the cover shown in the overview; opening it shows the set as a
+    // grid, and any image in the grid can be opened large.
+    set?: Omit<CaseFigure, "caption" | "set">[];
 };
 
 export type CaseSection = {
@@ -56,6 +60,56 @@ export type CaseStudy = {
     heroVideo?: string;
     sections: CaseSection[];
 };
+
+// WAVE's process sets, rough to refined. The overview shows one of each as a
+// cover; the modal shows the whole set.
+const WAVE_SKETCHES = [
+    {
+        src: "/images/wave/sketches/wave_sketch.png",
+        alt: "Hand-drawn sketch of the home and settings screens",
+        width: 956,
+        height: 712,
+    },
+    {
+        src: "/images/wave/sketches/wave_sketch_faces.png",
+        alt: "Sketches of the emotion faces, from angry to happy",
+        width: 1196,
+        height: 441,
+    },
+    {
+        src: "/images/wave/sketches/wave_sketch_shapes.png",
+        alt: "Sketches of the bubbly and spiky shapes behind the moods",
+        width: 705,
+        height: 802,
+    },
+];
+
+const WAVE_WIREFRAMES = [
+    {
+        src: "/images/wave/wireframes/wave_wireframe1.png",
+        alt: "First wireframe: two screens of stacked organic shapes",
+        width: 672,
+        height: 680,
+    },
+    {
+        src: "/images/wave/wireframes/wave_wireframe2.png",
+        alt: "Home screen wireframe with mood, sleep and close friends shapes",
+        width: 752,
+        height: 762,
+    },
+    {
+        src: "/images/wave/wireframes/wave_wireframe_color.png",
+        alt: "Wireframes in color, with pastel gradients and purple shapes",
+        width: 747,
+        height: 757,
+    },
+    {
+        src: "/images/wave/wireframes/wave_wireframe_final.png",
+        alt: "Final grayscale wireframes of the mood screen in three moods",
+        width: 1112,
+        height: 750,
+    },
+];
 
 export const designProjects: DesignProject[] = [
     {
@@ -74,7 +128,7 @@ export const designProjects: DesignProject[] = [
                 name: "Home.",
                 blurb: "Reads what's on your mind and suggests what to do about it, with quick actions and a glance at your mood, dreams, and friends.",
                 image: PHONE_FILLER,
-                video: "/images/wave_home_demo.mp4",
+                video: "/images/wave/demos/wave_home_demo.mp4",
                 // The overview of the app: leads the case study, while the
                 // card spends its two phones on individual features.
                 hideOnCard: true,
@@ -83,19 +137,19 @@ export const designProjects: DesignProject[] = [
                 name: "Moodring.",
                 blurb: "Tracks your emotions and suggests ways to regulate them.",
                 image: PHONE_FILLER,
-                video: "/images/moodring_demo.mp4",
+                video: "/images/wave/demos/moodring_demo.mp4",
             },
             {
                 name: "Dreamcatcher.",
                 blurb: "Records your dreams for playback and analysis.",
                 image: PHONE_FILLER,
-                video: "/images/dreamcatcher_demo.mp4",
+                video: "/images/wave/demos/dreamcatcher_demo.mp4",
             },
             {
                 name: "Settings.",
                 blurb: "Every feature is on by default, and each one can be switched off, giving users a sense of control over an invasive system.",
                 image: PHONE_FILLER,
-                video: "/images/settings_demo.mp4",
+                video: "/images/wave/demos/settings_demo.mp4",
                 // Last on the case study, where it reframes everything before
                 // it; the card keeps its two most striking screens.
                 hideOnCard: true,
@@ -112,7 +166,7 @@ export const designProjects: DesignProject[] = [
             },
         ],
         caseStudy: {
-            heroVideo: "/images/brainchip_demo.mp4",
+            heroVideo: "/images/wave/demos/brainchip_demo.mp4",
             sections: [
                 {
                     heading: "The Premise",
@@ -148,25 +202,21 @@ export const designProjects: DesignProject[] = [
                     body: null,
                     figures: [
                         {
-                            src: "/images/wave_journey_map.png",
+                            src: "/images/wave/wave_journey_map.png",
                             alt: "User journey map across four stages, from getting the implant to enjoying the app",
                             width: 1116,
                             height: 695,
                             caption: "User journey map",
                         },
                         {
-                            src: "/images/wave/sketch_paper.jpg",
-                            alt: "Hand-drawn sketch of the home and settings screens",
-                            width: 638,
-                            height: 494,
+                            ...WAVE_SKETCHES[0],
                             caption: "Sketches",
+                            set: WAVE_SKETCHES,
                         },
                         {
-                            src: "/images/wave/sketch_wireframe_1.jpg",
-                            alt: "Wireframes of the home screen built from bubbly shapes",
-                            width: 670,
-                            height: 701,
+                            ...WAVE_WIREFRAMES[1],
                             caption: "Wireframes",
+                            set: WAVE_WIREFRAMES,
                         },
                         {
                             src: "/images/wave/moodboard.jpg",
