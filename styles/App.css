@@ -2159,9 +2159,15 @@ body:has(#content) {
     container: case-study / inline-size;
 }
 
+/* --slots (the biggest group's size, when features are grouped) sets each
+   screen's width, so a shorter row's screens match a longer row's. */
 .case-study-features.phones {
-    grid-template-columns: repeat(var(--cols), minmax(0, 220px));
-    column-gap: clamp(12px, 3cqw, 32px);
+    --gap: clamp(12px, 3cqw, 32px);
+    grid-template-columns: repeat(
+        var(--cols),
+        minmax(0, min(220px, calc((100% - (var(--slots) - 1) * var(--gap)) / var(--slots))))
+    );
+    column-gap: var(--gap);
     justify-content: center;
 }
 
@@ -2182,6 +2188,16 @@ body:has(#content) {
 
 .feature-tap-hint {
     display: none;
+}
+
+/* Grouped features: a small heading over each group's row. */
+.case-study-feature-group + .case-study-feature-group {
+    margin-top: 28px;
+}
+
+.feature-group-title {
+    font-size: 18px;
+    margin: 0 0 14px;
 }
 
 /* The modal opens from a phone thumbnail only (see FeatureGallery). */

@@ -15,6 +15,9 @@ export type Feature = {
     video?: string;
     // Shown on the case-study page only, not among the card's two screens.
     hideOnCard?: boolean;
+    // Features with a group show under its heading on the case-study page,
+    // each group in its own row (the music map's ways in, then the trip).
+    group?: string;
 };
 
 export type DesignProject = {
@@ -293,29 +296,44 @@ export const designProjects: DesignProject[] = [
             </>
         ),
         media: "phones",
-        // Each demo ends the moment a song is picked. The trip that follows is
-        // the same from all three, so it plays once, as the hero.
+        // Three ways to pick a song, then the trip they all lead to.
         features: [
             {
-                name: "Landing.",
-                blurb: "A glowing map of Manhattan, every dot a song, with a zoom and two ways in.",
-                image: PHONE_FILLER,
-                hideOnCard: true,
-            },
-            {
                 name: "Map.",
-                blurb: "See how the songs spread across the city and tap the one you want to visit.",
+                blurb: "Zoom into the glowing map of Manhattan to see how songs spread across the city, and tap one to go.",
                 image: PHONE_FILLER,
+                video: "/images/music/demos/music_map_demo.mp4",
+                group: "Pick a song",
             },
             {
                 name: "Regions.",
-                blurb: "Browse by neighborhood, from Harlem to downtown, and pick from that area's songs.",
+                blurb: "Browse by neighborhood, from Harlem to downtown, with a lyric from each song.",
                 image: PHONE_FILLER,
+                video: "/images/music/demos/music_region_demo.mp4",
+                group: "Pick a song",
+                hideOnCard: true,
             },
             {
-                name: "Shuffle.",
-                blurb: "Get directions to a mystery destination and find a new song and a new neighborhood.",
+                name: "Near Me.",
+                blurb: "Find the song closest to where you're standing and head straight there.",
                 image: PHONE_FILLER,
+                video: "/images/music/demos/music_nearme_demo.mp4",
+                group: "Pick a song",
+                hideOnCard: true,
+            },
+            {
+                name: "Directions.",
+                blurb: "Neon arrows count you down, turn by turn, to the spot in the song.",
+                image: PHONE_FILLER,
+                video: "/images/music/demos/music_directions_demo.mp4",
+                group: "Take the trip",
+            },
+            {
+                name: "Arrival.",
+                blurb: "The song starts playing with the lyric about where you're standing.",
+                image: PHONE_FILLER,
+                video: "/images/music/demos/music_arrival_demo.mp4",
+                group: "Take the trip",
                 hideOnCard: true,
             },
         ],
