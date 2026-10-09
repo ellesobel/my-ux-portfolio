@@ -50,12 +50,13 @@ export const designProjects: DesignProject[] = [
                 name: "Mood Ring.",
                 blurb: "Tracks your emotions and suggests ways to regulate them.",
                 image: PHONE_FILLER,
-                video: "/images/brainchip_demo.mp4",
+                video: "/images/moodring_demo.mp4",
             },
             {
-                name: "Dreamscape.",
+                name: "Dreamcatcher.",
                 blurb: "Records your dreams for playback and analysis.",
                 image: PHONE_FILLER,
+                video: "/images/dreamcatcher_demo.mp4",
             },
         ],
         links: [

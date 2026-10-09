@@ -1901,6 +1901,22 @@ body:has(#content) {
     animation: none;
 }
 
+/* Screen-only phone recordings fill the frame as they are... */
+.demo-video .app-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: none;
+}
+
+/* ...while the older landscape recordings, with the phone in the middle of a
+   wide frame, keep the zoom that crops in on the phone. */
+.demo-video .app-video.landscape {
+    width: 121%;
+    height: 121%;
+    transform: translateY(-2.15%);
+}
+
 /* Demo videos fill the phone column like the filler images do. */
 .phones .video-crop {
     width: 100%;
