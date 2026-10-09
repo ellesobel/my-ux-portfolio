@@ -11,6 +11,7 @@
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type MouseEvent, type TouchEvent } from "react";
 import type { Feature } from "../data/designProjects";
 import DemoMedia from "./demoMedia";
+import ModalArrows from "./modalArrows";
 import { setupVideoToggles } from "../utils/videoToggle";
 
 // Matches the site's phone breakpoint in App.css.
@@ -138,39 +139,22 @@ function FeatureGallery({ features, media }: Props) {
                         key={active.name}
                         className={`art-modal-inner${direction ? ` slide-${direction}` : ""}`}
                     >
-                        <div className="feature-modal-screen" onClick={(event) => event.stopPropagation()}>
-                            <DemoMedia
-                                frame="phone"
-                                image={active.image}
-                                video={active.video}
-                                alt={`${name(active)} demo`}
-                            />
+                        <div className="modal-stage">
+                            <div className="feature-modal-screen modal-media" onClick={(event) => event.stopPropagation()}>
+                                <DemoMedia
+                                    frame="phone"
+                                    image={active.image}
+                                    video={active.video}
+                                    alt={`${name(active)} demo`}
+                                />
+                            </div>
+                            {features.length > 1 && <ModalArrows onStep={step} noun="feature" />}
                         </div>
                         <figcaption className="art-modal-caption">
                             <h3>{name(active)}</h3>
                             <h4>{active.blurb}</h4>
                         </figcaption>
                     </figure>
-                    {features.length > 1 && (
-                        <>
-                            <button
-                                type="button"
-                                className="feature-modal-key feature-modal-prev"
-                                aria-label="Previous feature"
-                                onClick={(event) => { event.stopPropagation(); step(-1); }}
-                            >
-                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4l-8 8 8 8" /></svg>
-                            </button>
-                            <button
-                                type="button"
-                                className="feature-modal-key feature-modal-next"
-                                aria-label="Next feature"
-                                onClick={(event) => { event.stopPropagation(); step(1); }}
-                            >
-                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4l8 8-8 8" /></svg>
-                            </button>
-                        </>
-                    )}
                     <button type="button" className="feature-modal-key feature-modal-close" aria-label="Close" onClick={close}>
                         <svg viewBox="0 0 24 24" aria-hidden="true">
                             <path d="M5 5l14 14M19 5L5 19" />
