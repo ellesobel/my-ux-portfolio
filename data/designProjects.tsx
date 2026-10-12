@@ -682,18 +682,21 @@ export const researchProjects: DesignProject[] = [
                             <p className="case-pull">
                                 &ldquo;Moving target? But they&#39;re not moving&hellip;&rdquo;
                             </p>
-                            <p>Across 29 sessions, the same patterns kept coming up.</p>
+                            <ul className="finding-pairs">
+                                {[
+                                    ["Users skimmed instructions and mistook the demo for the task.", "Numbered steps of equal weight, plus audio cues for walking."],
+                                    ["Text and Android\u2019s nav were too low-contrast to notice.", "Bigger, higher-contrast nav, text, and buttons."],
+                                    ["Notifications broke into vibration tasks.", "Pause notifications, or prompt Do Not Disturb first."],
+                                ].map(([finding, rec]) => (
+                                    <li key={finding}>
+                                        <span>{finding}</span>
+                                        <span className="finding-arrow" aria-label="led to">&rarr;</span>
+                                        <span>{rec}</span>
+                                    </li>
+                                ))}
+                            </ul>
                         </>
                     ),
-                    figures: [
-                        {
-                            src: "/images/synaptrack/findings_to_recs.svg",
-                            alt: "Three findings paired with recommendations: skimmed instructions with numbered steps, low contrast with bigger higher-contrast UI, and notifications with pausing them during tasks",
-                            width: 640,
-                            height: 400,
-                            caption: "Findings to recommendations",
-                        },
-                    ],
                 },
                 {
                     heading: "Impact",

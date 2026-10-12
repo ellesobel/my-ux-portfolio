@@ -1762,6 +1762,40 @@ body:has(#content) {
     border: 2px solid var(--words);
 }
 
+/* A finding and the recommendation it led to, side by side (research). */
+.case-study-section .finding-pairs {
+    list-style: none;
+    padding: 0;
+    margin: 12px 0 0;
+    display: grid;
+    gap: 8px;
+}
+
+.case-study-section .finding-pairs li {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+}
+
+.finding-pairs li > span:not(.finding-arrow) {
+    height: 100%;
+    box-sizing: border-box;
+    padding: 8px 12px;
+    border: 2px solid var(--words);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, .7);
+    font-size: 13px;
+    line-height: 1.35;
+}
+
+.case-study-section .finding-pairs .finding-arrow {
+    font-family: sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+}
+
 .case-meta {
     font-size: 13px;
     margin: -6px 0 16px;
