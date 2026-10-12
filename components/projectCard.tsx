@@ -4,7 +4,7 @@
 
 import Image from "next/image";
 import type { DesignProject } from "../data/designProjects";
-import CaseStudyLink from "./caseStudyLink";
+// import CaseStudyLink from "./caseStudyLink";
 import DemoMedia from "./demoMedia";
 
 type Props = {
@@ -15,7 +15,8 @@ type Props = {
     linkLabel?: string;
 };
 
-function ProjectCard({ project, flipped = false, basePath = "/design", linkLabel }: Props) {
+// basePath and linkLabel go unused while the case-study arrow is hidden.
+function ProjectCard({ project, flipped = false }: Props) {
     const { slug, title, meta, logo, summary, media, image, video, features } = project;
 
     return (
@@ -69,9 +70,10 @@ function ProjectCard({ project, flipped = false, basePath = "/design", linkLabel
                 </div>
             )}
 
+            {/* Hidden for now while the case-study pages aren't ready.
             <div className="case-cta">
                 <CaseStudyLink href={`${basePath}/${slug}`} label={linkLabel} />
-            </div>
+            </div> */}
         </article>
     );
 }
