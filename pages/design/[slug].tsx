@@ -80,8 +80,11 @@ function CaseStudy({ slug }: Props) {
             <FeatureGallery features={features} media={media} />
 
             <section className="case-study-sections">
-                {sections.map(({ heading, body, figures, layout }) => (
-                    <div key={heading} className={`case-study-section${figures ? " has-figures" : ""}`}>
+                {sections.map(({ heading, body, figures, layout, third }) => (
+                    <div
+                        key={heading}
+                        className={`case-study-section${figures ? " has-figures" : ""}${third ? " third" : ""}`}
+                    >
                         <h3>{heading}</h3>
                         {body}
                         {figures && <ProcessGallery figures={figures} layout={layout} />}

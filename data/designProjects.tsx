@@ -63,6 +63,8 @@ export type CaseSection = {
     // "lead" shows the first figure large, the next four in a 2 x 2 beside it,
     // for a section the images carry more than the words.
     layout?: "lead";
+    // A short text section that shares its row with two others, not one.
+    third?: boolean;
 };
 
 export type CaseStudy = {
@@ -504,28 +506,38 @@ export const designProjects: DesignProject[] = [
             sections: [
                 {
                     heading: "The Problem",
+                    third: true,
                     body: (
                         <>
                             <p className="case-pull">
                                 PNC calls itself boring, and its app looks the part.
                             </p>
                             <p>
-                                Reviews call the app slow and buggy, while competitors like
-                                Capital One and Chime offer richer budgeting tools. Our take:
-                                it&#39;s not about being boring, it&#39;s about being smart,
-                                steady and reliable.
+                                Our take: it&#39;s not about being boring, it&#39;s about being
+                                smart, steady and reliable.
                             </p>
                         </>
                     ),
                 },
                 {
                     heading: "Goals",
+                    third: true,
                     body: (
                         <ul>
-                            <li>Visualize how budgets and spending change over time.</li>
+                            <li>Visualize budget and spending over time.</li>
                             <li>Make saving more actionable.</li>
-                            <li>Re-envision the budgeting tools in PNC&#39;s digital experience.</li>
-                            <li>Design for two screens: mobile and watch.</li>
+                            <li>Design for mobile and watch.</li>
+                        </ul>
+                    ),
+                },
+                {
+                    heading: "Contributions",
+                    third: true,
+                    body: (
+                        <ul>
+                            <li>For PNC: going &ldquo;beyond boring.&rdquo;</li>
+                            <li>For customers: spending as cycles you can zoom through.</li>
+                            <li>For everyone: more budgeting and saving.</li>
                         </ul>
                     ),
                 },
@@ -538,16 +550,11 @@ export const designProjects: DesignProject[] = [
                                 understanding cyclical habits.
                             </p>
                             <p>
-                                Instead of &ldquo;budget categories,&rdquo; we wondered what it
-                                would look like to track changes in spending throughout the
-                                week, the month and the year, and how zooming in and out, from
-                                a monthly to a daily view or a monthly to a yearly one, could
-                                help people understand their spending habits.
-                            </p>
-                            <p>
-                                The three of us worked on everything together. I pushed the
-                                data visualization concept early on, and focused most on the
-                                calendar and Smart Categorize.
+                                Instead of &ldquo;budget categories,&rdquo; we tracked spending
+                                across the week, month and year, and let people zoom in and out
+                                between them. We worked on everything together; I pushed this
+                                concept early on and focused most on the calendar and Smart
+                                Categorize.
                             </p>
                         </>
                     ),
@@ -555,22 +562,22 @@ export const designProjects: DesignProject[] = [
                         {
                             src: "/images/bank/sketches_data_explorations.png",
                             alt: "Sketches of radial and flower-shaped charts for spending by day and category",
-                            width: 640,
-                            height: 722,
+                            width: 2400,
+                            height: 2708,
                             caption: "Sketches",
                         },
                         {
                             src: "/images/bank/wireframes_data_exploration.png",
                             alt: "Wireframes zooming between week, month and year views of a budget",
-                            width: 732,
-                            height: 687,
+                            width: 2400,
+                            height: 2253,
                             caption: "Data explorations",
                         },
                         {
                             src: "/images/bank/sketches_wireframes_prototypes.png",
                             alt: "Sketches, then wireframes, then the final phone and watch prototypes",
-                            width: 1337,
-                            height: 751,
+                            width: 2400,
+                            height: 1348,
                             caption: "Sketches to prototypes",
                         },
                     ],
@@ -579,46 +586,26 @@ export const designProjects: DesignProject[] = [
                     heading: "Design System",
                     body: (
                         <p>
-                            PNC&#39;s blue and orange, plus blue, red and green for on budget,
-                            over and saved. We set the app in Atkinson Hyperlegible for
-                            readability, and used SF Compact on the watch, following
-                            Apple&#39;s guidelines.
+                            PNC&#39;s blue and orange, with blue, red and green for on budget,
+                            over and saved, set in Atkinson Hyperlegible for readability.
                         </p>
                     ),
                     figures: [
                         {
                             src: "/images/bank/design_system_1.png",
                             alt: "Styles and components: buttons, cards, navigation, type and brand colors",
-                            width: 1217,
-                            height: 612,
+                            width: 2400,
+                            height: 1207,
                             caption: "Styles and components",
                         },
                         {
                             src: "/images/bank/design_system_2.png",
                             alt: "Data visualizations with their semantic and auxiliary colors",
-                            width: 761,
-                            height: 552,
+                            width: 2400,
+                            height: 1741,
                             caption: "Data visualizations and color",
                         },
                     ],
-                },
-                {
-                    heading: "Contributions",
-                    body: (
-                        <ul>
-                            <li>
-                                <strong>For PNC:</strong> modernizing the digital experience,
-                                going &ldquo;beyond boring.&rdquo;
-                            </li>
-                            <li>
-                                <strong>For customers:</strong> seeing budget and spending as
-                                cycles, and zooming in and out between the week and the month.
-                            </li>
-                            <li>
-                                <strong>For everyone:</strong> encouraging budgeting and saving.
-                            </li>
-                        </ul>
-                    ),
                 },
             ],
         },

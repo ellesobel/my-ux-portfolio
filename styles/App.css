@@ -2186,14 +2186,16 @@ body:has(#content) {
 
 /* The written sections are compact: small cards with small type, so they
    support the work above instead of competing with it. */
+/* Six columns, so a section can take half a row (the default) or a third. */
 .case-study-sections {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 16px;
     margin-top: 24px;
 }
 
 .case-study-section {
+    grid-column: span 3;
     background-color: var(--proj-bkgrd);
     border-radius: 22px;
     padding: 22px 26px;
@@ -2530,6 +2532,17 @@ body:has(#content) {
     grid-column: 1 / -1;
 }
 
+.case-study-section.third {
+    grid-column: span 2;
+}
+
+/* Too narrow for three across: the thirds stack, full width. */
+@media (max-width: 900px) {
+    .case-study-section.third {
+        grid-column: 1 / -1;
+    }
+}
+
 .case-figures {
     margin-top: 16px;
 }
@@ -2832,7 +2845,9 @@ body:has(#content) {
         padding: 26px 22px;
     }
 
-    .case-study-section {
+    .case-study-section,
+    .case-study-section.third {
+        grid-column: auto;
         padding: 20px 18px;
     }
 }
