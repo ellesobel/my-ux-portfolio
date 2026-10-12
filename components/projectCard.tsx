@@ -1,22 +1,22 @@
 // One project card, shared by the UI & Design and Coding pages: text in one
-// column, screens in the other, and the arrow to its detail page along the
-// bottom. `flipped` swaps the columns so consecutive cards alternate sides.
+// column, screens in the other, and, when `basePath` is set, the arrow to its
+// detail page along the bottom. `flipped` swaps the columns so consecutive
+// cards alternate sides.
 
 import Image from "next/image";
 import type { DesignProject } from "../data/designProjects";
-// import CaseStudyLink from "./caseStudyLink";
+import CaseStudyLink from "./caseStudyLink";
 import DemoMedia from "./demoMedia";
 
 type Props = {
     project: DesignProject;
     flipped?: boolean;
-    // Where the arrow leads: `${basePath}/${slug}`.
+    // Where the arrow leads: `${basePath}/${slug}`. No basePath, no arrow.
     basePath?: string;
     linkLabel?: string;
 };
 
-// basePath and linkLabel go unused while the case-study arrow is hidden.
-function ProjectCard({ project, flipped = false }: Props) {
+function ProjectCard({ project, flipped = false, basePath, linkLabel }: Props) {
     const { slug, title, meta, logo, summary, media, image, video, features } = project;
 
     return (
@@ -70,10 +70,11 @@ function ProjectCard({ project, flipped = false }: Props) {
                 </div>
             )}
 
-            {/* Hidden for now while the case-study pages aren't ready.
-            <div className="case-cta">
-                <CaseStudyLink href={`${basePath}/${slug}`} label={linkLabel} />
-            </div> */}
+            {basePath && (
+                <div className="case-cta">
+                    <CaseStudyLink href={`${basePath}/${slug}`} label={linkLabel} />
+                </div>
+            )}
         </article>
     );
 }

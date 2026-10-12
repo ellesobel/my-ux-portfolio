@@ -14,14 +14,14 @@ function Design() {
             <h2 className="page-title">Designs</h2>
             <section className="case-list" aria-label="Design projects">
                 {designProjects.map((project, i) => (
-                    <ProjectCard key={project.slug} project={project} flipped={i % 2 === 1} />
+                    <ProjectCard key={project.slug} project={project} flipped={i % 2 === 1} basePath="/design" />
                 ))}
             </section>
 
             <h2 className="case-section-title">Research</h2>
             <section className="case-list" aria-label="Research">
                 {researchProjects.map((project, i) => (
-                    <ProjectCard key={project.slug} project={project} flipped={i % 2 === 1} />
+                    <ProjectCard key={project.slug} project={project} flipped={i % 2 === 1} basePath="/design" />
                 ))}
             </section>
         </div>
