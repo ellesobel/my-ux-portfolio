@@ -7,7 +7,6 @@
 import type { ReactNode } from "react";
 
 const PHONE_FILLER = "/images/placeholders/phone.svg";
-const WIDE_FILLER = "/images/placeholders/wide.svg";
 
 export type Feature = {
     name: string;
@@ -25,6 +24,8 @@ export type DesignProject = {
     title: string;
     // Shown under the title on research cards (role, lab, dates).
     meta?: string;
+    // A square app icon shown beside the title on the card.
+    logo?: string;
     summary: ReactNode;
     // App projects show two phone screens with a caption each; research shows
     // one wide image with its highlights underneath; coding projects show the
@@ -616,39 +617,40 @@ export const researchProjects: DesignProject[] = [
     {
         slug: "synaptrack",
         title: "Human-Computer Interaction Research",
-        meta: "The Greenberg Lab · WashU Medicine Neurosurgery · Jun.–Dec. 2025",
+        meta: "Research Assistant · Greenberg Lab, WashU Medicine · 2025",
+        logo: "/images/synaptrack/synaptrack%20logo.webp",
         summary: (
             <>
-                As a research assistant on <em>SynapTrack</em>, an app that tracks
-                cervical myelopathy at home, I ran usability studies to make sure
-                patients could complete its tasks on their own, without a doctor beside
-                them, and still give their doctors accurate data. I turned what I saw
-                into UI/UX recommendations for the developers.
+                Usability research for <em>SynapTrack</em>, an app patients with
+                cervical myelopathy use at home to track their disease. I ran
+                think-aloud studies with 29 participants and turned what I saw into
+                UI/UX recommendations, so patients can test on their own and still
+                give their doctors accurate data.
             </>
         ),
-        media: "wide",
-        image: "/images/synaptrack/findings_to_recs.svg",
+        media: "phones",
         features: [
             {
-                name: "Usability Studies.",
-                blurb: "29 participants aged 40–78, thinking aloud through registration, daily tasks, and navigation on iPhone and Android.",
-                image: WIDE_FILLER,
+                name: "Hidden Categories.",
+                blurb: "Category tabs ran off the edge of the screen, and users didn\u2019t know to scroll for more.",
+                image: "/images/synaptrack/task_list.webp",
             },
             {
-                name: "Recommendations.",
-                blurb: "Numbered instructions, higher-contrast text and navigation, and no notifications during vibration tasks.",
-                image: WIDE_FILLER,
+                name: "Missed Calendar.",
+                blurb: "Asked to find upcoming tasks, users scrolled the dashboard instead of opening the calendar.",
+                image: "/images/synaptrack/homepage.webp",
             },
             {
-                name: "Research Protocols.",
-                blurb: "Screening, interview guides, and structured task flows, trimmed to fit a one-hour session.",
-                image: WIDE_FILLER,
+                name: "Low Contrast.",
+                blurb: "Gray text on lavender: one of many contrast issues I flagged across light and dark mode.",
+                image: "/images/synaptrack/sign_in.webp",
+                hideOnCard: true,
             },
         ],
         caseStudy: {
             sections: [
                 {
-                    heading: "The Goal",
+                    heading: "The Challenge",
                     body: (
                         <>
                             <p className="case-pull">
@@ -656,138 +658,32 @@ export const researchProjects: DesignProject[] = [
                                 task as intended, their data is wrong.
                             </p>
                             <p>
-                                SynapTrack asks patients with cervical myelopathy to complete
-                                short tasks over time that imitate everyday movements,
-                                tracking their dexterity, gait, balance, and the sensation in
-                                their hands. Seeing the disease progress in real time helps
-                                doctors make more accurate diagnoses and treatment
-                                recommendations, but only if patients can use the app
-                                correctly with no one there to help.
+                                The app has to work for older adults who aren&#39;t
+                                confident with technology, with no doctor beside them.
                             </p>
                         </>
                     ),
                 },
                 {
-                    heading: "Participants",
+                    heading: "At a Glance",
                     body: (
-                        <>
-                            <p>
-                                Patients with cervical myelopathy are hard to find, so we
-                                didn&#39;t want to spend them on usability testing. Instead, we
-                                tested control participants in the condition&#39;s typical age
-                                range, with no history of neurological disorders or issues
-                                with hand sensation, dexterity, balance, or walking. Their
-                                sessions also gave the doctors a clean baseline to compare
-                                patients against.
-                            </p>
-                            <p>
-                                29 participants (14 men, 15 women) took part, aged 40 to 78
-                                (mean 54.5).
-                            </p>
-                        </>
+                        <ul>
+                            <li><strong>Role:</strong> Research assistant, running every session.</li>
+                            <li><strong>Methods:</strong> Think-aloud usability testing, observation, and post-task interviews.</li>
+                            <li><strong>Participants:</strong> 29 adults aged 40–78, on iPhone and Android.</li>
+                            <li><strong>Output:</strong> A findings report with UI/UX recommendations for the developers.</li>
+                        </ul>
                     ),
                 },
                 {
-                    heading: "Methods",
-                    body: (
-                        <>
-                            <p>
-                                I screened volunteers, scheduled them, and ran each one-hour
-                                session. Participants thought aloud as they registered for an
-                                account, completed their assigned daily tasks, found their
-                                upcoming tasks on the calendar, and searched for new ones. I
-                                held my answers until they had finished each instruction, and
-                                only stepped in when someone had been stuck for about a
-                                minute.
-                            </p>
-                            <p>
-                                Each participant then repeated the tasks they had struggled
-                                with on the lab&#39;s Android phone, to see whether a second
-                                attempt was enough to self-correct, and tried the tasks that
-                                were newest to Android. I closed with a few interview
-                                questions about challenges they had faced or could foresee,
-                                imagining they had cervical myelopathy.
-                            </p>
-                            <p>
-                                As testing went on, I cut the interview from six questions to
-                                three and limited the Android round, so that sessions fit in
-                                the hour and left time for gait and balance testing.
-                            </p>
-                        </>
-                    ),
-                },
-                {
-                    heading: "What I Found",
+                    heading: "Findings → Recommendations",
                     body: (
                         <>
                             <p className="case-pull">
                                 &ldquo;Moving target? But they&#39;re not moving&hellip;&rdquo;
                             </p>
-                            <ul>
-                                <li>
-                                    <strong>Instructions got skimmed.</strong> Users skipped
-                                    the lower-contrast subtext, where key goals lived, and
-                                    many mistook the instruction animation for the task
-                                    itself. In the walking test, people started walking
-                                    before standing still for the three seconds the task
-                                    needed to begin.
-                                </li>
-                                <li>
-                                    <strong>Contrast was too low.</strong> Gray and thin text on
-                                    purple in light mode, dark cards and buttons on black in
-                                    dark mode, and Android&#39;s navigation, which users
-                                    struggled to find even after learning it on iPhone.
-                                </li>
-                                <li>
-                                    <strong>The wording was inconsistent.</strong> Buzz, vibrate,
-                                    listen, and feel all described the same thing;
-                                    &ldquo;alternatively&rdquo; read as a choice rather than
-                                    &ldquo;alternating&rdquo;; and no one knew what a
-                                    &ldquo;reversal&rdquo; was.
-                                </li>
-                                <li>
-                                    <strong>The phone got in the way.</strong> Notifications
-                                    interrupted vibration tasks, pinching could swipe users
-                                    out of the app, and the keyboard hid the password field
-                                    on smaller screens.
-                                </li>
-                                <li>
-                                    <strong>Navigation didn&#39;t match habits.</strong> Users
-                                    scrolled the dashboard instead of opening the calendar,
-                                    tried to scroll the calendar sideways, and didn&#39;t
-                                    realize upcoming tasks were locked.
-                                </li>
-                            </ul>
+                            <p>Across 29 sessions, the same patterns kept coming up.</p>
                         </>
-                    ),
-                },
-                {
-                    heading: "What I Recommended",
-                    body: (
-                        <ul>
-                            <li>
-                                Rewrite instructions as numbered steps of equal visual weight,
-                                with the goal stated plainly, and move key walking
-                                instructions into audio.
-                            </li>
-                            <li>
-                                Raise the contrast and size of text, buttons, and navigation
-                                in both themes, and label Android&#39;s navigation icons.
-                            </li>
-                            <li>
-                                Use one word for each idea (&ldquo;feel&rdquo; a vibration),
-                                and drop jargon like &ldquo;reversals.&rdquo;
-                            </li>
-                            <li>
-                                Pause notifications, or prompt users to turn on Do Not
-                                Disturb, before vibration tasks, and remind them to turn the
-                                volume on before walking.
-                            </li>
-                            <li>
-                                Explain locked tasks with a tooltip, and show progress and
-                                timers in ways that match what users experience.
-                            </li>
-                        </ul>
                     ),
                     figures: [
                         {
@@ -800,21 +696,12 @@ export const researchProjects: DesignProject[] = [
                     ],
                 },
                 {
-                    heading: "What Changed",
+                    heading: "Impact",
                     body: (
                         <ul>
-                            <li>
-                                The Pinching Test&#39;s instructions on iPhone were rewritten.
-                            </li>
-                            <li>
-                                Sensory, Sustain Hold, and Pinching now ask users to repeat the
-                                task with their non-dominant hand.
-                            </li>
-                            <li>
-                                The developers replaced two sensory tasks with Sensory Choice
-                                Adaptive and Vibration Threshold, which I tested on both
-                                platforms as they arrived.
-                            </li>
+                            <li>The Pinching Test&#39;s instructions were rewritten.</li>
+                            <li>Hand tasks now prompt a second round with the non-dominant hand.</li>
+                            <li>I cut sessions to fit an hour by trimming the interview from six questions to three.</li>
                         </ul>
                     ),
                 },
