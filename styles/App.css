@@ -1742,6 +1742,26 @@ body:has(#content) {
     margin: 0 0 16px;
 }
 
+/* An app icon beside the title (research), the title wrapping next to it. */
+.case-title-logo {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.case-title-logo h3 {
+    margin: 0;
+}
+
+.case-logo {
+    flex: none;
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    border: 2px solid var(--words);
+}
+
 .case-meta {
     font-size: 13px;
     margin: -6px 0 16px;
