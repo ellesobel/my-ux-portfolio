@@ -18,8 +18,8 @@ function Coding() {
                         key={project.slug}
                         project={project}
                         flipped={i % 2 === 1}
-                        basePath="/coding"
-                        linkLabel="Explore this project's features"
+                        // No arrow until the coding feature pages are ready; then add
+                        // basePath="/coding" linkLabel="Explore this project's features"
                     />
                 ))}
             </section>
