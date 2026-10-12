@@ -659,6 +659,15 @@ export const researchProjects: DesignProject[] = [
                             </li>
                         </ul>
                     ),
+                    figures: [
+                        {
+                            src: "/images/synaptrack/findings_to_recs.svg",
+                            alt: "Three findings paired with recommendations: skimmed instructions with numbered steps, low contrast with bigger higher-contrast UI, and notifications with pausing them during tasks",
+                            width: 640,
+                            height: 400,
+                            caption: "Findings to recommendations",
+                        },
+                    ],
                 },
                 {
                     heading: "What Changed",

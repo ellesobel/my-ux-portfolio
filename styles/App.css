@@ -2119,13 +2119,6 @@ body:has(#content) {
     box-sizing: border-box;
 }
 
-/* A real image (not filler or a demo) shows whole: as wide as the 520px cap
-   allows for its 16:10 shape, centered, rather than cropped to fit. */
-.case-study-hero > img.whole {
-    max-width: 832px;
-    margin-inline: auto;
-}
-
 .case-study-sections {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
