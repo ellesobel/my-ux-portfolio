@@ -18,14 +18,16 @@ import { useEffect, useRef, useState } from "react";
 export const DEMO_VIDEO_SELECTOR = ".app-video, .video";
 
 type Props = {
-    frame: "phone" | "wide";
+    // A watch is framed like a phone, just squarer, with no Dynamic Island.
+    frame: "phone" | "wide" | "watch";
     image: string;
     video?: string;
     alt: string;
 };
 
 function DemoMedia({ frame, image, video, alt }: Props) {
-    const phone = frame === "phone";
+    const watch = frame === "watch";
+    const phone = frame === "phone" || watch;
     const videoRef = useRef<HTMLVideoElement>(null);
     const [landscape, setLandscape] = useState(false);
     const checkShape = () => {
@@ -37,7 +39,7 @@ function DemoMedia({ frame, image, video, alt }: Props) {
 
     if (video) {
         return (
-            <div className={phone ? "video-crop demo-video" : "web-video-crop demo-video"}>
+            <div className={phone ? `video-crop demo-video${watch ? " watch" : ""}` : "web-video-crop demo-video"}>
                 <video
                     ref={videoRef}
                     className={phone ? `app-video${landscape ? " landscape" : ""}` : "video"}

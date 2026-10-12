@@ -111,7 +111,7 @@ function FeatureGallery({ features, media }: Props) {
                         onClickCapture={openOnPhone(i)}
                     >
                         <DemoMedia
-                            frame={phones ? "phone" : "wide"}
+                            frame={phones ? feature.frame ?? "phone" : "wide"}
                             image={feature.image}
                             video={feature.video}
                             alt={`${name(feature)} demo`}
@@ -140,9 +140,12 @@ function FeatureGallery({ features, media }: Props) {
                         className={`art-modal-inner${direction ? ` slide-${direction}` : ""}`}
                     >
                         <div className="modal-stage">
-                            <div className="feature-modal-screen modal-media" onClick={(event) => event.stopPropagation()}>
+                            <div
+                                className={`feature-modal-screen modal-media${active.frame === "watch" ? " watch" : ""}`}
+                                onClick={(event) => event.stopPropagation()}
+                            >
                                 <DemoMedia
-                                    frame="phone"
+                                    frame={active.frame ?? "phone"}
                                     image={active.image}
                                     video={active.video}
                                     alt={`${name(active)} demo`}

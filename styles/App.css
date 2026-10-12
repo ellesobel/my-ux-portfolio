@@ -1988,6 +1988,18 @@ body:has(#content) {
     content: none;
 }
 
+/* Watch recordings (730 x 872) get a squarer frame with the watch's rounder
+   corners and no Dynamic Island. They sit in a phone's column, centered on
+   the phones beside them. */
+.demo-video.video-crop.watch {
+    aspect-ratio: 730 / 872;
+    border-radius: 18% / 15%;
+}
+
+.demo-video.video-crop.watch::after {
+    content: none;
+}
+
 /* The older landscape recordings keep the original frame their zoom was
    tuned for (and already show their own phone's notch). */
 .demo-video.video-crop:has(.landscape) {
@@ -2243,6 +2255,11 @@ body:has(#content) {
 .feature-modal-screen {
     /* Leaves room for the previous/next keys either side. */
     width: min(66vw, calc(66dvh * 393 / 853));
+}
+
+/* A watch is squarer, so the same height gives it a wider screen. */
+.feature-modal-screen.watch {
+    width: min(66vw, calc(66dvh * 730 / 872));
 }
 
 .feature-modal .art-modal-caption {

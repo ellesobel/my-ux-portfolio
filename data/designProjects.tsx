@@ -16,6 +16,8 @@ export type Feature = {
     video?: string;
     // Shown on the case-study page only, not among the card's two screens.
     hideOnCard?: boolean;
+    // A watch demo gets a watch-shaped frame instead of the phone's.
+    frame?: "watch";
 };
 
 export type DesignProject = {
@@ -465,24 +467,30 @@ export const designProjects: DesignProject[] = [
         media: "phones",
         features: [
             {
-                name: "Week Cycle.",
-                blurb: "A ring of the week shows which days you met your budget, overspent, or saved.",
+                name: "Week to Month.",
+                blurb: "A ring of the week shows which days you met your budget, overspent, or saved. Swipe to zoom out to the whole month.",
                 image: "/images/bank/pnc_app_2.png",
-            },
-            {
-                name: "Calendar.",
-                blurb: "The same data across a whole month, so patterns in your spending stand out.",
-                image: "/images/bank/pnc_app_3.png",
+                video: "/images/bank/demos/pnc_data_demo.mp4",
             },
             {
                 name: "Smart Categorize.",
                 blurb: "Swipe to tag each purchase. The charts are only as good as the data behind them.",
                 image: "/images/bank/pnc_app_5.png",
+                video: "/images/bank/demos/pnc_smart_categorize_demo.mp4",
             },
             {
-                name: "Transactions.",
-                blurb: "A banner flags uncategorized purchases and leads straight into Smart Categorize.",
-                image: "/images/bank/pnc_app_4.png",
+                name: "Save the Difference.",
+                blurb: "Under budget? Move what's left straight into savings from the home screen.",
+                image: "/images/bank/pnc_app_1.png",
+                video: "/images/bank/demos/pnc_transfer_demo.mp4",
+                hideOnCard: true,
+            },
+            {
+                name: "On the Watch.",
+                blurb: "The week cycle as a quick check-in, from \u201cYou're doing great!\u201d to \u201cYou went $40 over on Thursday.\u201d",
+                image: "/images/bank/demos/watch_demo.jpg",
+                video: "/images/bank/demos/watch_demo.mp4",
+                frame: "watch",
                 hideOnCard: true,
             },
         ],
@@ -511,32 +519,61 @@ export const designProjects: DesignProject[] = [
                     ),
                 },
                 {
-                    heading: "The Insight",
+                    heading: "Goals",
                     body: (
-                        <>
-                            <p className="case-pull">
-                                Spending happens in cycles, not categories.
-                            </p>
-                            <p>
-                                Instead of static budget categories, we showed spending over
-                                time, so users can zoom from a single week out to a month and
-                                see their habits. I pushed this data visualization concept
-                                early on, and focused most on the calendar and Smart
-                                Categorize, though the three of us worked on everything
-                                together.
-                            </p>
-                        </>
+                        <ul>
+                            <li>Visualize how budgets and spending change over time.</li>
+                            <li>Make saving more actionable.</li>
+                            <li>Re-envision the budgeting tools in PNC&#39;s digital experience.</li>
+                            <li>Design for two screens: mobile and watch.</li>
+                        </ul>
                     ),
                 },
                 {
-                    heading: "On the Watch",
+                    heading: "Discovery",
                     body: (
-                        <p>
-                            The week cycle shrinks to a quick check-in, like &ldquo;Met your
-                            budget 4 times this week!&rdquo;, with one-tap actions to move
-                            money into savings or donate it.
-                        </p>
+                        <>
+                            <p className="case-pull">
+                                One of the themes that emerged in our discovery was
+                                understanding cyclical habits.
+                            </p>
+                            <p>
+                                Instead of &ldquo;budget categories,&rdquo; we wondered what it
+                                would look like to track changes in spending throughout the
+                                week, the month and the year, and how zooming in and out, from
+                                a monthly to a daily view or a monthly to a yearly one, could
+                                help people understand their spending habits.
+                            </p>
+                            <p>
+                                The three of us worked on everything together. I pushed the
+                                data visualization concept early on, and focused most on the
+                                calendar and Smart Categorize.
+                            </p>
+                        </>
                     ),
+                    figures: [
+                        {
+                            src: "/images/bank/sketches_data_explorations.png",
+                            alt: "Sketches of radial and flower-shaped charts for spending by day and category",
+                            width: 640,
+                            height: 722,
+                            caption: "Sketches",
+                        },
+                        {
+                            src: "/images/bank/wireframes_data_exploration.png",
+                            alt: "Wireframes zooming between week, month and year views of a budget",
+                            width: 732,
+                            height: 687,
+                            caption: "Data explorations",
+                        },
+                        {
+                            src: "/images/bank/sketches_wireframes_prototypes.png",
+                            alt: "Sketches, then wireframes, then the final phone and watch prototypes",
+                            width: 1337,
+                            height: 751,
+                            caption: "Sketches to prototypes",
+                        },
+                    ],
                 },
                 {
                     heading: "Design System",
@@ -550,13 +587,38 @@ export const designProjects: DesignProject[] = [
                     ),
                     figures: [
                         {
-                            src: "/images/bank/pnc_design_system.png",
-                            alt: "PNC design system: buttons, cards, navigation, type and colors",
-                            width: 1207,
-                            height: 671,
+                            src: "/images/bank/design_system_1.png",
+                            alt: "Styles and components: buttons, cards, navigation, type and brand colors",
+                            width: 1217,
+                            height: 612,
                             caption: "Styles and components",
                         },
+                        {
+                            src: "/images/bank/design_system_2.png",
+                            alt: "Data visualizations with their semantic and auxiliary colors",
+                            width: 761,
+                            height: 552,
+                            caption: "Data visualizations and color",
+                        },
                     ],
+                },
+                {
+                    heading: "Contributions",
+                    body: (
+                        <ul>
+                            <li>
+                                <strong>For PNC:</strong> modernizing the digital experience,
+                                going &ldquo;beyond boring.&rdquo;
+                            </li>
+                            <li>
+                                <strong>For customers:</strong> seeing budget and spending as
+                                cycles, and zooming in and out between the week and the month.
+                            </li>
+                            <li>
+                                <strong>For everyone:</strong> encouraging budgeting and saving.
+                            </li>
+                        </ul>
+                    ),
                 },
             ],
         },
