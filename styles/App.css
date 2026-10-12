@@ -1762,7 +1762,12 @@ body:has(#content) {
     border: 2px solid var(--words);
 }
 
-/* A finding and the recommendation it led to, side by side (research). */
+/* A finding and the recommendation it led to, side by side (research). The
+   section spans the page so each pair reads on a line or two. */
+.case-study-section:has(.finding-pairs) {
+    grid-column: 1 / -1;
+}
+
 .case-study-section .finding-pairs {
     list-style: none;
     padding: 0;
@@ -1794,6 +1799,43 @@ body:has(#content) {
     font-family: sans-serif;
     font-size: 20px;
     font-weight: 700;
+}
+
+/* What each pair is about (audio, haptics...), above the finding. */
+.finding-tag {
+    display: block;
+    margin-bottom: 2px;
+    font-size: 11px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    opacity: .7;
+}
+
+.finding-pairs li > span:not(.finding-arrow):last-child {
+    display: flex;
+    align-items: center;
+}
+
+/* Too narrow for two boxes side by side: the recommendation goes under its
+   finding, the arrow pointing down. */
+@media (max-width: 650px) {
+    .case-study-section .finding-pairs li {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        gap: 2px;
+    }
+
+    .case-study-section .finding-pairs li > span:not(.finding-arrow) {
+        width: 100%;
+    }
+
+    .case-study-section .finding-pairs .finding-arrow {
+        transform: rotate(90deg);
+    }
+
+    .case-study-section .finding-pairs {
+        gap: 14px;
+    }
 }
 
 .case-meta {

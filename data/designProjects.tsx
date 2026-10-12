@@ -672,30 +672,10 @@ export const researchProjects: DesignProject[] = [
                     body: (
                         <ul>
                             <li><strong>Role:</strong> Research assistant, running every session.</li>
-                            <li><strong>Methods:</strong> Think-aloud usability testing and post-task interviews.</li>
                             <li><strong>Participants:</strong> 29 adults aged 40–78, on iPhone and Android.</li>
+                            <li><strong>Methods:</strong> Think-aloud usability testing, retests to see whether users could self-correct, and post-task interviews.</li>
+                            <li><strong>Tooling:</strong> Python scripts that simulated daily task flows, so each participant used the app as a patient would on a given day.</li>
                             <li><strong>Output:</strong> A findings report with UI/UX recommendations for the developers.</li>
-                        </ul>
-                    ),
-                },
-                {
-                    heading: "Process",
-                    body: (
-                        <ul>
-                            <li>
-                                I wrote Python scripts that simulated daily task flows, so
-                                each participant used the app as a patient would on a
-                                given day.
-                            </li>
-                            <li>
-                                Participants thought aloud on iPhone, then retried what they
-                                struggled with on Android to see whether they could
-                                self-correct.
-                            </li>
-                            <li>
-                                I refined the protocol as I went, trimming the interview so
-                                sessions fit in an hour.
-                            </li>
                         </ul>
                     ),
                 },
@@ -708,12 +688,15 @@ export const researchProjects: DesignProject[] = [
                             </p>
                             <ul className="finding-pairs">
                                 {[
-                                    ["Users skimmed instructions and mistook the demo for the task.", "Numbered steps of equal weight, plus audio cues for walking."],
-                                    ["Text and Android\u2019s nav were too low-contrast to notice.", "Bigger, higher-contrast nav, text, and buttons."],
-                                    ["Notifications broke into vibration tasks.", "Pause notifications, or prompt Do Not Disturb first."],
-                                ].map(([finding, rec]) => (
-                                    <li key={finding}>
-                                        <span>{finding}</span>
+                                    ["Audio", "Walking with the phone away, users couldn\u2019t reread the screen. They started too soon, so the task never began, and kept walking after it ended.", "Speak the key cues: stand still to start, and stop when the task is done."],
+                                    ["Haptics", "Notifications and bumps to the table were mistaken for the test\u2019s vibrations, muddying the data.", "Pause notifications for the task, and tell users to keep their hand off the table."],
+                                    ["Instructions", "Users skimmed the lower-contrast subtext where the goal lived, and mistook the demo animation for the task itself.", "Numbered steps of equal weight, with the goal stated up front."],
+                                    ["Visuals", "Animations didn\u2019t match the words: the wrong hand, or a different pair of fingers than the text asked for.", "Make every animation show exactly what the text says."],
+                                    ["Language", "Jargon like \u201creversals\u201d and an \u201calternatively\u201d that meant \u201calternating\u201d confused users.", "Plain, consistent words: always \u201cfeel\u201d a vibration, never listen, buzz, or vibrate."],
+                                    ["Contrast", "Gray text on purple, thin text in dark mode, and Android\u2019s faint nav went unnoticed.", "Larger, higher-contrast text, buttons, and navigation in both themes."],
+                                ].map(([label, finding, rec]) => (
+                                    <li key={label}>
+                                        <span><span className="finding-tag">{label}</span>{finding}</span>
                                         <span className="finding-arrow" aria-label="led to">&rarr;</span>
                                         <span>{rec}</span>
                                     </li>
