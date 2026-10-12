@@ -1762,8 +1762,9 @@ body:has(#content) {
     border: 2px solid var(--words);
 }
 
-/* A finding and the recommendation it led to, side by side (research). The
-   section spans the page so each pair reads on a line or two. */
+/* Research findings as cards, three to a row: what was seen on top, what was
+   recommended under a dashed rule, each tagged in one of the site's accents.
+   The section spans the page to fit them. */
 .case-study-section:has(.finding-pairs) {
     grid-column: 1 / -1;
 }
@@ -1771,70 +1772,65 @@ body:has(#content) {
 .case-study-section .finding-pairs {
     list-style: none;
     padding: 0;
-    margin: 12px 0 0;
+    margin: 16px 0 6px;
     display: grid;
-    gap: 8px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
 }
 
 .case-study-section .finding-pairs li {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    gap: 8px;
     margin: 0;
-}
-
-.finding-pairs li > span:not(.finding-arrow) {
-    height: 100%;
-    box-sizing: border-box;
-    padding: 8px 12px;
+    padding: 16px 18px;
+    background: var(--bkgrd);
     border: 2px solid var(--words);
-    border-radius: 12px;
-    background: rgba(255, 255, 255, .7);
-    font-size: 13px;
-    line-height: 1.35;
+    border-radius: 16px;
+    box-shadow: 4px 4px 0 var(--words);
 }
 
-.case-study-section .finding-pairs .finding-arrow {
+.case-study-section .finding-pairs p {
+    margin: 10px 0 0;
+    font-size: 14px;
+    line-height: 1.45;
+}
+
+.case-study-section .finding-pairs .finding-rec {
+    padding-top: 10px;
+    border-top: 2px dashed var(--words);
+}
+
+/* Gontserrat's arrow is tiny. */
+.case-study-section .finding-pairs .finding-rec > span {
     font-family: sans-serif;
-    font-size: 20px;
     font-weight: 700;
 }
 
-/* What each pair is about (audio, haptics...), above the finding. */
 .finding-tag {
-    display: block;
-    margin-bottom: 2px;
+    display: inline-block;
+    padding: 3px 10px;
+    border: 2px solid var(--words);
+    border-radius: 999px;
+    font-family: Lemon Milk;
     font-size: 11px;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    opacity: .7;
+    letter-spacing: .06em;
+    background: var(--acnt-teal);
 }
 
-.finding-pairs li > span:not(.finding-arrow):last-child {
-    display: flex;
-    align-items: center;
-}
+.finding-pairs li:nth-child(2) .finding-tag { background: var(--acnt-pink); }
+.finding-pairs li:nth-child(3) .finding-tag { background: var(--acnt-lime); }
+.finding-pairs li:nth-child(4) .finding-tag { background: var(--acnt-orange); }
+.finding-pairs li:nth-child(5) .finding-tag { background: var(--acnt-blue); }
+.finding-pairs li:nth-child(6) .finding-tag { background: var(--prpl); }
 
-/* Too narrow for two boxes side by side: the recommendation goes under its
-   finding, the arrow pointing down. */
-@media (max-width: 650px) {
-    .case-study-section .finding-pairs li {
-        grid-template-columns: 1fr;
-        justify-items: center;
-        gap: 2px;
-    }
-
-    .case-study-section .finding-pairs li > span:not(.finding-arrow) {
-        width: 100%;
-    }
-
-    .case-study-section .finding-pairs .finding-arrow {
-        transform: rotate(90deg);
-    }
-
+@media (max-width: 1000px) {
     .case-study-section .finding-pairs {
-        gap: 14px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 650px) {
+    .case-study-section .finding-pairs {
+        grid-template-columns: 1fr;
+        gap: 16px;
     }
 }
 

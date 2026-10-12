@@ -696,9 +696,11 @@ export const researchProjects: DesignProject[] = [
                                     ["Contrast", "Gray text on purple, thin text in dark mode, and Android\u2019s faint nav went unnoticed.", "Larger, higher-contrast text, buttons, and navigation in both themes."],
                                 ].map(([label, finding, rec]) => (
                                     <li key={label}>
-                                        <span><span className="finding-tag">{label}</span>{finding}</span>
-                                        <span className="finding-arrow" aria-label="led to">&rarr;</span>
-                                        <span>{rec}</span>
+                                        <span className="finding-tag">{label}</span>
+                                        <p>{finding}</p>
+                                        <p className="finding-rec">
+                                            <span aria-label="Recommendation:">&rarr;</span> {rec}
+                                        </p>
                                     </li>
                                 ))}
                             </ul>
