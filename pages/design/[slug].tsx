@@ -36,7 +36,7 @@ export const getStaticProps: GetStaticProps<Props> = ({ params }) => ({
 
 function CaseStudy({ slug }: Props) {
     const project = allDesignProjects.find((p) => p.slug === slug)!;
-    const { title, meta, summary, media, features, links, caseStudy } = project;
+    const { title, meta, summary, media, image, features, links, caseStudy } = project;
     const sections = caseStudy?.sections ?? FILLER_SECTIONS;
     useEffect(() => setupVideoToggles(DEMO_VIDEO_SELECTOR), [slug]);
 
@@ -69,8 +69,9 @@ function CaseStudy({ slug }: Props) {
                     />
                 ) : (
                     <Image
-                        src="/images/placeholders/wide.svg"
-                        alt={`${title} hero placeholder`}
+                        src={image ?? "/images/placeholders/wide.svg"}
+                        alt={image ? `${title} overview` : `${title} hero placeholder`}
+                        className={image ? "whole" : undefined}
                         width={640}
                         height={400}
                         unoptimized
