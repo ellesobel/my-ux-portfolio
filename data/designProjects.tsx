@@ -2,6 +2,7 @@
 // so the cards and the case studies can't drift apart. Images are fillers for
 // now. To show a demo, add `video: "/images/<project>/demos/your_demo.mp4"` next to the image
 // it replaces — the card switches to the video and its play/pause control.
+// Each demo needs a still beside it with the same name as a .jpg, its poster.
 
 import type { ReactNode } from "react";
 
@@ -14,6 +15,8 @@ export type Feature = {
     video?: string;
     // Shown on the case-study page only, not among the card's two screens.
     hideOnCard?: boolean;
+    // A watch demo gets a watch-shaped frame instead of the phone's.
+    frame?: "watch";
 };
 
 export type DesignProject = {
@@ -61,10 +64,12 @@ export type CaseSection = {
     // "lead" shows the first figure large, the next four in a 2 x 2 beside it,
     // for a section the images carry more than the words.
     layout?: "lead";
+    // A short text section that shares its row with two others, not one.
+    third?: boolean;
 };
 
 export type CaseStudy = {
-    // Demo video for the hero frame; without one the hero shows the filler.
+    // Demo video for a hero frame over the sections; without one there is none.
     heroVideo?: string;
     sections: CaseSection[];
 };
@@ -169,8 +174,9 @@ export const designProjects: DesignProject[] = [
         meta: "Solo project · Figma · Dec. 2025",
         summary: (
             <>
-                <em>WAVE</em> is the app for a brain chip the government makes
-                mandatory for anyone over 18, so it can record our thoughts.
+                <em>WAVE</em> is a speculative app for a brain chip that reads your
+                thoughts. It tracks your moods and replays your dreams, all behind a
+                cute, cheerful interface.
             </>
         ),
         media: "phones",
@@ -217,7 +223,6 @@ export const designProjects: DesignProject[] = [
             },
         ],
         caseStudy: {
-            heroVideo: "/images/wave/demos/brainchip_demo.mp4",
             sections: [
                 {
                     heading: "The Premise",
@@ -294,40 +299,42 @@ export const designProjects: DesignProject[] = [
             </>
         ),
         media: "phones",
-        // Each demo ends the moment a song is picked. The trip that follows is
-        // the same from all three, so it plays once, as the hero.
+        // Three ways to pick a song, then the trip they all lead to.
         features: [
             {
-                name: "Landing.",
-                blurb: "A glowing map of Manhattan, every dot a song, with a zoom and two ways in.",
-                image: PHONE_FILLER,
-                hideOnCard: true,
-            },
-            {
                 name: "Map.",
-                blurb: "See how the songs spread across the city and tap the one you want to visit.",
+                blurb: "Zoom into the glowing map of Manhattan to see how songs spread across the city, and tap one to go.",
                 image: PHONE_FILLER,
+                video: "/images/music/demos/music_map_demo.mp4",
             },
             {
                 name: "Regions.",
-                blurb: "Browse by neighborhood, from Harlem to downtown, and pick from that area's songs.",
+                blurb: "Browse by neighborhood, from Harlem to downtown, with a lyric from each song.",
                 image: PHONE_FILLER,
+                video: "/images/music/demos/music_region_demo.mp4",
+                hideOnCard: true,
             },
             {
-                name: "Shuffle.",
-                blurb: "Get directions to a mystery destination and find a new song and a new neighborhood.",
+                name: "Near Me.",
+                blurb: "Find the song closest to where you're standing and head straight there.",
                 image: PHONE_FILLER,
+                video: "/images/music/demos/music_nearme_demo.mp4",
                 hideOnCard: true,
+            },
+            {
+                name: "The Trip.",
+                blurb: "Neon arrows count you down to the spot, then the song plays with the lyric about where you're standing.",
+                image: PHONE_FILLER,
+                video: "/images/music/demos/music_trip_demo.mp4",
             },
         ],
         links: [
             {
                 label: "Prototype",
-                href: "https://www.figma.com/proto/2VKtHdxEqOimViafopvew0/Eliana-Semester-Second-Half?page-id=1%3A2&node-id=295-1989&starting-point-node-id=295%3A1989&show-proto-sidebar=1&t=6mWFIjEwga52zpoi-1",
+                href: "https://www.figma.com/proto/eONaUTtjXYfKhz1jMNbX3G/music-map?node-id=1-3327&t=8R5bDPkI1D0R0gok-1&scaling=contain&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A478",
             },
         ],
         caseStudy: {
-            heroVideo: "/images/music/demos/map_demo.mp4",
             sections: [
                 {
                     heading: "The Idea",
@@ -452,26 +459,42 @@ export const designProjects: DesignProject[] = [
     {
         slug: "pnc-redesign",
         title: "Banking App Redesign",
+        meta: "Team of 3 · Figma · Fall 2025",
         summary: (
             <>
-                <em>PNC Mobile</em> is a redesign of PNC&#39;s banking app, made with
-                Andrew Pandji and Gabrielle Barthelmy. We built a new design system,
-                explored new ways to visualize account data, and made the app more
-                accessible throughout.
+                <em>Beyond Boring</em> reimagines PNC&#39;s mobile app and Apple Watch
+                experience to nudge customers toward budgeting and saving. Made with
+                Andrew Pandji and Gabrielle Barthelmy.
             </>
         ),
         media: "phones",
         features: [
             {
-                name: "Design System.",
-                blurb: "New colors, type, and components built with accessibility in mind.",
-                image: PHONE_FILLER,
-                video: "/images/bank/pnc_demo.mp4",
+                name: "Week to Month.",
+                blurb: "A ring of the week shows which days you met your budget, overspent, or saved. Swipe to zoom out to the whole month.",
+                image: "/images/bank/pnc_app_2.png",
+                video: "/images/bank/demos/pnc_data_demo.mp4",
             },
             {
-                name: "Data Views.",
-                blurb: "Visualizations that make account activity readable at a glance.",
-                image: PHONE_FILLER,
+                name: "Smart Categorize.",
+                blurb: "Swipe to tag each purchase. The charts are only as good as the data behind them.",
+                image: "/images/bank/pnc_app_5.png",
+                video: "/images/bank/demos/pnc_smart_categorize_demo.mp4",
+            },
+            {
+                name: "Save the Difference.",
+                blurb: "Under budget? Move what's left straight into savings from the home screen.",
+                image: "/images/bank/pnc_app_1.png",
+                video: "/images/bank/demos/pnc_transfer_demo.mp4",
+                hideOnCard: true,
+            },
+            {
+                name: "On the Watch.",
+                blurb: "The week cycle as a quick check-in, from \u201cYou're doing great!\u201d to \u201cYou went $40 over on Thursday.\u201d",
+                image: "/images/bank/demos/watch_demo.jpg",
+                video: "/images/bank/demos/watch_demo.mp4",
+                frame: "watch",
+                hideOnCard: true,
             },
         ],
         links: [
@@ -480,6 +503,113 @@ export const designProjects: DesignProject[] = [
                 href: "https://www.figma.com/proto/0GMLwccmcJZDvUO3ao0gNo/Project-1---Datafied-Experiences---Prototyping--Copy-?page-id=432%3A351&node-id=649-2176&viewport=-9480%2C1435%2C0.65&t=jJAkwCWn8aXjERSs-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=649%3A474",
             },
         ],
+        caseStudy: {
+            sections: [
+                {
+                    heading: "The Problem",
+                    third: true,
+                    body: (
+                        <>
+                            <p className="case-pull">
+                                PNC calls itself boring, and its app looks the part.
+                            </p>
+                            <p>
+                                Our take: it&#39;s not about being boring, it&#39;s about being
+                                smart, steady and reliable.
+                            </p>
+                        </>
+                    ),
+                },
+                {
+                    heading: "Goals",
+                    third: true,
+                    body: (
+                        <ul>
+                            <li>Visualize budget and spending over time.</li>
+                            <li>Make saving more actionable.</li>
+                            <li>Design for mobile and watch.</li>
+                        </ul>
+                    ),
+                },
+                {
+                    heading: "Contributions",
+                    third: true,
+                    body: (
+                        <ul>
+                            <li>For PNC: going &ldquo;beyond boring.&rdquo;</li>
+                            <li>For customers: spending as cycles you can zoom through.</li>
+                            <li>For everyone: more budgeting and saving.</li>
+                        </ul>
+                    ),
+                },
+                {
+                    heading: "Discovery",
+                    body: (
+                        <>
+                            <p className="case-pull">
+                                One of the themes that emerged in our discovery was
+                                understanding cyclical habits.
+                            </p>
+                            <p>
+                                Instead of &ldquo;budget categories,&rdquo; we tracked spending
+                                across the week, month and year, and let people zoom in and out
+                                between them. We worked on everything together; I pushed this
+                                concept early on and focused most on the calendar and Smart
+                                Categorize.
+                            </p>
+                        </>
+                    ),
+                    figures: [
+                        {
+                            src: "/images/bank/sketches_data_explorations.png",
+                            alt: "Sketches of radial and flower-shaped charts for spending by day and category",
+                            width: 2400,
+                            height: 2708,
+                            caption: "Sketches",
+                        },
+                        {
+                            src: "/images/bank/wireframes_data_exploration.png",
+                            alt: "Wireframes zooming between week, month and year views of a budget",
+                            width: 2400,
+                            height: 2253,
+                            caption: "Data explorations",
+                        },
+                        {
+                            src: "/images/bank/sketches_wireframes_prototypes.png",
+                            alt: "Sketches, then wireframes, then the final phone and watch prototypes",
+                            width: 2400,
+                            height: 1348,
+                            caption: "Sketches to prototypes",
+                        },
+                    ],
+                },
+                {
+                    heading: "Design System",
+                    body: (
+                        <p>
+                            PNC&#39;s blue and orange, with blue, red and green for on budget,
+                            over and saved, set in Atkinson Hyperlegible for readability.
+                        </p>
+                    ),
+                    figures: [
+                        {
+                            src: "/images/bank/design_system_1.png",
+                            alt: "Styles and components: buttons, cards, navigation, type and brand colors",
+                            width: 2400,
+                            height: 1207,
+                            caption: "Styles and components",
+                        },
+                        {
+                            src: "/images/bank/design_system_2.png",
+                            alt: "Data visualizations with their semantic and auxiliary colors",
+                            width: 2400,
+                            height: 1741,
+                            caption: "Data visualizations and color",
+                        },
+                    ],
+                },
+            ],
+        },
     },
 ];
 

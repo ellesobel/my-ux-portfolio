@@ -1,8 +1,7 @@
 // Case study for one UI & Design project. Projects with a written-up
-// `caseStudy` show its sections and hero demo; the rest show filler sections
-// until theirs are written.
+// `caseStudy` show its sections (and a hero demo, if it has one); the rest
+// show filler sections until theirs are written. Either way the demos lead.
 
-import Image from "next/image";
 import Link from "next/link";
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import type { GetStaticPaths, GetStaticProps } from "next";
@@ -42,45 +41,50 @@ function CaseStudy({ slug }: Props) {
 
     return (
         <div className="page design-page case-study">
-            <Link href="/design" className="case-back">
-                &larr; All designs
-            </Link>
-            <h2 className="page-title">{title}</h2>
-            {meta && <p className="case-meta">{meta}</p>}
-            <p className="case-summary case-study-lede">{summary}</p>
+            {/* Kept short, so the work starts high on the screen: the summary
+                and links share a row on wide screens. */}
+            <header className="case-study-header">
+                <Link href="/design" className="case-back">
+                    &larr; All designs
+                </Link>
+                <h2 className="page-title">{title}</h2>
+                {meta && <p className="case-meta">{meta}</p>}
+                <p className="case-summary case-study-lede">{summary}</p>
+                {links && (
+                    <div className="case-study-links">
+                        {links.map((link) => (
+                            <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer">
+                                {link.label} <OpenInNewIcon />
+                            </a>
+                        ))}
+                    </div>
+                )}
+            </header>
 
-            {links && (
-                <div className="case-study-links">
-                    {links.map((link) => (
-                        <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer">
-                            {link.label} <OpenInNewIcon />
-                        </a>
-                    ))}
-                </div>
-            )}
-
-            <div className="case-study-hero">
-                {caseStudy?.heroVideo ? (
+            {caseStudy?.heroVideo && (
+                <div className="case-study-hero">
                     <DemoMedia
                         frame="wide"
                         image="/images/placeholders/wide.svg"
                         video={caseStudy.heroVideo}
                         alt={`${title} walkthrough`}
                     />
-                ) : (
-                    <Image
-                        src="/images/placeholders/wide.svg"
-                        alt={`${title} hero placeholder`}
-                        width={640}
-                        height={400}
-                        unoptimized
-                    />
-                )}
-            </div>
+                </div>
+            )}
+
+            {/* The work first: a recruiter who never scrolls still sees the app. */}
+            {/* The screens say what they are; the heading is for screen readers. */}
+            <h2 className="visually-hidden">
+                {media === "phones" ? "Features" : "Highlights"}
+            </h2>
+            <FeatureGallery features={features} media={media} />
 
             <section className="case-study-sections">
-                {sections.map(({ heading, body, figures, layout }) => (
-                    <div key={heading} className={`case-study-section${figures ? " has-figures" : ""}`}>
+                {sections.map(({ heading, body, figures, layout, third }) => (
+                    <div
+                        key={heading}
+                        className={`case-study-section${figures ? " has-figures" : ""}${third ? " third" : ""}`}
+                    >
                         <h3>{heading}</h3>
                         {body}
                         {figures && <ProcessGallery figures={figures} layout={layout} />}
@@ -88,8 +92,6 @@ function CaseStudy({ slug }: Props) {
                 ))}
             </section>
 
-            <h2 className="case-section-title">{media === "phones" ? "Features" : "Highlights"}</h2>
-            <FeatureGallery features={features} media={media} />
         </div>
     );
 }

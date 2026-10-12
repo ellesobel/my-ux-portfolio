@@ -8,6 +8,9 @@
 // phone frame as they are. The older landscape recordings have the phone in
 // the middle of a wide frame, so they're marked .landscape once their size is
 // known and the CSS zooms in on the phone.
+//
+// Every demo has a still beside it (same name, .jpg) shown as its poster, so
+// the screen shows the app before the video has loaded or been played.
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
@@ -15,14 +18,16 @@ import { useEffect, useRef, useState } from "react";
 export const DEMO_VIDEO_SELECTOR = ".app-video, .video";
 
 type Props = {
-    frame: "phone" | "wide";
+    // A watch is framed like a phone, just squarer, with no Dynamic Island.
+    frame: "phone" | "wide" | "watch";
     image: string;
     video?: string;
     alt: string;
 };
 
 function DemoMedia({ frame, image, video, alt }: Props) {
-    const phone = frame === "phone";
+    const watch = frame === "watch";
+    const phone = frame === "phone" || watch;
     const videoRef = useRef<HTMLVideoElement>(null);
     const [landscape, setLandscape] = useState(false);
     const checkShape = () => {
@@ -34,7 +39,7 @@ function DemoMedia({ frame, image, video, alt }: Props) {
 
     if (video) {
         return (
-            <div className={phone ? "video-crop demo-video" : "web-video-crop demo-video"}>
+            <div className={phone ? `video-crop demo-video${watch ? " watch" : ""}` : "web-video-crop demo-video"}>
                 <video
                     ref={videoRef}
                     className={phone ? `app-video${landscape ? " landscape" : ""}` : "video"}
@@ -44,6 +49,7 @@ function DemoMedia({ frame, image, video, alt }: Props) {
                     muted
                     playsInline
                     preload="metadata"
+                    poster={video.replace(/\.mp4$/, ".jpg")}
                 >
                     <source src={video} type="video/mp4" />
                 </video>

@@ -1850,16 +1850,17 @@ body:has(#content) {
 
 /* ---- Case-study link + stretching arrow ---- */
 
-/* The link fills its column so the arrow has room to stretch, but only the
-   label and the arrow itself take the pointer — not the empty space beside
-   them. */
+/* The link fills its column so the arrow has room to stretch. The whole
+   highlighted block takes the pointer: if only the label and the thin arrow
+   did, a pointer slipping off the arrow (or crossing the gap under the
+   label) dropped the hover, the arrow snapped back, and it flickered. */
 .case-link {
     display: flex;
     flex-direction: column;
     gap: 6px;
     color: var(--words);
     text-decoration: none;
-    pointer-events: none;
+    cursor: pointer;
     /* The hover highlight is a block behind the label and arrow, in the
        page's nav color. The padding gives it room; the negative margin keeps
        the words and arrow lined up with the text above. */
@@ -1870,12 +1871,6 @@ body:has(#content) {
     transition: background-color .2s ease;
 }
 
-
-.case-link-label,
-.case-arrow-shaft {
-    pointer-events: auto;
-    cursor: pointer;
-}
 
 .case-link-label {
     align-self: flex-start;
@@ -2016,11 +2011,15 @@ body:has(#content) {
     animation: none;
 }
 
-/* Screen-only phone recordings fill the frame as they are... */
+/* Screen-only phone recordings fill the frame as they are: stretched to it
+   rather than cropped (the recordings are within a pixel or two of the
+   frame's 393:853, so nothing visibly distorts and nothing is cut off), and
+   a pixel past every edge so the filler behind never shows at the rim. */
 .demo-video .app-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    flex: none;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    object-fit: fill;
     transform: none;
 }
 
@@ -2029,6 +2028,7 @@ body:has(#content) {
 .demo-video .app-video.landscape {
     width: 121%;
     height: 121%;
+    object-fit: cover;
     transform: translateY(-2.15%);
 }
 
@@ -2054,15 +2054,17 @@ body:has(#content) {
 
 /* The Dynamic Island the designs were laid out around: 126x37pt, 11pt from
    the top of a 393pt-wide screen, with the selfie camera lens at its right
-   end. Drawn in % so it scales with the frame. Above the video, below the
-   play/pause control. */
+   end. Drawn a few points bigger (136x47pt from 6pt down) because some
+   recordings already have a white island in them, sitting 10-12pt down, and
+   this one has to cover it without a rim. Drawn in % so it scales with the
+   frame. Above the video, below the play/pause control. */
 .demo-video.video-crop::after {
     content: "";
     position: absolute;
-    top: calc(11 / 853 * 100%);
+    top: calc(6 / 853 * 100%);
     left: 50%;
-    width: calc(126 / 393 * 100%);
-    aspect-ratio: 126 / 37;
+    width: calc(136 / 393 * 100%);
+    aspect-ratio: 136 / 47;
     transform: translateX(-50%);
     border-radius: 999px;
     background:
@@ -2075,6 +2077,18 @@ body:has(#content) {
 }
 
 .demo-video.video-crop:has(.landscape)::after {
+    content: none;
+}
+
+/* Watch recordings (730 x 872) get a squarer frame with the watch's rounder
+   corners and no Dynamic Island. They sit in a phone's column, centered on
+   the phones beside them. */
+.demo-video.video-crop.watch {
+    aspect-ratio: 730 / 872;
+    border-radius: 18% / 15%;
+}
+
+.demo-video.video-crop.watch::after {
     content: none;
 }
 
@@ -2161,19 +2175,70 @@ body:has(#content) {
     text-decoration-thickness: 3px;
 }
 
+/* A compact header: back link, title and meta stacked tight, then the
+   summary with the links beside it, so the demos start high on the screen. */
+.case-study-header {
+    display: grid;
+    grid-template-columns: minmax(0, 720px) auto;
+    justify-content: space-between;
+    align-items: end;
+    column-gap: 32px;
+    margin-bottom: 24px;
+}
+
+.case-study-header > :not(.case-study-lede, .case-study-links) {
+    grid-column: 1 / -1;
+}
+
+.case-study-header .case-back {
+    margin-top: 20px;
+}
+
 .case-study .page-title {
-    margin: 12px 0 16px;
+    font-size: 38px;
+    margin: 6px 0 4px;
+}
+
+.case-study .case-meta {
+    margin: 0 0 10px;
 }
 
 .case-study-lede {
-    max-width: 720px;
+    font-size: 15px;
 }
 
 .case-study-links {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
-    margin-top: 24px;
+    margin-top: 18px;
+}
+
+.case-study-header .case-study-links {
+    margin-top: 0;
+    justify-content: flex-end;
+}
+
+/* Under the summary once there's no room beside it. */
+@media(max-width:850px) {
+    .case-study-header {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .case-study-header .case-study-links {
+        margin-top: 14px;
+        justify-content: flex-start;
+    }
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
 }
 
 .case-study-links a {
@@ -2211,27 +2276,31 @@ body:has(#content) {
     box-sizing: border-box;
 }
 
+/* The written sections are compact: small cards with small type, so they
+   support the work above instead of competing with it. */
+/* Six columns, so a section can take half a row (the default) or a third. */
 .case-study-sections {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 24px;
-    margin-top: 40px;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 24px;
 }
 
 .case-study-section {
+    grid-column: span 3;
     background-color: var(--proj-bkgrd);
-    border-radius: 30px;
-    padding: 32px 36px;
+    border-radius: 22px;
+    padding: 22px 26px;
 }
 
 .case-study-section h3 {
-    font-size: 18px;
-    margin: 0 0 12px;
+    font-size: 15px;
+    margin: 0 0 8px;
 }
 
 .case-study-section p {
     margin: 0;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1.5;
 }
 
@@ -2280,6 +2349,11 @@ body:has(#content) {
 .feature-modal-screen {
     /* Leaves room for the previous/next keys either side. */
     width: min(66vw, calc(66dvh * 393 / 853));
+}
+
+/* A watch is squarer, so the same height gives it a wider screen. */
+.feature-modal-screen.watch {
+    width: min(66vw, calc(66dvh * 730 / 872));
 }
 
 .feature-modal .art-modal-caption {
@@ -2524,22 +2598,22 @@ body:has(#content) {
 
 .case-study-section ul {
     margin: 0;
-    padding-left: 20px;
-    font-size: 16px;
+    padding-left: 18px;
+    font-size: 14px;
     line-height: 1.5;
 }
 
 .case-study-section li {
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 .case-study-section p + p {
-    margin-top: 10px;
+    margin-top: 6px;
 }
 
 /* The one question a section turns on, set larger than its body. */
 .case-study-section .case-pull {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 700;
     line-height: 1.3;
 }
@@ -2548,6 +2622,17 @@ body:has(#content) {
    width, the images under the text. */
 .case-study-section.has-figures {
     grid-column: 1 / -1;
+}
+
+.case-study-section.third {
+    grid-column: span 2;
+}
+
+/* Too narrow for three across: the thirds stack, full width. */
+@media (max-width: 900px) {
+    .case-study-section.third {
+        grid-column: 1 / -1;
+    }
 }
 
 .case-figures {
@@ -2820,6 +2905,11 @@ body:has(#content) {
         margin: 24px 0 20px;
     }
 
+    .case-study .page-title {
+        font-size: 28px;
+        margin: 6px 0 4px;
+    }
+
     .case-section-title {
         font-size: 24px;
         margin: 48px 0 20px;
@@ -2843,8 +2933,13 @@ body:has(#content) {
         gap: 12px;
     }
 
-    .case-study-section,
     .case-study-features {
         padding: 26px 22px;
+    }
+
+    .case-study-section,
+    .case-study-section.third {
+        grid-column: auto;
+        padding: 20px 18px;
     }
 }
