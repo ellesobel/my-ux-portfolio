@@ -683,9 +683,6 @@ export const researchProjects: DesignProject[] = [
                     heading: "Findings → Recommendations",
                     body: (
                         <>
-                            <p className="case-pull">
-                                &ldquo;Moving target? But they&#39;re not moving&hellip;&rdquo;
-                            </p>
                             <ul className="finding-pairs">
                                 {[
                                     ["Audio", "Walking with the phone away, users couldn\u2019t reread the screen. They started too soon, so the task never began, and kept walking after it ended.", "Speak the key cues: stand still to start, and stop when the task is done."],
