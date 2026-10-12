@@ -658,8 +658,11 @@ export const researchProjects: DesignProject[] = [
                                 task as intended, their data is wrong.
                             </p>
                             <p>
-                                The app has to work for older adults who aren&#39;t
-                                confident with technology, with no doctor beside them.
+                                That made it a unique accessibility challenge. Patterns
+                                most users get through without thinking, like tabs that
+                                scroll, gray helper text, or a calendar, weren&#39;t
+                                intuitive for older adults with low computer
+                                self-efficacy, and no doctor would be there to help.
                             </p>
                         </>
                     ),
@@ -669,9 +672,30 @@ export const researchProjects: DesignProject[] = [
                     body: (
                         <ul>
                             <li><strong>Role:</strong> Research assistant, running every session.</li>
-                            <li><strong>Methods:</strong> Think-aloud usability testing, observation, and post-task interviews.</li>
+                            <li><strong>Methods:</strong> Think-aloud usability testing and post-task interviews.</li>
                             <li><strong>Participants:</strong> 29 adults aged 40–78, on iPhone and Android.</li>
                             <li><strong>Output:</strong> A findings report with UI/UX recommendations for the developers.</li>
+                        </ul>
+                    ),
+                },
+                {
+                    heading: "Process",
+                    body: (
+                        <ul>
+                            <li>
+                                I wrote Python scripts that simulated daily task flows, so
+                                each participant used the app as a patient would on a
+                                given day.
+                            </li>
+                            <li>
+                                Participants thought aloud on iPhone, then retried what they
+                                struggled with on Android to see whether they could
+                                self-correct.
+                            </li>
+                            <li>
+                                I refined the protocol as I went, trimming the interview so
+                                sessions fit in an hour.
+                            </li>
                         </ul>
                     ),
                 },
@@ -696,16 +720,6 @@ export const researchProjects: DesignProject[] = [
                                 ))}
                             </ul>
                         </>
-                    ),
-                },
-                {
-                    heading: "Impact",
-                    body: (
-                        <ul>
-                            <li>The Pinching Test&#39;s instructions were rewritten.</li>
-                            <li>Hand tasks now prompt a second round with the non-dominant hand.</li>
-                            <li>I cut sessions to fit an hour by trimming the interview from six questions to three.</li>
-                        </ul>
                     ),
                 },
             ],
