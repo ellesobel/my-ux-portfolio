@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffe0ea"/>
+      <stop offset="1" stop-color="#d9e2f5"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="400" fill="url(#bg)"/>
+  <rect width="640" height="36" fill="#f8f6f3"/>
+  <line x1="0" y1="36" x2="640" y2="36" stroke="#1c1c1c" stroke-width="3"/>
+  <circle cx="22" cy="18" r="6" fill="#ff8eb2" stroke="#1c1c1c" stroke-width="2"/>
+  <circle cx="42" cy="18" r="6" fill="#fac439" stroke="#1c1c1c" stroke-width="2"/>
+  <circle cx="62" cy="18" r="6" fill="#a6e54d" stroke="#1c1c1c" stroke-width="2"/>
+  <rect x="92" y="9" width="300" height="18" rx="9" fill="#fff" stroke="#1c1c1c" stroke-width="2"/>
+  <g fill="none" stroke="#1c1c1c" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" opacity=".55">
+    <rect x="270" y="150" width="100" height="80" rx="10"/>
+    <polyline points="278,220 310,186 330,206 344,192 362,220"/>
+    <circle cx="346" cy="170" r="8"/>
+  </g>
+  <text x="320" y="268" text-anchor="middle" font-family="sans-serif" font-size="18" font-weight="600" fill="#1c1c1c" opacity=".55">Site screenshot placeholder</text>
+</svg>

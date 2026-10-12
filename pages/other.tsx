@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Head from "next/head";
-import { CSSProperties, MouseEvent, useCallback, useEffect, useState } from "react";
+import { CSSProperties, MouseEvent, useCallback, useEffect, useRef, useState } from "react";
 
 type Piece = {
     src: string;
@@ -15,23 +15,33 @@ type Piece = {
 
 // Order matters: .art-card:nth-child(n) in App.css places each frame on the wall.
 const pieces: Piece[] = [
-    { src: "/images/art_3.avif", alt: "Pencil", width: 490, height: 400, title: "Pencil on Paper" },
-    { src: "/images/art_5.avif", alt: "Watercolor", width: 299, height: 400, title: "Watercolor on Paper" },
+    { src: "/images/art_gallery/art_3.avif", alt: "Pencil", width: 490, height: 400, title: "Pencil on Paper" },
+    { src: "/images/art_gallery/art_5.avif", alt: "Watercolor", width: 299, height: 400, title: "Watercolor on Paper" },
     {
-        src: "/images/art_4.avif", alt: "Mixed Media", width: 299, height: 400,
+        src: "/images/art_gallery/art_4.avif", alt: "Mixed Media", width: 299, height: 400,
         title: "Mixed Media on Paper", medium: "Watercolor, Marker, Colored Pencil, Collage, Ink",
     },
-    { src: "/images/art_1.avif", alt: "Beads and Embroidery", width: 299, height: 400, title: "Embroidery + Beading on Denim" },
-    { src: "/images/art_2.avif", alt: "Charcoal", width: 299, height: 400, title: "Charcoal on Paper" },
-    { src: "/images/art_7.jpg", alt: "Collage", width: 1679, height: 1866, title: "Collage on Paper" },
+    { src: "/images/art_gallery/art_1.avif", alt: "Beads and Embroidery", width: 299, height: 400, title: "Embroidery + Beading on Denim" },
+    { src: "/images/art_gallery/art_2.avif", alt: "Charcoal", width: 299, height: 400, title: "Charcoal on Paper" },
+    { src: "/images/art_gallery/art_7.jpg", alt: "Collage", width: 1679, height: 1866, title: "Collage on Paper" },
 ];
 
-// Phone-only affordance — on wider screens hovering a frame already reveals it,
-// and the frames are big enough to read without opening anything.
-const PHONE = "(max-width: 650px)";
+// The lightbox frame's size depends on the screen, so its swing is scaled to
+// it like a pendulum: at REFERENCE_HEIGHT it tilts as painting-sway-large is
+// written and takes REFERENCE_MS. A taller frame tilts less, so its bottom edge
+// travels about the same distance, and swings slower (period ~ sqrt(length));
+// a shorter one the reverse, up to the wall's own 2.4deg and 0.7s at most.
+const REFERENCE_HEIGHT = 560;
+const REFERENCE_MS = 1400;
+const MAX_TILT = 2;
+const MIN_MS = 700;
 
-// Matches the painting-sway animation on .art-modal-img.swaying in App.css.
-const SWAY_MS = 700;
+function swingFor(height: number) {
+    return {
+        tilt: Math.min(MAX_TILT, REFERENCE_HEIGHT / height),
+        ms: Math.round(Math.max(MIN_MS, REFERENCE_MS * Math.sqrt(height / REFERENCE_HEIGHT))),
+    };
+}
 
 function Other() {
     const [active, setActive] = useState<Piece | null>(null);
@@ -39,14 +49,15 @@ function Other() {
     // tapped so the palette stays in App.css rather than being repeated here.
     const [mat, setMat] = useState("");
     const [swaying, setSwaying] = useState(false);
+    const [swing, setSwing] = useState(() => swingFor(REFERENCE_HEIGHT));
+    const modalImg = useRef<HTMLImageElement>(null);
 
     const close = useCallback(() => {
         setActive(null);
         setSwaying(false);
     }, []);
 
-    const openOnPhone = (piece: Piece, card: HTMLElement) => {
-        if (!window.matchMedia(PHONE).matches) return;
+    const open = (piece: Piece, card: HTMLElement) => {
         setMat(getComputedStyle(card).getPropertyValue("--mat").trim());
         setActive(piece);
     };
@@ -65,9 +76,21 @@ function Other() {
     // the swing never runs.
     useEffect(() => {
         if (!swaying) return;
-        const id = window.setTimeout(() => setSwaying(false), SWAY_MS);
+        const id = window.setTimeout(() => setSwaying(false), swing.ms);
         return () => window.clearTimeout(id);
-    }, [swaying]);
+    }, [swaying, swing.ms]);
+
+    // Re-measured whenever a piece opens or the screen changes size. The
+    // frame's height is set in CSS, so it is right before the image loads.
+    useEffect(() => {
+        if (!active) return;
+        const measure = () => {
+            if (modalImg.current) setSwing(swingFor(modalImg.current.offsetHeight));
+        };
+        measure();
+        window.addEventListener("resize", measure);
+        return () => window.removeEventListener("resize", measure);
+    }, [active]);
 
     // Escape closes it, and the wall behind stays put while it's open.
     useEffect(() => {
@@ -84,16 +107,6 @@ function Other() {
             document.removeEventListener("keydown", onKeyDown);
         };
     }, [active, close]);
-
-    // Rotating to a wider screen would otherwise strand the modal open
-    useEffect(() => {
-        const phone = window.matchMedia(PHONE);
-        const onChange = () => {
-            if (!phone.matches) close();
-        };
-        phone.addEventListener("change", onChange);
-        return () => phone.removeEventListener("change", onChange);
-    }, [close]);
 
     return (
         <div className="page art-page">
@@ -115,17 +128,13 @@ function Other() {
 
                 <div className="art-photos">
                     {pieces.map((piece) => (
-                        <div className="art-card" key={piece.src} onClick={(event) => openOnPhone(piece, event.currentTarget)}>
+                        <div className="art-card" key={piece.src} onClick={(event) => open(piece, event.currentTarget)}>
                             <Image className="art-img"
                                 src={piece.src}
                                 alt={piece.alt}
                                 width={piece.width}
                                 height={piece.height}
                             />
-                            <div className="art-caption">
-                                <h3>{piece.title}</h3>
-                                {piece.medium && <h4>{piece.medium}</h4>}
-                            </div>
                         </div>
                     ))}
                 </div>
@@ -146,7 +155,13 @@ function Other() {
                             alt={active.alt}
                             width={active.width}
                             height={active.height}
-                            style={{ "--mat": mat } as CSSProperties}
+                            ref={modalImg}
+                            style={{
+                                "--mat": mat,
+                                "--aspect": active.width / active.height,
+                                "--tilt": swing.tilt,
+                                "--sway-ms": `${swing.ms}ms`,
+                            } as CSSProperties}
                             onClick={sway}
                         />
                         <figcaption className="art-modal-caption">

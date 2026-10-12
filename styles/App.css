@@ -8,6 +8,11 @@
     --acnt-lime: #a6e54d;
     --acnt-orange: #fac439;
     --acnt-blue: #7291ff;
+    /* The pastel wash in the filler images, so a demo video that hasn't drawn
+       a frame yet looks like the placeholder it replaced. */
+    --filler-gradient: linear-gradient(170deg, #f6d7ee, #d9e2f5);
+    /* Each page's colour, matching its nav button. Pages set their own below. */
+    --page-accent: var(--acnt-teal);
     --words: rgb(28, 28, 28);
 
     /* Homepage colour-block entrance — the only numbers worth tuning */
@@ -342,20 +347,56 @@ body:has(.art-page) footer {
     }
 }
 
+/* The lightbox's version of the same swing. Its frame is much taller than the
+   ones on the wall, so the angles here are half the wall's, and --tilt and
+   --sway-ms scale them further to the frame's actual size on this screen
+   (worked out in pages/other.tsx). */
+@keyframes painting-sway-large {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    15% {
+        transform: rotate(calc(-1.2deg * var(--tilt, 1)));
+    }
+
+    35% {
+        transform: rotate(calc(0.85deg * var(--tilt, 1)));
+    }
+
+    55% {
+        transform: rotate(calc(-0.55deg * var(--tilt, 1)));
+    }
+
+    75% {
+        transform: rotate(calc(0.3deg * var(--tilt, 1)));
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
 /* Pointer devices only: a tap latches :hover on the frame it opened and leaves
-   it stuck there after the lightbox closes. Below 651px the lightbox is the way
-   in, and .art-modal-img.swaying gives this same treatment on tap. */
+   it stuck there after the lightbox closes. The lightbox image gets it on hover
+   too; on a phone .art-modal-img.swaying gives this same treatment on tap. */
 @media(min-width:651px) {
-    .art-card:hover .art-img {
+    .art-card:hover .art-img,
+    .art-modal-img:hover {
         background-color: var(--mat);
         box-shadow: 13px 13px 0 var(--words);
         transform-origin: top center;
         animation: painting-sway 0.7s ease-in-out;
     }
+
+    .art-modal-img:hover {
+        animation: painting-sway-large var(--sway-ms, 1.4s) ease-in-out;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .art-card:hover .art-img,
+    .art-modal-img:hover,
     .art-modal-img.swaying {
         animation: none;
     }
@@ -401,46 +442,8 @@ body:has(.art-page) footer {
     margin-right: 10%;    
 }
 
-/* Caption revealed on hover, styled like the site's dark labels */
-.art-caption {
-    position: absolute;
-    left: 10%;
-    right: 2%;
-    bottom: 2%;
-    padding: 8px 12px;
-    background-color: var(--words);
-    /* border-radius: 12px; */
-    opacity: 0;
-    transform: translateY(6px);
-    transition: opacity .2s ease, transform .2s ease;
-    pointer-events: none;
-}
-
-/* Same reason as the mat above: on a phone this caption stayed up over the
-   piece after a tap, hiding the artwork it was describing. The lightbox shows
-   the identical caption under the image, so nothing is lost. */
-@media(min-width:651px) {
-    .art-card:hover .art-caption {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.art-caption h3 {
-    margin: 0;
-    font-size: 12px;
-    color: var(--bkgrd);
-}
-
-.art-caption h4 {
-    margin: 5px 0 0;
-    font-size: 11px;
-    font-weight: 400;
-    color: var(--bkgrd);
-}
-
-/* Phone-only lightbox: tapping a piece opens it large with its caption.
-   Tapping anywhere except the image itself closes it again. */
+/* Lightbox: clicking a piece opens it large with its caption.
+   Clicking anywhere except the image itself closes it again. */
 .art-modal {
     position: fixed;
     inset: 0;
@@ -461,12 +464,15 @@ body:has(.art-page) footer {
     gap: 14px;
 }
 
+/* Every piece opens at the same height: 62vh, the tallest the lightbox allows.
+   A piece too wide to fit the screen at that height comes out shorter instead —
+   the second term is the height at which it exactly fills the width left inside
+   the modal's padding (48px) and its own mat and border (20px). --aspect is the
+   piece's width / height. */
 .art-modal-img {
     display: block;
     width: auto;
-    height: auto;
-    max-width: 100%;
-    max-height: 62vh;
+    height: min(62vh, calc((100vw - 68px) / var(--aspect, 0.75) + 20px));
     box-sizing: border-box;
     padding: 8px;                        /* white mat, same as the wall */
     background-color: #fff;
@@ -483,7 +489,7 @@ body:has(.art-page) footer {
     background-color: var(--mat, var(--acnt-teal));
     box-shadow: 13px 13px 0 var(--words);
     transform-origin: top center;
-    animation: painting-sway .7s ease-in-out;
+    animation: painting-sway-large var(--sway-ms, 1.4s) ease-in-out;
 }
 
 .art-modal-caption {
@@ -503,13 +509,6 @@ body:has(.art-page) footer {
     font-size: 11px;
     font-weight: 400;
     color: var(--bkgrd);
-}
-
-/* Belt and braces — the wall's hover captions cover anything wider than a phone */
-@media(min-width:651px) {
-    .art-modal {
-        display: none;
-    }
 }
 
 /* #brainchip-demo{
@@ -538,75 +537,130 @@ body:has(.art-page) footer {
     cursor: pointer;
 }
 
-/* Ghost play/pause button overlaid on each demo video (injected in JS).
-   No circle/background — just the site's dark-ink icon, matching the rest
-   of the site's aesthetic. */
+/* Play/pause control overlaid on each demo video (markup injected by
+   utils/videoToggle.ts). Styled like a key on an old tape deck: a cream face,
+   ink border and hard ink shadow — the nav buttons' look — so it reads on
+   light and dark footage alike (the face carries it on dark, the border and
+   shadow on light). Hovering it lights it up in the page's accent, the same
+   as the nav button for that page. */
 .video-crop,
 .web-video-crop {
     position: relative;
 }
 
 .video-toggle {
+    /* How visible the control is. Paused, it stays put so the video reads as
+       playable; playing, it gets out of the way until you reach for it. */
+    --toggle-opacity: .9;
     position: absolute;
     top: 50%;
     left: 50%;
-    /* fixed size so the box doesn't resize between the play/pause icons,
-       which would shift the translate-centered position */
-    width: 110px;
-    height: 110px;
+    /* Sized by its video (the crop is a size container, below) so it stays in
+       proportion on a small phone and a big screenshot alike, and never below
+       36px, where it would stop being an easy tap. A fixed square, so it
+       doesn't resize between the play/pause icons, which would shift the
+       translate-centred position. */
+    width: clamp(36px, 30cqw, 60px);
+    height: auto;
+    aspect-ratio: 1;
+    box-sizing: border-box;
     transform: translate(-50%, -50%);
     padding: 0;
-    border: none;
-    background: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: var(--words);
+    background-color: var(--bkgrd);
+    border: 3px solid var(--words);
+    border-radius: 8px;
+    /* The nav buttons' hard ink shadow, and nothing softer. */
+    box-shadow: 5px 5px 0 var(--words);
     cursor: pointer;
     z-index: 3;
-    opacity: 1;
-    transition: opacity .25s ease, transform .2s ease;
+    opacity: var(--toggle-opacity);
+    transition:
+        opacity .25s ease,
+        transform .18s ease-out,
+        box-shadow .18s ease-out,
+        background-color .18s ease;
 }
 
-.video-toggle:hover {
-    transform: translate(-50%, -50%) scale(1.1);
-}
-
-/* Fade the button away once the video is playing; reveal it again on hover */
 .video-toggle.playing {
-    opacity: 0;
+    --toggle-opacity: 0;
 }
 
-.video-crop:hover .video-toggle,
-.web-video-crop:hover .video-toggle {
-    opacity: 1;
+/* Playing, with the pointer over the video but not the control: back in
+   view so you can find it, but quiet enough not to sit on the footage. */
+.video-crop:hover .video-toggle.playing,
+.web-video-crop:hover .video-toggle.playing {
+    --toggle-opacity: .55;
+}
+
+/* ...until the pointer has rested on the video for a few seconds (the crop
+   is marked .idle in utils/videoToggle.ts): then it goes away completely.
+   Moving the mouse clears .idle and brings it back. */
+.video-crop.idle:hover .video-toggle.playing,
+.web-video-crop.idle:hover .video-toggle.playing {
+    --toggle-opacity: 0;
+}
+
+/* On the control itself: fully up, lit in the page accent, and a touch
+   larger, with the deeper shadow the nav buttons get on hover. */
+.video-crop .video-toggle:hover,
+.web-video-crop .video-toggle:hover,
+.video-crop .video-toggle.playing:hover,
+.web-video-crop .video-toggle.playing:hover,
+.video-toggle:focus-visible {
+    --toggle-opacity: 1;
+    background-color: var(--page-accent);
+    transform: translate(-50%, -50%) scale(1.03);
+    box-shadow: 7px 7px 0 var(--words);
+}
+
+/* Pressed: the key sinks into its shadow, like a real button going down. */
+.video-crop .video-toggle:active,
+.web-video-crop .video-toggle:active {
+    transform: translate(calc(-50% + 3px), calc(-50% + 3px));
+    box-shadow: 2px 2px 0 var(--words);
+}
+
+.video-toggle:focus-visible {
+    outline: 3px dashed var(--words);
+    outline-offset: 6px;
 }
 
 .video-icon {
-    width: 110px;
-    height: 110px;
-    fill: var(--bkgrd);
-    filter: drop-shadow(-8px 15px 0px var(--words));
-    border:3px solid var(--acnt-teal);
-    box-shadow: 10px 10px black;
+    /* Large in its key, with only a little room around it. */
+    width: 66%;
+    height: auto;
+    aspect-ratio: 1;
+    fill: currentColor;
 }
 
-/* The crops shrink with the viewport now, so a fixed 110px control would cover
-   half the video on a phone. Scale it with its crop instead, capped at the
-   desktop size so it meets that size exactly at the breakpoint. */
+/* The crops are what the control sizes itself against (30cqw above). */
+.video-crop,
+.web-video-crop {
+    container-type: inline-size;
+}
+
 @media(max-width:650px) {
     .video-toggle {
-        width: min(110px, 28%);
-        height: auto;
-        aspect-ratio: 1;
+        border-width: 2px;
+        box-shadow: 3px 3px 0 var(--words);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .video-toggle {
+        transition: opacity .25s ease, background-color .18s ease;
     }
 
-    .video-icon {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 1;
-        border-width: 2px;
-        filter: drop-shadow(-4px 7px 0px var(--words));
-        box-shadow: 5px 5px black;
+    .video-crop .video-toggle:hover,
+    .web-video-crop .video-toggle:hover,
+    .video-toggle:focus-visible,
+    .video-crop .video-toggle:active,
+    .web-video-crop .video-toggle:active {
+        transform: translate(-50%, -50%);
     }
 }
 
@@ -960,16 +1014,6 @@ body:has(#content) {
     border: 3px dashed var(--words);
 }
 
-#image-gallery a:hover,
-#plant-log a:hover {
-    background-color: var(--acnt-pink);
-}
-
-#brainchip a:hover,
-#pnc-redesign a:hover,
-#music-app a:hover {
-    background-color: var(--acnt-lime);
-}
 #design-system-frame{
     display: flex;
     justify-content: center;
@@ -1609,5 +1653,1198 @@ body:has(#content) {
 
     #design-process {
         align-self: center;
+    }
+}
+
+/* ------------------------------------------------------------------------
+   UI & Design page — project cards (Figma "Designs" layout)
+   Each card is a two-column grid: text in one column, screens in the other,
+   and the case-study arrow along the bottom. .flipped swaps the columns, so
+   the cards alternate sides. The same grid is meant to carry over to the
+   coding page later.
+   ------------------------------------------------------------------------ */
+
+.design-page {
+    --page-accent: var(--acnt-lime);
+}
+
+/* After .design-page: the coding page carries both classes. */
+.coding-page {
+    --page-accent: var(--acnt-pink);
+}
+
+.page.design-page {
+    margin: 0 auto;
+    max-width: 1100px;
+}
+
+.design-page .page-title {
+    text-align: left;
+    font-size: 52px;
+    margin: 40px 0 32px;
+}
+
+.case-section-title {
+    font-size: 32px;
+    margin: 64px 0 28px;
+}
+
+.case-list {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.case-card {
+    --col-gap: 56px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    /* Row 2 takes whatever height the screens leave, so the arrow always sits
+       at the bottom of the card — level with the bottom of the phones. */
+    grid-template-rows: auto 1fr;
+    column-gap: var(--col-gap);
+    row-gap: 28px;
+    padding: 48px 56px;
+    border-radius: 30px;
+    background-color: var(--proj-bkgrd);
+}
+
+.case-text {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.case-media {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    align-self: center;
+}
+
+/* The arrow sits under the text, in the same column, and stretches across
+   that column on hover. */
+.case-cta {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: end;
+}
+
+.flipped .case-text,
+.flipped .case-cta {
+    grid-column: 2;
+}
+
+.flipped .case-media {
+    grid-column: 1;
+}
+
+.case-text h3 {
+    font-size: 22px;
+    margin: 0 0 16px;
+}
+
+/* An app icon beside the title (research), the title wrapping next to it. */
+.case-title-logo {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.case-title-logo h3 {
+    margin: 0;
+}
+
+.case-logo {
+    flex: none;
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    border: 2px solid var(--words);
+}
+
+/* Research findings as cards, three to a row: what was seen on top, what was
+   recommended under a dashed rule, each tagged in one of the site's accents.
+   The section spans the page to fit them. */
+.case-study-section:has(.finding-pairs) {
+    grid-column: 1 / -1;
+}
+
+.case-study-section .finding-pairs {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0 6px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.case-study-section .finding-pairs li {
+    margin: 0;
+    padding: 16px 18px;
+    background: var(--bkgrd);
+    border: 2px solid var(--words);
+    border-radius: 16px;
+    box-shadow: 4px 4px 0 var(--words);
+}
+
+.case-study-section .finding-pairs p {
+    margin: 10px 0 0;
+    font-size: 14px;
+    line-height: 1.45;
+}
+
+.case-study-section .finding-pairs .finding-rec {
+    padding-top: 10px;
+    border-top: 2px dashed var(--words);
+}
+
+/* Gontserrat's arrow is tiny. */
+.case-study-section .finding-pairs .finding-rec > span {
+    font-family: sans-serif;
+    font-weight: 700;
+}
+
+.finding-tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border: 2px solid var(--words);
+    border-radius: 999px;
+    font-family: Lemon Milk;
+    font-size: 11px;
+    letter-spacing: .06em;
+    background: var(--acnt-teal);
+}
+
+.finding-pairs li:nth-child(2) .finding-tag { background: var(--acnt-pink); }
+.finding-pairs li:nth-child(3) .finding-tag { background: var(--acnt-lime); }
+.finding-pairs li:nth-child(4) .finding-tag { background: var(--acnt-orange); }
+.finding-pairs li:nth-child(5) .finding-tag { background: var(--acnt-blue); }
+.finding-pairs li:nth-child(6) .finding-tag { background: var(--prpl); }
+
+@media (max-width: 1000px) {
+    .case-study-section .finding-pairs {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 650px) {
+    .case-study-section .finding-pairs {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+}
+
+.case-meta {
+    font-size: 13px;
+    margin: -6px 0 16px;
+    opacity: .75;
+}
+
+.case-summary {
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: justify;
+    hyphens: auto;
+    margin: 0;
+}
+
+/* ---- Case-study link + stretching arrow ---- */
+
+/* The link fills its column so the arrow has room to stretch, but only the
+   label and the arrow itself take the pointer — not the empty space beside
+   them. */
+.case-link {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    color: var(--words);
+    text-decoration: none;
+    pointer-events: none;
+    /* The hover highlight is a block behind the label and arrow, in the
+       page's nav color. The padding gives it room; the negative margin keeps
+       the words and arrow lined up with the text above. */
+    box-sizing: border-box;
+    width: calc(100% + 24px);
+    padding: 10px 12px;
+    margin: -10px -12px;
+    transition: background-color .2s ease;
+}
+
+
+.case-link-label,
+.case-arrow-shaft {
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+.case-link-label {
+    align-self: flex-start;
+    font-family: Lemon Milk;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.3;
+}
+
+.case-arrow {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 34px;
+}
+
+.case-arrow-shaft {
+    position: relative;
+    width: 84px;
+    height: 6px;
+    background-color: var(--words);
+    transition: width .6s cubic-bezier(.65, 0, .35, 1);
+}
+
+.case-arrow-head {
+    position: absolute;
+    right: -3px;
+    top: 50%;
+    width: 24px;
+    height: 32px;
+    transform: translateY(-50%);
+    overflow: visible;
+    fill: none;
+    stroke: var(--words);
+    stroke-width: 6;
+    stroke-linecap: square;
+    stroke-linejoin: miter;
+}
+
+.case-link.expanded .case-arrow-shaft {
+    width: 100%;
+}
+
+@media (hover: hover) {
+    .case-link:hover .case-arrow-shaft {
+        width: 100%;
+    }
+
+    .case-link:hover {
+        background-color: var(--page-accent);
+    }
+}
+
+/* A tap on a phone gets the same highlight while the arrow runs out. */
+.case-link.expanded {
+    background-color: var(--page-accent);
+}
+
+.case-link:focus-visible {
+    outline: none;
+}
+
+.case-link:focus-visible .case-link-label {
+    outline: 3px dashed var(--words);
+    outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .case-arrow-shaft {
+        transition: none;
+    }
+}
+
+/* ---- Two phones with a caption each ----
+   Figma layout: caption 1 sits top-left between the phones (next to phone 1),
+   caption 2 bottom-right (next to phone 2). The slot wrappers dissolve into the
+   grid so each phone and caption can be placed on its own. */
+/* The column is a size container so the grid inside can rearrange by the
+   space it actually has (a container query can't restyle the container). */
+.case-media.phones {
+    container: phones / inline-size;
+}
+
+.phones-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 170px) minmax(84px, 120px) minmax(0, 170px);
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+        "p1 c1 p2"
+        "p1 c2 p2";
+    justify-content: center;
+    column-gap: 14px;
+}
+
+/* Captions between the phones only work while the column is wide enough for
+   two good-sized phones beside them. Narrower than that (a mid-width window,
+   or a phone), each caption moves under its own phone instead. */
+@container phones (max-width: 440px) {
+    .phones-grid {
+        grid-template-columns: repeat(2, minmax(0, 180px));
+        grid-template-rows: auto auto;
+        grid-template-areas:
+            "p1 p2"
+            "c1 c2";
+        row-gap: 10px;
+    }
+
+    .slot-2 .case-caption {
+        align-self: start;
+        text-align: left;
+    }
+}
+
+.phone-slot {
+    display: contents;
+}
+
+.phone-img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/* The screen is the slot's first child: a filler image or a demo video. */
+.slot-1 > :first-child { grid-area: p1; }
+.slot-2 > :first-child { grid-area: p2; }
+
+/* Until a demo video draws its first frame it is see-through, so the crop
+   shows the filler gradient behind it rather than a blank box. */
+.demo-video {
+    background: var(--filler-gradient);
+}
+
+/* The site's loading shimmer would cover that gradient, so demo videos skip
+   it: the placeholder look is the loading state. */
+.demo-video .media-loading {
+    background-image: none;
+    animation: none;
+}
+
+/* Screen-only phone recordings fill the frame as they are... */
+.demo-video .app-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: none;
+}
+
+/* ...while the older landscape recordings, with the phone in the middle of a
+   wide frame, keep the zoom that crops in on the phone. */
+.demo-video .app-video.landscape {
+    width: 121%;
+    height: 121%;
+    transform: translateY(-2.15%);
+}
+
+/* Demo videos fill the phone column like the filler images do. */
+.phones .video-crop {
+    width: 100%;
+    align-self: center;
+}
+
+/* Screen-only demos get a frame in the proportions of the 393x853 artboard
+   they were designed at, so nothing is cropped off the top or bottom, and a
+   corner radius close to the phone's own so the corners of the design show.
+   The ratio is on the content box: the 4px border sits outside it, and the
+   width leaves room for that border. */
+.demo-video.video-crop {
+    box-sizing: content-box;
+    width: calc(100% - 8px);
+    aspect-ratio: 393 / 853;
+    /* The phone's own corner (about 52pt on 393 x 853), as a share of the
+       frame, so a small phone isn't rounded into a pill. */
+    border-radius: 13% / 6%;
+}
+
+/* The Dynamic Island the designs were laid out around: 126x37pt, 11pt from
+   the top of a 393pt-wide screen, with the selfie camera lens at its right
+   end. Drawn in % so it scales with the frame. Above the video, below the
+   play/pause control. */
+.demo-video.video-crop::after {
+    content: "";
+    position: absolute;
+    top: calc(11 / 853 * 100%);
+    left: 50%;
+    width: calc(126 / 393 * 100%);
+    aspect-ratio: 126 / 37;
+    transform: translateX(-50%);
+    border-radius: 999px;
+    background:
+        /* closest-side = half the island's height, so the lens is a fixed
+           share of it at any size (r 7.5 of 18.5, like the filler image). */
+        radial-gradient(circle closest-side at 82% 50%, #2b2f3a 0 35%, #3d4352 36% 41%, transparent 43%),
+        #000;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.demo-video.video-crop:has(.landscape)::after {
+    content: none;
+}
+
+/* The older landscape recordings keep the original frame their zoom was
+   tuned for (and already show their own phone's notch). */
+.demo-video.video-crop:has(.landscape) {
+    aspect-ratio: 245 / 500;
+    border-radius: 16% / 8%;
+}
+
+.slot-1 .case-caption {
+    grid-area: c1;
+    align-self: start;
+}
+
+.slot-2 .case-caption {
+    grid-area: c2;
+    align-self: end;
+    text-align: right;
+}
+
+.case-caption {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.35;
+}
+
+.case-caption strong {
+    display: block;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+/* ---- One wide image with highlights underneath (research) ---- */
+.case-media.wide {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.wide-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    border: 3px solid var(--words);
+    box-sizing: border-box;
+}
+
+/* Wide demo videos fill their column and wear the same frame as the filler
+   images they replace. */
+.demo-video.web-video-crop {
+    width: 100%;
+    border-radius: 16px;
+    border: 3px solid var(--words);
+    box-sizing: border-box;
+}
+
+.demo-video .video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.case-highlights {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+/* ---- Case-study pages (filler for now) ---- */
+.case-back {
+    display: inline-block;
+    margin-top: 32px;
+    color: var(--words);
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.case-back:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--acnt-lime);
+    text-decoration-thickness: 3px;
+}
+
+.case-study .page-title {
+    margin: 12px 0 16px;
+}
+
+.case-study-lede {
+    max-width: 720px;
+}
+
+.case-study-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.case-study-links a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px;
+    border-radius: 30px;
+    border: 3px solid var(--words);
+    color: var(--words);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.case-study-links a:hover {
+    border-style: dashed;
+    background-color: var(--acnt-lime);
+}
+
+.case-study-hero {
+    margin-top: 36px;
+}
+
+/* Filler image or demo video, the hero frame is the same. */
+.case-study-hero > img,
+.case-study-hero > .web-video-crop {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 520px;
+    object-fit: cover;
+    border-radius: 30px;
+    border: 3px solid var(--words);
+    box-sizing: border-box;
+}
+
+.case-study-sections {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 40px;
+}
+
+.case-study-section {
+    background-color: var(--proj-bkgrd);
+    border-radius: 30px;
+    padding: 32px 36px;
+}
+
+.case-study-section h3 {
+    font-size: 18px;
+    margin: 0 0 12px;
+}
+
+.case-study-section p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.case-study-features {
+    display: grid;
+    gap: 32px;
+    background-color: var(--proj-bkgrd);
+    border-radius: 30px;
+    padding: 40px 48px;
+}
+
+/* One row with a column per feature (--cols, set by FeatureGallery), shrinking
+   to fit rather than wrapping — so never a lopsided 3 + 1. Only four phones
+   switch layout: to 2 x 2 once the page is too narrow for four in a row
+   (below). */
+.case-study {
+    container: case-study / inline-size;
+}
+
+.case-study-features.phones {
+    grid-template-columns: repeat(var(--cols), minmax(0, 220px));
+    column-gap: clamp(12px, 3cqw, 32px);
+    justify-content: center;
+}
+
+.case-study-features.wide {
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+}
+
+@container case-study (max-width: 720px) {
+    .case-study-features.phones[data-count="4"] {
+        grid-template-columns: repeat(2, minmax(0, 220px));
+    }
+
+    /* Wide highlights stack rather than split 2 + 1. */
+    .case-study-features.wide {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+.feature-tap-hint {
+    display: none;
+}
+
+/* The modal opens from a phone thumbnail only (see FeatureGallery). */
+.feature-modal-screen {
+    /* Leaves room for the previous/next keys either side. */
+    width: min(66vw, calc(66dvh * 393 / 853));
+}
+
+.feature-modal .art-modal-caption {
+    max-width: min(84vw, 360px);
+}
+
+/* Nearly opaque, so the page behind doesn't compete with the screen. */
+.art-modal.feature-modal {
+    background-color: rgba(28, 28, 28, .95);
+}
+
+/* Close: the same white glyph with an ink outline as the arrows, top right. */
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    /* Above the screen's camera pill and play/pause key. */
+    z-index: 4;
+}
+
+.modal-close svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    fill: none;
+    stroke-linecap: round;
+}
+
+.modal-close:active {
+    transform: scale(.92);
+}
+
+.modal-close:focus-visible {
+    outline: 3px dashed #fff;
+    outline-offset: 2px;
+}
+
+/* Stepping to another feature slides it in from the side it came from. */
+@keyframes feature-in-next {
+    from {
+        opacity: 0;
+        transform: translateX(28px);
+    }
+}
+
+@keyframes feature-in-prev {
+    from {
+        opacity: 0;
+        transform: translateX(-28px);
+    }
+}
+
+/* The image and caption slide; the arrows beside them stay put. */
+.slide-next .modal-media,
+.slide-next .art-modal-caption {
+    animation: feature-in-next .22s ease-out;
+}
+
+.slide-prev .modal-media,
+.slide-prev .art-modal-caption {
+    animation: feature-in-prev .22s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .slide-next .modal-media,
+    .slide-next .art-modal-caption,
+    .slide-prev .modal-media,
+    .slide-prev .art-modal-caption {
+        animation: none;
+    }
+}
+
+/* The stage is the full width of the modal and only as tall as the screen
+   or image, so the arrows at its sides centre on the visual, not on the
+   visual plus its caption. The negative margin reaches past the modal's
+   padding so the arrows sit near the screen edges. */
+.feature-modal .art-modal-inner {
+    width: 100%;
+}
+
+.modal-stage {
+    position: relative;
+    align-self: stretch;
+    display: flex;
+    justify-content: center;
+    margin: 0 -16px;
+}
+
+/* Previous / next: no key around them, just a white chevron with the site's
+   thick ink outline (an ink stroke under a narrower white one), so they read
+   on the dark backdrop and over any screen. */
+.modal-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 56px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 4;
+}
+
+.modal-arrow-prev {
+    left: 0;
+}
+
+.modal-arrow-next {
+    right: 0;
+}
+
+.modal-arrow svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.modal-arrow-outline {
+    stroke: var(--words);
+    stroke-width: 7;
+}
+
+.modal-arrow-fill {
+    stroke: #fff;
+    stroke-width: 3.5;
+}
+
+.modal-arrow:active {
+    transform: translateY(-50%) scale(.92);
+}
+
+.modal-arrow:focus-visible {
+    outline: 3px dashed #fff;
+    outline-offset: 2px;
+}
+
+/* Phones: the screens become thumbnails that open in the modal, so they drop
+   their play/pause control and blurb and keep just the feature name. */
+@media(max-width:650px) {
+    .feature-tap-hint {
+        display: block;
+        margin: -12px 0 14px;
+        font-size: 13px;
+        opacity: .75;
+    }
+
+    .case-study-features.phones .case-study-feature {
+        cursor: pointer;
+    }
+
+    .case-study-features.phones .video-toggle,
+    .case-study-features.phones .feature-blurb {
+        display: none;
+    }
+
+    .case-study-features.phones .case-caption {
+        text-align: center;
+    }
+}
+
+.case-study-feature {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* ---- Coding cards: sites are wide, so the screenshot column gets more room ---- */
+.case-card.media-browser {
+    grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
+}
+
+.case-card.media-browser.flipped {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr);
+}
+
+/* ---- Coding feature pages ---- */
+.stack-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 0;
+}
+
+.stack-chips li {
+    margin: 0;
+    padding: 4px 12px;
+    font-size: 13px;
+    border: 2px solid var(--words);
+    background-color: var(--proj-bkgrd);
+}
+
+/* One feature per row: a big screenshot beside its explanation, alternating
+   sides like the cards. */
+.feature-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 48px;
+    margin: 0;
+    padding: 40px 48px;
+    border-radius: 30px;
+    background-color: var(--proj-bkgrd);
+}
+
+.feature-row.flipped {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+}
+
+.feature-row.flipped > :first-child {
+    order: 2;
+}
+
+.feature-row h3 {
+    font-size: 20px;
+    margin: 0 0 10px;
+}
+
+.feature-row p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.case-study-section ul {
+    margin: 0;
+    padding-left: 20px;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.case-study-section li {
+    margin-bottom: 8px;
+}
+
+.case-study-section p + p {
+    margin-top: 10px;
+}
+
+/* The one question a section turns on, set larger than its body. */
+.case-study-section .case-pull {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+/* Sections with images (journey map, sketches, mood board) take the full
+   width, the images under the text. */
+.case-study-section.has-figures {
+    grid-column: 1 / -1;
+}
+
+.case-figures {
+    margin-top: 16px;
+}
+
+/* Process images are thumbnails for a quick look, all cropped to the same
+   shape in one row (two across on phones); click one for the full image. */
+.case-figures.gallery {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.case-figures.gallery img {
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    object-position: top;
+}
+
+/* Lead: the first image takes a 2 x 2 block, the next four fill the 2 x 2
+   beside it (under it on phones, where the grid is two across). */
+.case-figures.gallery.lead > :first-child {
+    grid-column: span 2;
+    grid-row: span 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.case-figures.gallery.lead > :first-child button {
+    flex: 1;
+    min-height: 0;
+}
+
+.case-figures.gallery.lead > :first-child img {
+    height: 100%;
+    aspect-ratio: auto;
+    object-position: center;
+}
+
+@media(max-width:650px) {
+    .case-figures.gallery {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+    }
+
+    .case-figures.gallery.lead > :first-child {
+        grid-row: auto;
+    }
+
+    .case-figures.gallery.lead > :first-child img {
+        height: auto;
+        aspect-ratio: 4 / 3;
+    }
+}
+
+.case-figure {
+    margin: 0;
+}
+
+/* The thumbnail is a button that opens the image in the modal. */
+.case-figure button {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: zoom-in;
+}
+
+/* Darkens on hover, so it reads as something to open. */
+.case-figure button::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background-color: rgba(0, 0, 0, .35);
+    opacity: 0;
+    transition: opacity .2s ease;
+    pointer-events: none;
+}
+
+.case-figure button:hover::after,
+.case-figure button:focus-visible::after {
+    opacity: 1;
+}
+
+/* The enlarged image in the modal, fitted to the screen whatever its file
+   size: as wide as the room between the arrows allows, as tall as the screen
+   allows for its shape (--ar), and never past 1.5x its own width (--w), where
+   it would go soft. Room is left under it for the caption. */
+.process-modal-img {
+    --room-w: min(84vw, 1100px);
+    --room-h: 70dvh;
+    display: block;
+    width: min(var(--room-w), calc(var(--room-h) * var(--ar)), calc(var(--w) * 1.5px));
+    height: auto;
+    border-radius: 12px;
+    background-color: var(--bkgrd);
+}
+
+/* A set (all the sketches, all the wireframes) as a grid: one row of up to
+   four on a computer, every image whole and the same height. */
+.process-set-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+    align-items: center;
+    gap: 16px;
+    width: min(84vw, 1100px);
+}
+
+.process-set-grid img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 56dvh;
+    object-fit: contain;
+    border-radius: 10px;
+    background-color: var(--bkgrd);
+}
+
+/* A same-scale set (wireframes): every image the same height, so each screen
+   is the same size. The height is what lets the widest row (--sum of its
+   width/height ratios, --gaps between them) fit the room, or what lets the
+   --rows fit the screen's height, whichever is smaller. */
+.process-set-rows {
+    --set-h: min(
+        calc((min(84vw, 1100px) - var(--gaps) * 16px) / var(--sum)),
+        calc(60dvh / var(--rows))
+    );
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.process-set-row {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+.process-set-rows img {
+    display: block;
+    height: var(--set-h);
+    width: auto;
+    border-radius: 10px;
+    background-color: var(--bkgrd);
+}
+
+@media(max-width:650px) {
+    /* One image to a row, all at the height that fits the widest one,
+       scrolling if they run taller than the screen. */
+    .process-set-rows {
+        --set-h: calc((100vw - 112px) / var(--amax));
+        max-height: 62dvh;
+        overflow-y: auto;
+        gap: 10px;
+    }
+
+    .process-set-row {
+        display: contents;
+    }
+
+    .process-modal-img {
+        /* The screen less the modal's padding and two 44px arrows. */
+        --room-w: calc(100vw - 112px);
+        --room-h: 62dvh;
+    }
+
+    /* Two across, scrolling if a set runs taller than the screen. */
+    .process-set-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        width: calc(100vw - 112px);
+        max-height: 62dvh;
+        overflow-y: auto;
+        gap: 10px;
+    }
+
+    /* Three would land 2 + 1, so they stack in one scrolling column. */
+    .process-set-grid[data-n="3"] {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .process-set-grid img {
+        max-height: none;
+    }
+}
+
+.case-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    border: 3px solid var(--words);
+    box-sizing: border-box;
+    background-color: var(--bkgrd);
+    cursor: zoom-in;
+}
+
+.case-figure figcaption {
+    margin-top: 8px;
+    font-size: 13px;
+}
+
+/* ---- Narrower screens: one column — text, then screens, then the arrow ---- */
+@media(max-width:1100px) {
+    .page.design-page {
+        margin: 0;
+    }
+
+    .case-card {
+        --col-gap: 36px;
+        padding: 40px;
+    }
+}
+
+@media(max-width:850px) {
+    .page.design-page {
+        margin: 0 -5%;
+    }
+
+    .case-card {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto;
+        padding: 36px 32px;
+    }
+
+    .case-text,
+    .flipped .case-text {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .case-media,
+    .flipped .case-media {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    .case-cta,
+    .flipped .case-cta {
+        grid-column: 1;
+        grid-row: 3;
+    }
+
+    .case-study-sections,
+    .case-card.media-browser,
+    .case-card.media-browser.flipped,
+    .feature-row,
+    .feature-row.flipped {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .feature-row {
+        gap: 20px;
+        padding: 28px 22px;
+    }
+
+    .feature-row.flipped > :first-child {
+        order: 0;
+    }
+}
+
+@media(max-width:650px) {
+    .design-page .page-title {
+        font-size: 30px;
+        text-align: left;
+        margin: 24px 0 20px;
+    }
+
+    .case-section-title {
+        font-size: 24px;
+        margin: 48px 0 20px;
+    }
+
+    .case-list {
+        gap: 24px;
+    }
+
+    .case-card {
+        padding: 28px 22px;
+        row-gap: 22px;
+    }
+
+    .case-summary {
+        text-align: left;
+    }
+
+    .case-highlights {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 12px;
+    }
+
+    .case-study-section,
+    .case-study-features {
+        padding: 26px 22px;
     }
 }
